@@ -15,8 +15,8 @@ import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 
 public class PlayerManager {
-    private static Map<String, Long> waitLogin = new HashMap<String, Long>();
-    private static Map<String, Integer> authAttempts = new TreeMap<String, Integer>(String.CASE_INSENSITIVE_ORDER);
+    public static Map<String, Long> waitLogin = new HashMap<String, Long>();
+    public static Map<String, Integer> authAttempts = new TreeMap<String, Integer>(String.CASE_INSENSITIVE_ORDER);
 
     public static void enterServer(Player player) {
         if (authAttempts.containsKey(player.getName())) authAttempts.remove(player.getName());
@@ -29,8 +29,6 @@ public class PlayerManager {
             } else {
                 if (autoLogin) {
                     setPlayerLoggedIn(player);
-                    tipOrPrint(player, Message.LGN_AUTO, 'e', '6', player.getName());
-                    Welcome.getCfg().broadcastLoginMessage(player);
                 } else {
                     setBlindEffect(player);
                     PasswordManager.hasPassword(player).whenComplete((hasPassword, e2) -> {
@@ -276,8 +274,7 @@ public class PlayerManager {
     }
 
     private static boolean tipOrPrint(Player player, Message message, Object... params) {
-        if (Welcome.getCfg().useTips) message.tip(5, player, params);
-        else message.print(player, params);
+        player.forceSendMessage(message.getText());
         return true;
     }
 }

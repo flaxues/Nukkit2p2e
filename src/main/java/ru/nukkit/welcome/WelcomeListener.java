@@ -19,13 +19,14 @@ public class WelcomeListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         if (Welcome.getCfg().joinMessageEnable) {
             event.setJoinMessage("");
-            Welcome.getCfg().sendPreLoginMessage(event.getPlayer());
         }
         PlayerManager.enterServer(event.getPlayer());
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
     public void onQuit(PlayerQuitEvent event) {
+    	event.setQuitMessage("");
+    	PlayerManager.waitLogin.remove(event.getPlayer().getName());
         PlayerManager.clearBlindEffect(event.getPlayer());
         PasswordManager.updateAutologin(event.getPlayer());
     }

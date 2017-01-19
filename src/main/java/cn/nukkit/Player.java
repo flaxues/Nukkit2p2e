@@ -65,6 +65,7 @@ import cn.nukkit.timings.Timings;
 import cn.nukkit.utils.Binary;
 import cn.nukkit.utils.TextFormat;
 import cn.nukkit.utils.Zlib;
+import ru.nukkit.welcome.players.PlayerManager;
 import tk.daporkchop.PorkUtils;
 
 import com.google.gson.Gson;
@@ -3482,7 +3483,27 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     @Override
     public void sendMessage(String message) {
+    	if (!PlayerManager.isPlayerLoggedIn(this))	{ //Don't want to send chat to players that aren't logged in
+    		return;
+    	}
+    	
         String[] mes = this.server.getLanguage().translateString(message).split("\\n");
+        for (String m : mes) {
+            if (!"".equals(m)) {
+                TextPacket pk = new TextPacket();
+                pk.type = TextPacket.TYPE_RAW;
+                pk.message = TextFormat.colorize(m.replace(">", "&a>"));
+                this.dataPacket(pk);
+            }
+        }
+    }
+    
+    /**
+     * Sends a message to the server
+     * @param msg
+     */
+    public void forceSendMessage(String message)	{
+    	String[] mes = this.server.getLanguage().translateString(message).split("\\n");
         for (String m : mes) {
             if (!"".equals(m)) {
                 TextPacket pk = new TextPacket();
