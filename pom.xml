@@ -154,7 +154,7 @@
       			<artifactId>maven-compiler-plugin</artifactId>
       			<version>3.1</version>
       			<configuration>
-        				<staleMillis>1</slateMillis>
+        				<staleMillis>1</staleMillis>
         				<useIncrementalCompilation>true</useIncrementalCompilation>
       			</configuration>
     			</plugin>
