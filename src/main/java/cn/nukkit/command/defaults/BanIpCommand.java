@@ -1,19 +1,18 @@
 package cn.nukkit.command.defaults;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import cn.nukkit.Player;
-import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.event.player.PlayerKickEvent;
 import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 /**
  * author: MagicDroidX

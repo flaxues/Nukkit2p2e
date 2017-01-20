@@ -1,13 +1,13 @@
 package cn.nukkit.command.defaults;
 
+import java.util.Objects;
+
 import cn.nukkit.Nukkit;
 import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.utils.TextFormat;
-
-import java.util.Objects;
 
 /**
  * Created on 2015/11/11 by xtypr. Package cn.nukkit.command.defaults in project Nukkit .

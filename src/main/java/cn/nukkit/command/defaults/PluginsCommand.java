@@ -1,11 +1,11 @@
 package cn.nukkit.command.defaults;
 
+import java.util.Map;
+
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.plugin.Plugin;
 import cn.nukkit.utils.TextFormat;
-
-import java.util.Map;
 
 /**
  * Created on 2015/11/12 by xtypr.

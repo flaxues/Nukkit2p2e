@@ -1,12 +1,12 @@
 package cn.nukkit.command.defaults;
 
+import java.util.Objects;
+
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.utils.TextFormat;
-
-import java.util.Objects;
 
 /**
  * Created on 2015/11/12 by xtypr.

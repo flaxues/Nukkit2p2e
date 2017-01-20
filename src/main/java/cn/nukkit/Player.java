@@ -3491,7 +3491,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             if (!"".equals(m)) {
                 TextPacket pk = new TextPacket();
                 pk.type = TextPacket.TYPE_RAW;
-                pk.message = TextFormat.colorize(m.replace(">", "&a>"));
+                pk.message = TextFormat.colorize(m.startsWith(">") ? m.replaceFirst(">", TextFormat.GREEN + ">") : m);
                 this.dataPacket(pk);
             }
         }
@@ -3507,7 +3507,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             if (!"".equals(m)) {
                 TextPacket pk = new TextPacket();
                 pk.type = TextPacket.TYPE_RAW;
-                pk.message = TextFormat.colorize(m.replace(">", "&a>"));
+                pk.message = TextFormat.colorize(m.startsWith(">") ? m.replaceFirst(">", TextFormat.GREEN + ">") : m);
                 this.dataPacket(pk);
             }
         }

@@ -1,13 +1,12 @@
 package cn.nukkit.command.defaults;
 
+import java.util.ArrayList;
+
 import cn.nukkit.Server;
-import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.network.protocol.SetDifficultyPacket;
-
-import java.util.ArrayList;
 
 /**
  * Created on 2015/11/12 by xtypr.

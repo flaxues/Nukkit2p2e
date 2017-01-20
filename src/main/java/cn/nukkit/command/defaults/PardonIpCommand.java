@@ -1,11 +1,10 @@
 package cn.nukkit.command.defaults;
 
-import cn.nukkit.command.Command;
+import java.util.regex.Pattern;
+
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.lang.TranslationContainer;
-
-import java.util.regex.Pattern;
 
 /**
  * author: MagicDroidX

@@ -1,12 +1,12 @@
 package cn.nukkit.command.defaults;
 
+import java.util.LinkedHashMap;
+
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.permission.BanEntry;
 import cn.nukkit.permission.BanList;
-
-import java.util.LinkedHashMap;
 
 /**
  * Created on 2015/11/11 by xtypr.
