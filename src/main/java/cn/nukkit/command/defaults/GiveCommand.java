@@ -76,14 +76,6 @@ public class GiveCommand extends VanillaCommand {
 
             return true;
         }
-        Command.broadcastCommandMessage(sender, new TranslationContainer(
-                "%commands.give.success",
-                new String[]{
-                        item.getName() + " (" + item.getId() + ":" + item.getDamage() + ")",
-                        String.valueOf(item.getCount()),
-                        player.getName()
-                }
-        ));
         return true;
     }
 }

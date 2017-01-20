@@ -63,24 +63,12 @@ public class SpawnpointCommand extends VanillaCommand {
                 if (y < 0) y = 0;
                 if (y > 256) y = 256;
                 target.setSpawn(new Position(x, y, z, level));
-                Command.broadcastCommandMessage(sender, new TranslationContainer("commands.spawnpoint.success", new String[]{
-                        target.getName(),
-                        round2.format(x),
-                        round2.format(y),
-                        round2.format(z)
-                }));
                 return true;
             }
         } else if (args.length <= 1) {
             if (sender instanceof Player) {
                 Position pos = (Position) sender;
                 target.setSpawn(pos);
-                Command.broadcastCommandMessage(sender, new TranslationContainer("commands.spawnpoint.success", new String[]{
-                        target.getName(),
-                        round2.format(pos.x),
-                        round2.format(pos.y),
-                        round2.format(pos.z)
-                }));
                 return true;
             } else {
                 sender.sendMessage(new TranslationContainer("commands.generic.ingame"));

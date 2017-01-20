@@ -41,8 +41,6 @@ public class DeopCommand extends VanillaCommand {
             ((Player) player).sendMessage(TextFormat.GRAY + "You are no longer op!");
         }
 
-        Command.broadcastCommandMessage(sender, new TranslationContainer("commands.deop.success", new String[]{player.getName()}));
-
         return true;
     }
 }

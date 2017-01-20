@@ -61,7 +61,6 @@ public class EnchantCommand extends VanillaCommand {
         }
         item.addEnchantment(enchantment);
         player.getInventory().setItemInHand(item);
-        Command.broadcastCommandMessage(sender, new TranslationContainer("%commands.enchant.success"));
         return true;
     }
 }

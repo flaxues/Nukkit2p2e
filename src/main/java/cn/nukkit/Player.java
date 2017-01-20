@@ -3398,7 +3398,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             break;
                         }
                         this.setGamemode(setPlayerGameTypePacket.gamemode, true);
-                        Command.broadcastCommandMessage(this, new TranslationContainer("commands.gamemode.success.self", Server.getGamemodeString(this.gamemode)));
                     }
                     break;
                 case ProtocolInfo.ITEM_FRAME_DROP_ITEM_PACKET:
