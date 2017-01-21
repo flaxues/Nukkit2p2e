@@ -670,9 +670,31 @@ public class Server {
         this.enablePlugins(PluginLoadOrder.POSTWORLD);
         Timings.reset();
     }
+    
+    public void shutdown()	{
+    	this.shutdown("Server closed");
+    }
 
-    public void shutdown() {
-        if (this.isRunning) {
+    public void shutdown(String s) {
+    	if (this.isRunning) {
+    		this.broadcastMessage(new TranslationContainer("commands.stop.start"));
+    		
+    		for (Level lvl : this.getLevels().values())	{
+    			this.broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Saving level: " + lvl.getName() + "]"));
+    			lvl.save();
+    			this.broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Finished saving level: " + lvl.getName() + "]"));
+    		}
+    		
+    		this.broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Saving players]"));
+    		for (Player p : this.getOnlinePlayers().values())	{
+    			p.save();
+    		}
+    		this.broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Done saving players]"));
+    		
+    		for (Player p : this.getOnlinePlayers().values())	{
+    			p.kick(s, false);
+    		}
+    		
             ServerKiller killer = new ServerKiller(5);
             killer.start();
         }

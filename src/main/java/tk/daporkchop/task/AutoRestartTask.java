@@ -13,29 +13,34 @@ public class AutoRestartTask extends TimerTask {
 	public void run() {
 		loopCount++;
 		if (loopCount == 6 * 60 * 60 - 10)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 10"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 10"));
 		} else if (loopCount == 6 * 60 * 60 - 9)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 9"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 9"));
 		} else if (loopCount == 6 * 60 * 60 - 8)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 8"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 8"));
 		} else if (loopCount == 6 * 60 * 60 - 7)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 7"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 7"));
 		} else if (loopCount == 6 * 60 * 60 - 6)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 6"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 6"));
 		} else if (loopCount == 6 * 60 * 60 - 5)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 5"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 5"));
 		} else if (loopCount == 6 * 60 * 60 - 4)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 4"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 4"));
 		} else if (loopCount == 6 * 60 * 60 - 3)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 3"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 3"));
 		} else if (loopCount == 6 * 60 * 60 - 2)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 2"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 2"));
 		} else if (loopCount == 6 * 60 * 60 - 1)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 1"));
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 1"));
 		} else if (loopCount == 6 * 60 * 60)	{
-			Server.getInstance().broadcastMessage(TextFormat.colorize("&lSERVER RESTARTING IN 0"));
-			Server.getInstance().shutdown();
+			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 0"));
+			Server.getInstance().shutdown(TextFormat.BOLD + "SERVER RESTARTING");
 		}
+	}
+	
+	public AutoRestartTask setLoopCount(int count)	{
+		this.loopCount = count;
+		return this;
 	}
 
 }

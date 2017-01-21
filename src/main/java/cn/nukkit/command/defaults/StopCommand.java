@@ -1,10 +1,9 @@
 package cn.nukkit.command.defaults;
 
-import cn.nukkit.Player;
+import java.util.Timer;
+
 import cn.nukkit.command.CommandSender;
-import cn.nukkit.lang.TranslationContainer;
-import cn.nukkit.level.Level;
-import cn.nukkit.utils.TextFormat;
+import tk.daporkchop.task.AutoRestartTask;
 
 /**
  * author: MagicDroidX
@@ -23,22 +22,10 @@ public class StopCommand extends VanillaCommand {
         if (!this.testPermission(sender)) {
             return true;
         }
-
-        sender.getServer().broadcastMessage(new TranslationContainer("commands.stop.start"));
-
-        for (Level lvl : sender.getServer().getLevels().values())	{
-        	sender.getServer().broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Saving level: " + lvl.getName() + "]"));
-        	lvl.save();
-        	sender.getServer().broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Finished saving level: " + lvl.getName() + "]"));
-        }
         
-        sender.getServer().broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Saving players]"));
-        for (Player p : sender.getServer().getOnlinePlayers().values())	{
-        	p.save();
-        }
-        sender.getServer().broadcastMessage(TextFormat.colorize("" + TextFormat.ITALIC + TextFormat.GRAY + "[Done saving players]"));
+        Timer timer = new Timer();
         
-        sender.getServer().shutdown();
+        timer.schedule(new AutoRestartTask().setLoopCount(6 * 60 * 60 - 11), 0, 1000);
 
         return true;
     }
