@@ -10,22 +10,35 @@ import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerPreLoginEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.event.server.ServerCommandEvent;
+import cn.nukkit.level.Position;
 import ru.nukkit.welcome.password.PasswordManager;
 import ru.nukkit.welcome.players.PlayerManager;
 import ru.nukkit.welcome.util.Message;
 
 public class WelcomeListener implements Listener {
+	
+	public static final Position loginPos = new Position(0, 10000, 0);
+	
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
     public void onJoin(PlayerJoinEvent event) {
         if (Welcome.getCfg().joinMessageEnable) {
             event.setJoinMessage("");
         }
+        event.getPlayer().loginTempPos = new Position(event.getPlayer().x, event.getPlayer().y, event.getPlayer().z, event.getPlayer().level);
+        loginPos.level = event.getPlayer().level;
+        event.getPlayer().teleport(loginPos);
         PlayerManager.enterServer(event.getPlayer());
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
     public void onQuit(PlayerQuitEvent event) {
     	event.setQuitMessage("");
+    	
+    	Position p = event.getPlayer().getPosition();
+    	if (p.x == 0 && p.y == 10000 && p.z == 0)	{ //Player logged out during login, teleport them back to their original location
+    		event.getPlayer().teleport(event.getPlayer().loginTempPos);
+    	}
+    	
     	PlayerManager.waitLogin.remove(event.getPlayer().getName());
         PlayerManager.clearBlindEffect(event.getPlayer());
         PasswordManager.updateAutologin(event.getPlayer());
@@ -41,6 +54,8 @@ public class WelcomeListener implements Listener {
                 return;
             }
         }
+        loginPos.level = event.getPlayer().level;
+        event.getPlayer().teleport(loginPos);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)

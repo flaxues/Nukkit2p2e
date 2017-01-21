@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.potion.Effect;
 import ru.nukkit.welcome.Welcome;
+import ru.nukkit.welcome.WelcomeListener;
 import ru.nukkit.welcome.password.PasswordManager;
 import ru.nukkit.welcome.password.PasswordValidator;
 import ru.nukkit.welcome.util.LoginMeta;
@@ -23,6 +24,8 @@ public class PlayerManager {
         String playerName = player.getName();
         if (waitLogin.containsKey(playerName)) waitLogin.remove(playerName);
         if (player.hasMetadata("welcome-in-game")) player.removeMetadata("welcome-in-game", Welcome.getPlugin());
+        WelcomeListener.loginPos.level = player.level;
+        player.teleport(WelcomeListener.loginPos);
         PasswordManager.checkAutologin(player).whenComplete((autoLogin, e) -> {
             if (e != null) {
                 e.printStackTrace();
@@ -74,6 +77,8 @@ public class PlayerManager {
                     }
                     if (System.currentTimeMillis() < waitLogin.get(name)) {
                         tipOrPrint(player, Welcome.getPlugin().getCfg().getTypeReg());
+                        WelcomeListener.loginPos.level = player.level;
+                        player.teleport(WelcomeListener.loginPos);
                         Welcome.getPlugin().getServer().getScheduler().scheduleDelayedTask(new Runnable() {
                             public void run() {
                                 startWaitRegister(player);
@@ -99,7 +104,9 @@ public class PlayerManager {
         if (System.currentTimeMillis() < waitLogin.get(name)) {
 
             tipOrPrint(player, Welcome.getCfg().typeInChat ? Message.TYPE_LGN_CHAT : Message.TYPE_LGN);
-
+            WelcomeListener.loginPos.level = player.level;
+            player.teleport(WelcomeListener.loginPos);
+            
             Server.getInstance().getScheduler().scheduleDelayedTask(() -> {
                 startWaitLogin(player);
             }, Welcome.getCfg().getMessageRepeatTicks());
@@ -163,6 +170,7 @@ public class PlayerManager {
                                             if (Welcome.getCfg().useTips) Message.REG_OK.print(player, '6');
                                             PasswordManager.updateAutologin(player);
                                             tipOrPrint(player, Message.REG_OK, '6');
+                                            player.teleport(player.getLevel().getSpawnLocation());
                                             //Welcome.getCfg().broadcastLoginMessage(player);
                                         }
                                     }
@@ -201,6 +209,7 @@ public class PlayerManager {
                                 PasswordManager.updateAutologin(player);
                                 clearBlindEffect(player);
                                 tipOrPrint(player, Message.LGN_OK, '6');
+                                player.teleport(player.loginTempPos);
                                 //Welcome.getCfg().broadcastLoginMessage(player);
                             } else {
                                 if (Welcome.getCfg().loginAtempts) {

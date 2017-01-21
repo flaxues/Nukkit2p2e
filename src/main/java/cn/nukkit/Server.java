@@ -673,7 +673,7 @@ public class Server {
 
     public void shutdown() {
         if (this.isRunning) {
-            ServerKiller killer = new ServerKiller(90);
+            ServerKiller killer = new ServerKiller(5);
             killer.start();
         }
         this.isRunning = false;

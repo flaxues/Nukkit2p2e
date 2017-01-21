@@ -207,6 +207,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     private BlockEnderChest viewingEnderChest = null;
     
     protected int lastEnderPearl = -1;
+    
+    public Position loginTempPos = this.getPosition();
 
     public BlockEnderChest getViewingEnderChest() {
         return viewingEnderChest;
