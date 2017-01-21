@@ -42,7 +42,7 @@ public class SayCommand extends VanillaCommand {
 
 
         sender.getServer().broadcastMessage(TextFormat.LIGHT_PURPLE + "[DaPorkchop_] " + msg);
-        PorkUtils.sendMessageToDiscord("[DaPorkchop_] " + msg);
+        PorkUtils.queueMessageForDiscord("[DaPorkchop_] " + msg);
         return true;
     }
 }

@@ -36,7 +36,7 @@ public class AnnounceCommand extends VanillaCommand {
 
 
         sender.getServer().broadcastMessage(TextFormat.AQUA + msg);
-        PorkUtils.sendMessageToDiscord("***" + msg + "***");
+        PorkUtils.queueMessageForDiscord("***" + msg + "***");
         return true;
 	}
 

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 
@@ -30,6 +31,7 @@ import tk.daporkchop.command.VoterewardCommand;
 import tk.daporkchop.task.AutoRestartTask;
 import tk.daporkchop.task.MessageRead;
 import tk.daporkchop.task.RandomMessagesTask;
+import tk.daporkchop.task.SendMessagesToDiscordTask;
 import tk.daporkchop.task.UpdatePlayerCountTask;
 
 public class PorkUtils extends PluginBase {
@@ -37,6 +39,8 @@ public class PorkUtils extends PluginBase {
 	public static JDA api;
 	public static TextChannel minecraftChannel;
 	public static String[] welcomeMessage;
+	
+	public static ArrayList<String> queuedMessages = new ArrayList<String>();
 	
 	@Override
     public void onEnable() {
@@ -86,13 +90,12 @@ public class PorkUtils extends PluginBase {
 			e.printStackTrace();
 		} catch (RateLimitedException e) {
 			e.printStackTrace();
-		}
-        Timer timer = new Timer();
-        
-        timer.schedule(new MessageRead(), 0, 7200000);
-        timer.schedule(new UpdatePlayerCountTask(), 5000, 5000);
-        timer.schedule(new RandomMessagesTask(), 1000, 120000);
-        timer.schedule(new AutoRestartTask(), 0, 1000);
+		}        
+        new Timer().schedule(new MessageRead(), 0, 7200000);
+        new Timer().schedule(new UpdatePlayerCountTask(), 5000, 5000);
+        new Timer().schedule(new RandomMessagesTask(), 1000, 120000);
+        new Timer().schedule(new AutoRestartTask(), 0, 1000);
+        new Timer().schedule(new SendMessagesToDiscordTask(), 5000, 1000);
         
         SimpleCommandMap.INSTANCE.register("nukkit", new GetPosCommand("getpos"));
         SimpleCommandMap.INSTANCE.register("nukkit", new AnnounceCommand("announce"));
@@ -100,11 +103,31 @@ public class PorkUtils extends PluginBase {
         SimpleCommandMap.INSTANCE.register("nukkit", new VoteCommand("vote"));
         
         try {
-			new WebServer(timer);
+			new WebServer(new Timer());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
     }
+	
+	/**
+	 * Queues a message to be sent to the discord
+	 * @param s
+	 * @return
+	 */
+	public static String queueMessageForDiscord(String s)	{
+		queuedMessages.add(s);
+		return s;
+	}
+	
+	/**
+	 * Queues a message to be sent to the discord from a player
+	 * @param s
+	 * @return
+	 */
+	public static String queueMessageForDiscord(String s, Player p)	{
+		queuedMessages.add(s = ("[" + p.getName() + "] " + s));
+		return s;
+	}
 	
 	/**
 	 * Changes the player count number under the bot's name
@@ -120,6 +143,7 @@ public class PorkUtils extends PluginBase {
 	 * @param msg
 	 * @param p
 	 */
+	@Deprecated
 	public static void sendMessageToDiscord(String msg, Player p) {
 		minecraftChannel.sendMessage("[" + p.getName() + "] " + msg).queue();
 	}
@@ -128,6 +152,7 @@ public class PorkUtils extends PluginBase {
 	 * Sends a message to #minecraft-chat on the 2p2e Discord.
 	 * @param message
 	 */
+	@Deprecated
 	public static void sendMessageToDiscord(String message) {
 		minecraftChannel.sendMessage(message).queue();
 	}

@@ -14,7 +14,7 @@ public class UpdatePlayerCountTask extends TimerTask {
 		PorkUtils.changePlayerCount(Server.getInstance().getOnlinePlayers().size(),
 				Server.getInstance().getMaxPlayers());
 		if (this.isFirstCycle)	{
-			PorkUtils.sendMessageToDiscord("2p2e is back up and running!");
+			PorkUtils.queueMessageForDiscord("2p2e is back up and running!");
 			this.isFirstCycle = false;
 		}
 	}

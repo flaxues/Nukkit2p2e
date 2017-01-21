@@ -58,7 +58,7 @@ public class VoterewardCommand extends VanillaCommand {
 		}
 		if (Utils.rand(0, 50) == 27)	{
 			sender.getServer().broadcastMessage("" + TextFormat.BOLD + TextFormat.AQUA + p.getName() + TextFormat.GREEN + "WAS SUPER LUCKY AND GOT AN ELYTRA FROM VOTING!");
-			PorkUtils.sendMessageToDiscord("***" + p.getName() + " WAS SUPER LUCKY AND GOT AN ELYTRA FROM VOTING!***");
+			PorkUtils.queueMessageForDiscord("***" + p.getName() + " WAS SUPER LUCKY AND GOT AN ELYTRA FROM VOTING!***");
 			p.getInventory().addItem(Item.get(Item.ELYTRA, 0, 1));
 		}
 		p.sendMessage("" + TextFormat.GOLD + TextFormat.BOLD + "Your vote items have been added!");

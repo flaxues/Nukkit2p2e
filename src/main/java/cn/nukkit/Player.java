@@ -2918,7 +2918,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     this.server.getPluginManager().callEvent(chatEvent);
                                     if (!chatEvent.isCancelled()) {
                                         this.server.broadcastMessage("[" + this.getName() + "] " + chatEvent.getMessage());
-                                        PorkUtils.sendMessageToDiscord(chatEvent.getMessage(), this);
+                                        PorkUtils.queueMessageForDiscord(chatEvent.getMessage(), this);
                                     }
                                 }
                             }
@@ -4023,7 +4023,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
 		if (!Objects.equals(ev.getDeathMessage().toString(), "")) {
 			this.server.broadcast(ev.getDeathMessage(), Server.BROADCAST_CHANNEL_USERS);
-			PorkUtils.sendMessageToDiscord(TextFormat.clean(message));
+			PorkUtils.queueMessageForDiscord(TextFormat.clean(message));
 		}
 
 		RespawnPacket pk = new RespawnPacket();
