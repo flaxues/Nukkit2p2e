@@ -13,7 +13,6 @@ public class SendMessagesToDiscordTask extends TimerTask {
 		Iterator<String> iter = PorkUtils.queuedMessages.iterator();
 		ESCAPE: while (iter.hasNext())	{
 			temp += (otherTemp = iter.next());
-			temp += "\n";
 			if (temp.length() > 2000)	{ //Message is too long to be sent in one message
 				break ESCAPE;
 			}

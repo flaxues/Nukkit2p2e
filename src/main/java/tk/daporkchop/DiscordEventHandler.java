@@ -1,5 +1,7 @@
 package tk.daporkchop;
 
+import java.util.ArrayList;
+
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -9,12 +11,19 @@ import tk.daporkchop.task.StatusUpdateTaskHour;
 
 public class DiscordEventHandler extends ListenerAdapter {
 	
+	public static final ArrayList<String> msgDiscords = new ArrayList<String>();
+	
+	static {
+		msgDiscords.add("259327833535414272"); //2p2e Discord
+		msgDiscords.add("272728170870865921"); //Ravenn and pledged's server
+	}
+	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		if (event.getAuthor().getId().equals(PorkUtils.api.getSelfUser().getId()))
 			return;
 		
-		if (event.getChannel().getId().equals("259327833535414272")) {
+		if (msgDiscords.contains(event.getChannel().getId())) {
 			if (event.getMessage().getRawContent().contains("!players")) {
 				String msg = "Online players: " + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers() + "\n\n";
 				for (Player p : Server.getInstance().getOnlinePlayers().values()) {

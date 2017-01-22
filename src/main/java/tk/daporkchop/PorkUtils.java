@@ -115,7 +115,7 @@ public class PorkUtils extends PluginBase {
 	 * @return
 	 */
 	public static String queueMessageForDiscord(String s)	{
-		queuedMessages.add(s);
+		queuedMessages.add(s + "\n");
 		return s;
 	}
 	
@@ -125,7 +125,7 @@ public class PorkUtils extends PluginBase {
 	 * @return
 	 */
 	public static String queueMessageForDiscord(String s, Player p)	{
-		queuedMessages.add(s = ("[" + p.getName() + "] " + s));
+		queuedMessages.add(s = ("[" + p.getName() + "] " + s + "\n"));
 		return s;
 	}
 	
