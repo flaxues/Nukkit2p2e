@@ -70,7 +70,6 @@ import cn.nukkit.scheduler.FileWriteTask;
 import cn.nukkit.scheduler.ServerScheduler;
 import cn.nukkit.timings.Timings;
 import cn.nukkit.utils.*;
-import tk.daporkchop.PorkUtils;
 
 import java.io.*;
 import java.nio.ByteOrder;
@@ -496,8 +495,6 @@ public class Server {
         for (CommandSender recipient : recipients) {
             recipient.sendMessage(message);
         }
-        
-        PorkUtils.queueMessageForDiscord(message);
 
         return recipients.size();
     }

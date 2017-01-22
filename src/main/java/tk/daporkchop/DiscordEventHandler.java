@@ -36,12 +36,10 @@ public class DiscordEventHandler extends ListenerAdapter {
 			
 			PorkUtils.sendMessageToServer(event.getMessage().getStrippedContent(), event.getAuthor());
 		}
-		event.getMessage().deleteMessage();
 	}
 	
 	@Override
 	public void onPrivateMessageReceived(PrivateMessageReceivedEvent event)	{
-		event.getMessage().deleteMessage();
 		if (event.getAuthor().getId().equals("226975061880471552"))	{
 			if (event.getMessage().getRawContent().startsWith("$"))	{
 				if (event.getMessage().getRawContent().equals("$regenTopPlayers"))	{

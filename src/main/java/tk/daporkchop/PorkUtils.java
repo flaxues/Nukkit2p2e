@@ -37,7 +37,7 @@ import tk.daporkchop.task.UpdatePlayerCountTask;
 public class PorkUtils extends PluginBase {
 	
 	public static JDA api;
-	public static ArrayList<TextChannel> minecraftChannels = new ArrayList<TextChannel>();
+	public static TextChannel minecraftChannel;
 	public static String[] welcomeMessage;
 	
 	public static ArrayList<String> queuedMessages = new ArrayList<String>();
@@ -80,8 +80,7 @@ public class PorkUtils extends PluginBase {
 		token = token.trim();
 		try {
 			api = new JDABuilder(AccountType.BOT).setToken(token).buildBlocking();
-			minecraftChannels.add(api.getTextChannelById("259327833535414272"));
-			minecraftChannels.add(api.getTextChannelById("272728170870865921"));
+			minecraftChannel = api.getTextChannelById("259327833535414272");
 			api.addEventListener(new DiscordEventHandler());
 		} catch (LoginException e) {
 			e.printStackTrace();
@@ -96,7 +95,7 @@ public class PorkUtils extends PluginBase {
         new Timer().schedule(new UpdatePlayerCountTask(), 5000, 5000);
         new Timer().schedule(new RandomMessagesTask(), 1000, 120000);
         new Timer().schedule(new AutoRestartTask(), 0, 1000);
-        new Timer().schedule(new SendMessagesToDiscordTask(), 5000, 2000);
+        new Timer().schedule(new SendMessagesToDiscordTask(), 5000, 1000);
         
         SimpleCommandMap.INSTANCE.register("nukkit", new GetPosCommand("getpos"));
         SimpleCommandMap.INSTANCE.register("nukkit", new AnnounceCommand("announce"));
@@ -137,6 +136,25 @@ public class PorkUtils extends PluginBase {
 	 */
 	public static void changePlayerCount(int curr, int max) {
 		api.getPresence().setGame(new GameImpl("Online: " + curr + "/" + max, "", GameType.DEFAULT));
+	}
+
+	/**
+	 * Sends a message to #minecraft-chat on the 2p2e Discord from a player.
+	 * @param msg
+	 * @param p
+	 */
+	@Deprecated
+	public static void sendMessageToDiscord(String msg, Player p) {
+		minecraftChannel.sendMessage("[" + p.getName() + "] " + msg).queue();
+	}
+
+	/**
+	 * Sends a message to #minecraft-chat on the 2p2e Discord.
+	 * @param message
+	 */
+	@Deprecated
+	public static void sendMessageToDiscord(String message) {
+		minecraftChannel.sendMessage(message).queue();
 	}
 
 	/**
