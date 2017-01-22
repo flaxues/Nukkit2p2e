@@ -34,7 +34,7 @@ public class AutoRestartTask extends TimerTask {
 			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 1"));
 		} else if (loopCount == 6 * 60 * 60)	{
 			Server.getInstance().broadcastMessage(TextFormat.colorize("&l&cSERVER RESTARTING IN 0"));
-			Server.getInstance().shutdown(TextFormat.BOLD + "SERVER RESTARTING");
+			Server.getInstance().shutdown(TextFormat.colorize("&k&4I&r &l&cSERVER RESTARTING &r&k&4I"));
 		}
 	}
 	

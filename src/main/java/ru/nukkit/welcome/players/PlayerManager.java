@@ -171,6 +171,8 @@ public class PlayerManager {
                                             PasswordManager.updateAutologin(player);
                                             tipOrPrint(player, Message.REG_OK, '6');
                                             player.teleport(player.getLevel().getSpawnLocation());
+                                            player.teleport(player.getLevel().getSpawnLocation());
+                                            player.teleport(player.getLevel().getSpawnLocation());
                                             //Welcome.getCfg().broadcastLoginMessage(player);
                                         }
                                     }
@@ -210,6 +212,8 @@ public class PlayerManager {
                                 clearBlindEffect(player);
                                 tipOrPrint(player, Message.LGN_OK, '6');
                                 player.teleport(player.loginTempPos);
+                                player.teleport(player.loginTempPos);
+                                player.teleport(player.loginTempPos);//Call this a few times in case something goes badly wrong and a packet is lost
                                 //Welcome.getCfg().broadcastLoginMessage(player);
                             } else {
                                 if (Welcome.getCfg().loginAtempts) {

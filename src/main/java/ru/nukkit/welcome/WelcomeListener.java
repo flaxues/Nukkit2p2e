@@ -34,14 +34,19 @@ public class WelcomeListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
     	event.setQuitMessage("");
     	
-    	Position p = event.getPlayer().getPosition();
-    	if (p.x == 0 && p.y == 10000 && p.z == 0)	{ //Player logged out during login, teleport them back to their original location
-    		event.getPlayer().teleport(event.getPlayer().loginTempPos);
-    	}
-    	
     	PlayerManager.waitLogin.remove(event.getPlayer().getName());
         PlayerManager.clearBlindEffect(event.getPlayer());
         PasswordManager.updateAutologin(event.getPlayer());
+        
+        Position p = event.getPlayer().getPosition();
+    	if (p.y > 5000)	{ //Player logged out during login, teleport them back to their original location
+    		event.getPlayer().teleport(event.getPlayer().loginTempPos);
+    		event.getPlayer().teleport(event.getPlayer().loginTempPos);
+    		event.getPlayer().teleport(event.getPlayer().loginTempPos);
+    		event.getPlayer().x = event.getPlayer().loginTempPos.x;
+    		event.getPlayer().y = event.getPlayer().loginTempPos.y;
+    		event.getPlayer().z = event.getPlayer().loginTempPos.z;
+    	}
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
