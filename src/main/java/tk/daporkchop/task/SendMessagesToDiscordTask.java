@@ -3,6 +3,7 @@ package tk.daporkchop.task;
 import java.util.Iterator;
 import java.util.TimerTask;
 
+import net.dv8tion.jda.core.entities.TextChannel;
 import tk.daporkchop.PorkUtils;
 
 public class SendMessagesToDiscordTask extends TimerTask {
@@ -20,7 +21,9 @@ public class SendMessagesToDiscordTask extends TimerTask {
 		}
 		PorkUtils.queuedMessages.clear(); //I know that this might discard some messages, but if there are more than 2000 characters showing up in chat at the same time something is wrong
 		if (toSend.length() > 4)	{ // Impossibly short message, don't bother sending it
-			PorkUtils.minecraftChannel.sendMessage(toSend).queue();
+			for (TextChannel channel : PorkUtils.minecraftChannels)	{
+				channel.sendMessage(toSend).queue();
+			}
 		}
 	}
 
