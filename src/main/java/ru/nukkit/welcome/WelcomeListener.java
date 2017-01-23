@@ -27,6 +27,8 @@ public class WelcomeListener implements Listener {
         event.getPlayer().loginTempPos = new Position(event.getPlayer().x, event.getPlayer().y, event.getPlayer().z, event.getPlayer().level);
         loginPos.level = event.getPlayer().level;
         event.getPlayer().teleport(loginPos);
+        event.getPlayer().teleport(loginPos);
+        event.getPlayer().teleport(loginPos);
         PlayerManager.enterServer(event.getPlayer());
     }
 
