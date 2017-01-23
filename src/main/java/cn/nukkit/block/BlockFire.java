@@ -85,14 +85,16 @@ public class BlockFire extends BlockFlowable {
 
     @Override
     public int onUpdate(int type) {
-        if (type == Level.BLOCK_UPDATE_NORMAL || type == Level.BLOCK_UPDATE_RANDOM) {
+        ESCAPE: if (type == Level.BLOCK_UPDATE_NORMAL || type == Level.BLOCK_UPDATE_RANDOM) {
             if (!this.isBlockTopFacingSurfaceSolid(this.getSide(Vector3.SIDE_DOWN)) && !this.canNeighborBurn()) {
                 this.getLevel().setBlock(this, new BlockAir(), true);
             }
 
             return Level.BLOCK_UPDATE_NORMAL;
         } else if (type == Level.BLOCK_UPDATE_SCHEDULED) {
-            boolean forever = this.getSide(Vector3.SIDE_DOWN).getId() == Block.NETHERRACK;
+            if (this.getSide(Vector3.SIDE_DOWN).getId() == Block.NETHERRACK)	{
+            	break ESCAPE;
+            }
 
             Random random = this.getLevel().rand;
 
@@ -102,13 +104,7 @@ public class BlockFire extends BlockFlowable {
                 this.getLevel().setBlock(this, new BlockAir(), true);
             }
 
-            if (!forever && this.getLevel().isRaining() &&
-                    (this.getLevel().canBlockSeeSky(this) ||
-                            this.getLevel().canBlockSeeSky(this.getSide(SIDE_EAST)) ||
-                            this.getLevel().canBlockSeeSky(this.getSide(SIDE_WEST)) ||
-                            this.getLevel().canBlockSeeSky(this.getSide(SIDE_SOUTH)) ||
-                            this.getLevel().canBlockSeeSky(this.getSide(SIDE_NORTH)))
-                    ) {
+            if (this.getLevel().isRaining() && (this.getLevel().canBlockSeeSky(this))) {
                 this.getLevel().setBlock(this, new BlockAir(), true);
             } else {
                 int meta = this.getDamage();
@@ -120,11 +116,11 @@ public class BlockFire extends BlockFlowable {
 
                 this.getLevel().scheduleUpdate(this, this.tickRate() + random.nextInt(10));
 
-                if (!forever && !this.canNeighborBurn()) {
+                if (!this.canNeighborBurn()) {
                     if (!this.isBlockTopFacingSurfaceSolid(this.getSide(Vector3.SIDE_DOWN)) || meta > 3) {
                         this.getLevel().setBlock(this, new BlockAir(), true);
                     }
-                } else if (!forever && !(this.getSide(Vector3.SIDE_DOWN).getBurnAbility() > 0) && meta == 15 && random.nextInt(4) == 0) {
+                } else if (!(this.getSide(Vector3.SIDE_DOWN).getBurnAbility() > 0) && meta == 15 && random.nextInt(4) == 0) {
                     this.getLevel().setBlock(this, new BlockAir(), true);
                 } else {
                     int o = 0;
