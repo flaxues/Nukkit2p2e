@@ -1,6 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
+import cn.nukkit.item.ItemTool;
 
 /**
  * author: Angelic47
@@ -40,5 +41,19 @@ public class BlockBedrock extends BlockSolid {
     public boolean isBreakable(Item item) {
         return false;
     }
-
+    
+    @Override
+    public boolean onBreak(Item item) {
+        return false;
+    }
+    
+    @Override
+    public double getBreakTime(Item item) {
+        return -1;
+    }
+    
+    @Override
+    public boolean canBeBrokenWith(Item item) {
+        return false;
+    }
 }
