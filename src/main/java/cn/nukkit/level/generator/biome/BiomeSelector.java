@@ -33,6 +33,8 @@ public class BiomeSelector {
                 return Biome.ICE_PLAINS;
             } else if (temperature < 0.75) {
                 return Biome.PLAINS;
+            } else if (temperature < 0.95) {
+            	return Biome.MESA_PLATEAU;
             } else {
                 return Biome.DESERT;
             }

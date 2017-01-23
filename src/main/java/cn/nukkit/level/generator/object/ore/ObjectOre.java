@@ -12,9 +12,9 @@ import cn.nukkit.math.VectorMath;
  */
 public class ObjectOre {
 
-    private final NukkitRandom random;
+    protected final NukkitRandom random;
     public final OreType type;
-    private int replaceId;
+    protected int replaceId;
 
     public ObjectOre(NukkitRandom random, OreType type) {
         this(random, type, Block.STONE);
