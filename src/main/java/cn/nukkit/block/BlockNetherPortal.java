@@ -15,50 +15,6 @@ import tk.daporkchop.task.GenPortalTask;
  */
 public class BlockNetherPortal extends BlockFlowable {
 
-	public byte[][] portalBlocks = new byte[][] { {
-				0, 0, 0, 0, 0, 0,
-				0, 0, 1, 1, 0, 0,
-				0, 1, 1, 1, 1, 0,
-				0, 0, 1, 1, 0, 0,
-				0, 0, 0, 0, 0, 0
-			},
-			{
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 1, 2, 2, 1, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0
-			},
-			{
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 1, 2, 2, 1, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0
-			},
-			{
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 1, 2, 2, 1, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0
-			},
-			{
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 1, 2, 2, 1, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0
-			},
-			{
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 1, 1, 1, 1, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0
-			}
-		};
-
 	public BlockNetherPortal() {
 		this(0);
 	}
@@ -120,7 +76,7 @@ public class BlockNetherPortal extends BlockFlowable {
 	public void onEntityCollide(Entity entity) {
 		entity.inPortalTicks++;
 
-		if (entity.inPortalTicks >= 80) {
+		if (entity.inPortalTicks == 160) {
 			entity.inPortalTicks = 0;
 			EntityPortalEnterEvent ev = new EntityPortalEnterEvent(entity, EntityPortalEnterEvent.TYPE_NETHER);
 			this.level.getServer().getPluginManager().callEvent(ev);
@@ -157,6 +113,6 @@ public class BlockNetherPortal extends BlockFlowable {
 	}
 
 	public void genPortal(Position pos, Player p) {		
-		Server.getInstance().getScheduler().scheduleDelayedTask(new GenPortalTask(pos, p), 60, true);
+		Server.getInstance().getScheduler().scheduleDelayedTask(new GenPortalTask(pos, p), 2, false);
 	}
 }

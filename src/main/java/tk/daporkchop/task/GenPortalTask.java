@@ -3,6 +3,7 @@ package tk.daporkchop.task;
 import java.util.TimerTask;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
@@ -12,6 +13,8 @@ public class GenPortalTask extends TimerTask {
 	
 	public Position pos;
 	public Player player;
+	public int count = 0;
+	public Server s;
 	
 	public GenPortalTask(Position pos, Player player)	{
 		this.pos = pos;
@@ -21,6 +24,7 @@ public class GenPortalTask extends TimerTask {
         effect.setDuration(Integer.MAX_VALUE);
         effect.setAmplifier(127);
         player.addEffect(effect);
+        this.s = Server.getInstance();
 	}
 	
 	public GenPortalTask(int x, int y, int z, Level lvl, Player player)	{
@@ -30,6 +34,11 @@ public class GenPortalTask extends TimerTask {
 	
 	@Override
 	public void run()	{
+		if (++count < 30)	{
+			player.teleport(pos);
+			s.getScheduler().scheduleDelayedTask(this, 2, false);
+			return;
+		}
 		player.sendMessage("&lHere, have the crappiest return portal ever made.");
 		player.sendMessage("&lIt's not the best, but it seems to prevent causing the server to crash.");
 		player.sendMessage("&lThe portal is directly below you.");
