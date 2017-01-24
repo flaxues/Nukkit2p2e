@@ -29,7 +29,7 @@ public class GenPortalTask extends TimerTask {
 		player.sendMessage("&lThe portal is directly below you.");
 		player.sendTip("&l&cThe portal is directly below you.");
 		
-		for (int x = (int) (pos.x - 3); x < pos.x + 4; x++)	{
+		/*for (int x = (int) (pos.x - 3); x < pos.x + 4; x++)	{
 			for (int y = (int) pos.y; y < pos.y + 3; y++)	{
 				for (int z = (int) (pos.z - 3); z < pos.z + 4; z++)	{
 					pos.level.setBlockIdAt(x, y, z, Block.AIR);
@@ -41,6 +41,40 @@ public class GenPortalTask extends TimerTask {
 		pos.level.setBlockIdAt(pos.x, pos.y - 1, pos.z, Block.OBSIDIAN);
 		pos.level.setBlockIdAt(pos.x, pos.y, pos.z, Block.AIR);
 		pos.level.setBlockIdAt(pos.x, pos.y + 1, pos.z, Block.AIR);
-		pos.level.setBlockIdAt(pos.x, pos.y + 2, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x, pos.y + 2, pos.z, Block.OBSIDIAN);*/
+		
+		pos.level.setBlockIdAt(pos.x, pos.y, pos.z, Block.NETHER_PORTAL);
+		pos.level.setBlockIdAt(pos.x, pos.y + 1, pos.z, Block.NETHER_PORTAL);
+		pos.level.setBlockIdAt(pos.x, pos.y + 2, pos.z, Block.NETHER_PORTAL);
+		pos.level.setBlockIdAt(pos.x + 1, pos.y, pos.z, Block.NETHER_PORTAL);
+		pos.level.setBlockIdAt(pos.x + 1, pos.y + 1, pos.z, Block.NETHER_PORTAL);
+		pos.level.setBlockIdAt(pos.x + 1, pos.y + 2, pos.z, Block.NETHER_PORTAL);
+		//This should generate the portal blocks.
+		
+		pos.level.setBlockIdAt(pos.x, pos.y - 1, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x + 1, pos.y - 1, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x + 1, pos.y - 1, pos.z - 1, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x + 1, pos.y - 1, pos.z + 1, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x, pos.y - 1, pos.z - 1, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x, pos.y - 1, pos.z + 1, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x - 1, pos.y - 1, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x + 2, pos.y - 1, pos.z, Block.OBSIDIAN);
+		//This should generate the base of the portal
+		
+		pos.level.setBlockIdAt(pos.x - 1, pos.y, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x - 1, pos.y + 1, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x - 1, pos.y + 2, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x - 1, pos.y + 3, pos.z, Block.OBSIDIAN);
+		//This should generate one side of the portal
+		
+		pos.level.setBlockIdAt(pos.x + 2, pos.y, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x + 2, pos.y + 1, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x + 2, pos.y + 2, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x + 2, pos.y + 3, pos.z, Block.OBSIDIAN);
+		//This should generate the other side of the portal
+		
+		pos.level.setBlockIdAt(pos.x + 1, pos.y + 3, pos.z, Block.OBSIDIAN);
+		pos.level.setBlockIdAt(pos.x, pos.y + 3, pos.z, Block.OBSIDIAN);
+		//This should generate the top of the portal
 	}
 }

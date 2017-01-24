@@ -136,7 +136,7 @@ public class BlockNetherPortal extends BlockFlowable {
 			if (toNether) {
 				int x = entity.chunk.getX() * 16 * 8, z = entity.chunk.getZ() * 16 * 8;
 				Position pos = new Position(x, entity.level.getLowestWorkableBlock(x, z, AIR), z, nether);
-				if (entity instanceof Player && !checkForPortal(entity.level, pos))	{
+				if (entity instanceof Player)	{
 					genPortal(pos, (Player) entity);
 				}
 				entity.teleport(pos);
@@ -151,14 +151,6 @@ public class BlockNetherPortal extends BlockFlowable {
 	@Override
 	public BlockColor getColor() {
 		return BlockColor.AIR_BLOCK_COLOR;
-	}
-
-	public boolean checkForPortal(Level lvl, Position pos) {
-		if (lvl.getBlockIdAt(pos.getFloorX(), pos.getFloorY(), pos.getFloorZ()) != Block.OBSIDIAN) {
-			return false;
-		}
-
-		return true;
 	}
 
 	public void genPortal(Position pos, Player p) {		
