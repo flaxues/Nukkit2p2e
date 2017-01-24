@@ -3017,5 +3017,14 @@ public class Level implements ChunkManager, Metadatable {
     public boolean canBlockSeeSky(Vector3 pos) {
         return this.getHighestBlockAt(pos.getFloorX(), pos.getFloorZ()) < pos.getY();
     }
-
+    
+    public int getLowestWorkableBlock(int x, int z, int id)	{
+    	int i = 1;
+    	for (; i < 255; i++)	{
+    		if (this.getBlockIdAt(x, i, z) == id)	{
+    			return i;
+    		}
+    	}
+    	return 0;
+    }
 }

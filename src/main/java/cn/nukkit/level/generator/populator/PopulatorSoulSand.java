@@ -1,7 +1,7 @@
 package cn.nukkit.level.generator.populator;
 
 import cn.nukkit.block.Block;
-import cn.nukkit.block.BlockGlowstone;
+import cn.nukkit.block.BlockSoulSand;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.format.generic.BaseFullChunk;
@@ -11,7 +11,7 @@ import cn.nukkit.math.NukkitRandom;
 
 public class PopulatorSoulSand extends Populator {
 	
-	private OreType type = new OreType(new BlockGlowstone(), 1, 40, 128, 10);
+	private OreType type = new OreType(new BlockSoulSand(), 1, 20, 128, 10);
 
     @Override
     public void populate(ChunkManager level, int chunkX, int chunkZ, NukkitRandom random) {
