@@ -3572,7 +3572,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     public void sendTip(String message) {
         TextPacket pk = new TextPacket();
         pk.type = TextPacket.TYPE_TIP;
-        pk.message = message;
+        pk.message = TextFormat.colorize(message);
         this.dataPacket(pk);
     }
 

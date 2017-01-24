@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.event.entity.EntityPortalEnterEvent;
@@ -7,6 +8,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.utils.BlockColor;
+import tk.daporkchop.task.GenPortalTask;
 
 /**
  * Created on 2016/1/5 by xtypr. Package cn.nukkit.block in project nukkit . The name NetherPortalBlock comes from minecraft wiki.
@@ -133,7 +135,10 @@ public class BlockNetherPortal extends BlockFlowable {
 
 			if (toNether) {
 				int x = entity.chunk.getX() * 16 * 8, z = entity.chunk.getZ() * 16 * 8;
-				Position pos = new Position(x, entity.level.getHighestBlockAt(x, z), z, world);
+				Position pos = new Position(x, entity.level.getLowestWorkableBlock(x, z, AIR), z, nether);
+				if (entity instanceof Player && !checkForPortal(entity.level, pos))	{
+					genPortal(pos, (Player) entity);
+				}
 				entity.teleport(pos);
 			} else {
 				int x = entity.chunk.getX() * 16 / 8, z = entity.chunk.getZ() * 16 / 8;
@@ -156,25 +161,7 @@ public class BlockNetherPortal extends BlockFlowable {
 		return true;
 	}
 
-	public void genPortal(Level lvl, Position pos) {		
-		for (int i = 0; i < portalBlocks.length; i++)	{
-			for (int j = 0; j < 5; j++)	{
-				for (int k = 0; k < 6; k++)	{
-					switch (portalBlocks[i][(j * 5 + k)])	{
-					case 0:
-						lvl.setBlock(new Position(pos.x + j, pos.y + i, pos.z + j * 5 + k), new BlockAir());
-						break;
-					case 1:
-						lvl.setBlock(new Position(pos.x + j, pos.y + i, pos.z + j * 5 + k), new BlockObsidian());
-						break;
-					case 2:
-						lvl.setBlock(new Position(pos.x + j, pos.y + i, pos.z + j * 5 + k), new BlockNetherPortal());
-						break;
-					default:
-						break;
-					}
-				}
-			}
-		}
+	public void genPortal(Position pos, Player p) {		
+		Server.getInstance().getScheduler().scheduleDelayedTask(new GenPortalTask(pos, p), 10, true);
 	}
 }
