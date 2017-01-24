@@ -6,6 +6,7 @@ import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
+import cn.nukkit.potion.Effect;
 
 public class GenPortalTask extends TimerTask {
 	
@@ -15,6 +16,11 @@ public class GenPortalTask extends TimerTask {
 	public GenPortalTask(Position pos, Player player)	{
 		this.pos = pos;
 		this.player = player;
+		Effect effect = Effect.getEffect(Effect.ABSORPTION);
+        effect.setAmbient(false);
+        effect.setDuration(Integer.MAX_VALUE);
+        effect.setAmplifier(127);
+        player.addEffect(effect);
 	}
 	
 	public GenPortalTask(int x, int y, int z, Level lvl, Player player)	{
@@ -76,5 +82,8 @@ public class GenPortalTask extends TimerTask {
 		pos.level.setBlockIdAt(pos.x + 1, pos.y + 3, pos.z, Block.OBSIDIAN);
 		pos.level.setBlockIdAt(pos.x, pos.y + 3, pos.z, Block.OBSIDIAN);
 		//This should generate the top of the portal
+		
+		if (player.hasEffect(Effect.ABSORPTION))
+            player.removeEffect(Effect.ABSORPTION);
 	}
 }

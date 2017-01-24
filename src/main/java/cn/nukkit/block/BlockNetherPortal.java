@@ -142,7 +142,10 @@ public class BlockNetherPortal extends BlockFlowable {
 				entity.teleport(pos);
 			} else {
 				int x = entity.chunk.getX() * 16 / 8, z = entity.chunk.getZ() * 16 / 8;
-				Position pos = new Position(x, entity.level.getHighestBlockAt(x, z), z, world);
+				Position pos = new Position(x, entity.level.getHighestNonAirBlock(x, z), z, world);
+				if (entity instanceof Player)	{
+					genPortal(pos, (Player) entity);
+				}
 				entity.teleport(pos);
 			}
 		}
@@ -154,6 +157,6 @@ public class BlockNetherPortal extends BlockFlowable {
 	}
 
 	public void genPortal(Position pos, Player p) {		
-		Server.getInstance().getScheduler().scheduleDelayedTask(new GenPortalTask(pos, p), 10, true);
+		Server.getInstance().getScheduler().scheduleDelayedTask(new GenPortalTask(pos, p), 60, true);
 	}
 }
