@@ -143,14 +143,15 @@ public class Normal extends Generator {
 
         PopulatorOre ores = new PopulatorOre();
         ores.setOreTypes(new OreType[]{
+        		//Syntax: Block, cluster count, cluster size, min height, max height
                 new OreType(new BlockOreCoal(), 20, 16, 0, 128),
-                new OreType(new BlockOreIron(), 30, 8, 0, 64),
-                new OreType(new BlockOreRedstone(), 12, 7, 0, 16),
-                new OreType(new BlockOreLapis(), 2, 6, 0, 32),
-                new OreType(new BlockOreGold(), 8, 8, 0, 32),
-                new OreType(new BlockOreDiamond(), 4, 7, 0, 16),
+                new OreType(new BlockOreIron(), 35, 8, 0, 64),
+                new OreType(new BlockOreRedstone(), 15, 7, 0, 16),
+                new OreType(new BlockOreLapis(), 3, 6, 0, 32),
+                new OreType(new BlockOreGold(), 10, 8, 0, 32),
+                new OreType(new BlockOreDiamond(), 6, 8, 0, 16),
                 new OreType(new BlockDirt(), 1, 32, 0, 128),
-                new OreType(new BlockGravel(), 1, 16, 0, 128)
+                new OreType(new BlockGravel(), 3, 16, 0, 128)
         });
         this.populators.add(ores);
     }
