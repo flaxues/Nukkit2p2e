@@ -41,38 +41,38 @@ public class ItemFlintSteel extends ItemTool {
                 int x_max = targetX;
                 int x_min = targetX;
                 int x;
-                for (x = targetX + 1; level.getBlock(new Vector3(x, targetY, targetZ)).getId() == OBSIDIAN; x++) {
+                for (x = targetX + 1; level.getBlock(x, targetY, targetZ).getId() == OBSIDIAN; x++) {
                     x_max++;
                 }
-                for (x = targetX - 1; level.getBlock(new Vector3(x, targetY, targetZ)).getId() == OBSIDIAN; x--) {
+                for (x = targetX - 1; level.getBlock(x, targetY, targetZ).getId() == OBSIDIAN; x--) {
                     x_min--;
                 }
                 int count_x = x_max - x_min + 1;
                 int z_max = targetZ;
                 int z_min = targetZ;
                 int z;
-                for (z = targetZ + 1; level.getBlock(new Vector3(targetX, targetY, z)).getId() == OBSIDIAN; z++) {
+                for (z = targetZ + 1; level.getBlock(targetX, targetY, z).getId() == OBSIDIAN; z++) {
                     z_max++;
                 }
-                for (z = targetZ - 1; level.getBlock(new Vector3(targetX, targetY, z)).getId() == OBSIDIAN; z--) {
+                for (z = targetZ - 1; level.getBlock(targetX, targetY, z).getId() == OBSIDIAN; z--) {
                     z_min--;
                 }
                 int count_z = z_max - z_min + 1;
                 int z_max_y = targetY;
                 int z_min_y = targetY;
                 int y;
-                for (y = targetY; level.getBlock(new Vector3(targetX, y, z_max)).getId() == OBSIDIAN; y++) {
+                for (y = targetY; level.getBlock(targetX, y, z_max).getId() == OBSIDIAN; y++) {
                     z_max_y++;
                 }
-                for (y = targetY; level.getBlock(new Vector3(targetX, y, z_min)).getId() == OBSIDIAN; y++) {
+                for (y = targetY; level.getBlock(targetX, y, z_min).getId() == OBSIDIAN; y++) {
                     z_min_y++;
                 }
                 int x_max_y = targetY;
                 int x_min_y = targetY;
-                for (y = targetY; level.getBlock(new Vector3(x_max, y, targetZ)).getId() == OBSIDIAN; y++) {
+                for (y = targetY; level.getBlock(x_max, y, targetZ).getId() == OBSIDIAN; y++) {
                     x_max_y++;
                 }
-                for (y = targetY; level.getBlock(new Vector3(x_min, y, targetZ)).getId() == OBSIDIAN; y++) {
+                for (y = targetY; level.getBlock(x_min, y, targetZ).getId() == OBSIDIAN; y++) {
                     x_min_y++;
                 }
                 int y_max = Math.min(z_max_y, z_min_y) - 1;
@@ -83,7 +83,7 @@ public class ItemFlintSteel extends ItemTool {
                 }
                 if ((count_x >= 4 && count_x <= 23 || count_z >= 4 && count_z <= 23) && count_y >= 5 && count_y <= 23) {
                     int count_up = 0;
-                    for (int up_z = z_min; level.getBlock(new Vector3(targetX, y_max, up_z)).getId() == OBSIDIAN && up_z <= z_max; up_z++) {
+                    for (int up_z = z_min; level.getBlock(targetX, y_max, up_z).getId() == OBSIDIAN && up_z <= z_max; up_z++) {
                         count_up++;
                     }
                     if (count_up == count_z && count_up > 1) {
@@ -104,7 +104,7 @@ public class ItemFlintSteel extends ItemTool {
                         return true;
                     }
                     count_up = 0;
-                    for (int up_x = x_min; level.getBlock(new Vector3(up_x, y_max, targetZ)).getId() == OBSIDIAN && up_x <= x_max; up_x++) {
+                    for (int up_x = x_min; level.getBlock(up_x, y_max, targetZ).getId() == OBSIDIAN && up_x <= x_max; up_x++) {
                         count_up++;
                     }
                     if (count_up == count_x && count_up > 1)	{
