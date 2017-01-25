@@ -3,7 +3,6 @@ package cn.nukkit.item;
 import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockFire;
-import cn.nukkit.block.BlockNetherPortal;
 import cn.nukkit.block.BlockSolid;
 import cn.nukkit.event.block.BlockIgniteEvent;
 import cn.nukkit.level.Level;
@@ -79,32 +78,36 @@ public class ItemFlintSteel extends ItemTool {
                 int y_max = Math.min(z_max_y, z_min_y) - 1;
                 int count_y = y_max - targetY + 2;
                 if (!(count_y >= 5 && count_y <= 23))	{
-                	//System.out.println("Got to if thingy #1");
                 	y_max = Math.min(x_max_y, x_min_y) - 1;
                 	count_y = y_max - targetY + 2;
                 }
                 if ((count_x >= 4 && count_x <= 23 || count_z >= 4 && count_z <= 23) && count_y >= 5 && count_y <= 23) {
-                	//System.out.println("Got to if thingy #2");
                     int count_up = 0;
                     for (int up_z = z_min; level.getBlock(new Vector3(targetX, y_max, up_z)).getId() == OBSIDIAN && up_z <= z_max; up_z++) {
                         count_up++;
                     }
-                    System.out.println("\n" + count_up + " " + count_z);
                     if (count_up == count_z && count_up > 1) {
-                        for (int block_z = z_min + 1; block_z < z_max; block_z++) {
-                            for (int block_y = targetY + 1; block_y < y_max; block_y++) {
-                                level.setBlock(new Vector3(targetX, block_y, block_z), new BlockNetherPortal());
-                            }
-                        }
+                        int za = targetZ, ya = targetY + 1;
+                    	while (level.getBlock(targetX, ya, za).getId() != Block.OBSIDIAN)	{
+                    		while (level.getBlock(targetX, ya, za).getId() != Block.OBSIDIAN)	{
+                    			level.setBlockIdAt(targetX, ya, za, Block.NETHER_PORTAL);
+                    			za++;
+                    		}
+                    		za--;
+                    		while (level.getBlock(targetX, ya, za).getId() != Block.OBSIDIAN)	{
+                    			level.setBlockIdAt(targetX, ya, za, Block.NETHER_PORTAL);
+                    			za--;
+                    		}
+                    		za++;
+                    		ya++;
+                    	}
                         return true;
                     }
                     count_up = 0;
                     for (int up_x = x_min; level.getBlock(new Vector3(up_x, y_max, targetZ)).getId() == OBSIDIAN && up_x <= x_max; up_x++) {
                         count_up++;
                     }
-                    System.out.println("\n" + count_up + " " + count_x);
                     if (count_up == count_x && count_up > 1)	{
-                    	System.out.println("placing blocks");
                     	int xa = targetX, ya = targetY + 1;
                     	while (level.getBlock(xa, ya, targetZ).getId() != Block.OBSIDIAN)	{
                     		while (level.getBlock(xa, ya, targetZ).getId() != Block.OBSIDIAN)	{
@@ -119,11 +122,6 @@ public class ItemFlintSteel extends ItemTool {
                     		xa++;
                     		ya++;
                     	}
-                    	/*for (int block_x = x_min + 1; block_x < x_max; block_x++) {
-                            for (int block_y = targetY + 1; block_y < y_max; block_y++) {
-                                level.setBlock(new Vector3(block_x, block_y, targetZ), new BlockNetherPortal());
-                            }
-                        }*/
                     	return true;
                     }
                 }
