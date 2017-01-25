@@ -9,6 +9,7 @@ public class SendMessagesToDiscordTask extends TimerTask {
 
 	@Override
 	public void run() {
+		PorkUtils.minecraftChannel.sendTyping();
 		String toSend = "", temp = "", otherTemp = null;
 		Iterator<String> iter = PorkUtils.queuedMessages.iterator();
 		ESCAPE: while (iter.hasNext())	{
