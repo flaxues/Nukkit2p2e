@@ -87,6 +87,7 @@ public class GenPortalTask extends TimerTask {
 
 		pos.x++;
 		pos.y++;
+		//pos.z++;
 
 		player.teleport(pos);
 	}

@@ -44,7 +44,7 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     public static final int CAUSE_CUSTOM = 14;
     public static final int CAUSE_LIGHTNING = 15;
 
-    private final int cause;
+    private int cause;
 
     private final Map<Integer, Float> modifiers;
     private final Map<Integer, Float> originals;
@@ -125,6 +125,9 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
 
         return damage;
     }
-
-
+    
+    public EntityDamageEvent setCause(int cause)	{
+    	this.cause = cause;
+    	return this;
+    }
 }
