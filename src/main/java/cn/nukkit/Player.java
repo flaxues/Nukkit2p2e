@@ -3958,6 +3958,31 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 		if (!this.spawned) {
 			return;
 		}
+		
+		if (this.level != this.server.getDefaultLevel())	{
+			for (Item item : this.getInventory().getContents().values()) {
+				this.level.dropItem(this, item, null, true, 40);
+			}
+			
+			if (this.inventory != null) {
+				this.inventory.clearAll();
+			}
+
+			if (this.isSurvival() || this.isAdventure()) {
+				int exp = this.getExperience();
+				if (exp > 100)
+					exp = 100;
+				int add = 1;
+				for (int ii = 1; ii < exp; ii += add) {
+					this.getLevel().dropExpOrb(this, add);
+					add = new NukkitRandom().nextRange(1, 3);
+				}
+			}
+			this.setExperience(0, 0);
+			
+			this.teleport(new Position(0, 10000, 0, this.server.getDefaultLevel()));
+			this.kill();
+		}
 
 		String message = TextFormat.AQUA + this.getName() + TextFormat.DARK_RED;
 

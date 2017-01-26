@@ -101,6 +101,14 @@ public class ItemFlintSteel extends ItemTool {
                     		za++;
                     		ya++;
                     	}
+                    	if ((player.gamemode & 0x01) == 0 && this.useOn(block)) {
+                            if (this.getDamage() >= this.getMaxDurability()) {
+                                player.getInventory().setItemInHand(new Item(Item.AIR, 0, 0));
+                            } else {
+                                this.meta++;
+                                player.getInventory().setItemInHand(this);
+                            }
+                        }
                         return true;
                     }
                     count_up = 0;
@@ -122,9 +130,19 @@ public class ItemFlintSteel extends ItemTool {
                     		xa++;
                     		ya++;
                     	}
+                    	if ((player.gamemode & 0x01) == 0 && this.useOn(block)) {
+                            if (this.getDamage() >= this.getMaxDurability()) {
+                                player.getInventory().setItemInHand(new Item(Item.AIR, 0, 0));
+                            } else {
+                                this.meta++;
+                                player.getInventory().setItemInHand(this);
+                            }
+                        }
                     	return true;
                     }
                 }
+                
+                player.sendTip("&l&cError creating portal! This\n&l&cis normally caused by not\n&l&cincluding the corners on your portal.");
             }
             BlockFire fire = new BlockFire();
             fire.x = block.x;
