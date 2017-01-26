@@ -1571,11 +1571,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     this.inAirTicks = 0;
                     this.highestPosition = this.y;
                 } else {
+                    if (!this.isGliding() && !server.getAllowFlight() && !this.getAdventureSettings().canFly() && this.inAirTicks > 10 && !this.isSleeping() && !this.isImmobile()) {
+                        double expectedVelocity = (-this.getGravity()) / ((double) this.getDrag()) - ((-this.getGravity()) / ((double) this.getDrag())) * Math.exp(-((double) this.getDrag()) * ((double) (this.inAirTicks - this.startAirTicks)));
+                        double diff = (this.speed.y - expectedVelocity) * (this.speed.y - expectedVelocity);
 
                     if (this.y > highestPosition) {
                         this.highestPosition = this.y;
                     }
 
+                    if (this.isGliding()) this.resetFallDistance();
                 }
 
                 if (this.isSurvival() || this.isAdventure()) {
@@ -2559,6 +2563,26 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 this.sendData(this);
                             } else {
                                 this.setSneaking(false);
+                            }
+                            break packetswitch;
+
+                        case PlayerActionPacket.ACTION_START_GLIDE:
+                            PlayerToggleGlideEvent playerToggleGlideEvent = new PlayerToggleGlideEvent(this, true);
+                            this.server.getPluginManager().callEvent(playerToggleGlideEvent);
+                            if (playerToggleGlideEvent.isCancelled()) {
+                                this.sendData(this);
+                            } else {
+                                this.setGliding(true);
+                            }
+                            break packetswitch;
+
+                        case PlayerActionPacket.ACTION_STOP_GLIDE:
+                            playerToggleGlideEvent = new PlayerToggleGlideEvent(this, false);
+                            this.server.getPluginManager().callEvent(playerToggleGlideEvent);
+                            if (playerToggleGlideEvent.isCancelled()) {
+                                this.sendData(this);
+                            } else {
+                                this.setGliding(false);
                             }
                             break packetswitch;
                     }
