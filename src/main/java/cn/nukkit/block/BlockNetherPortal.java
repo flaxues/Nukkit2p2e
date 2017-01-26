@@ -90,15 +90,15 @@ public class BlockNetherPortal extends BlockFlowable {
 			boolean toNether = entity.level == world; // true if entity needs to go to nether, false otherwise
 
 			if (toNether) {
-				int x = entity.chunk.getX() * 16 * 8, z = entity.chunk.getZ() * 16 * 8;
-				Position pos = new Position(x, entity.level.getLowestWorkableBlock(x, z, AIR), z, nether);
+				int x = entity.chunk.getX() * 16 / 8, z = entity.chunk.getZ() * 16 / 8;
+				Position pos = new Position(x, 64, z, nether);
 				if (entity instanceof Player)	{
 					genPortal(pos, (Player) entity);
 				}
 				entity.teleport(pos);
 			} else {
-				int x = entity.chunk.getX() * 16 / 8, z = entity.chunk.getZ() * 16 / 8;
-				Position pos = new Position(x, entity.level.getHighestNonAirBlock(x, z), z, world);
+				int x = entity.chunk.getX() * 16 * 8, z = entity.chunk.getZ() * 16 * 8;
+				Position pos = new Position(x, 64, z, world);
 				if (entity instanceof Player)	{
 					genPortal(pos, (Player) entity);
 				}

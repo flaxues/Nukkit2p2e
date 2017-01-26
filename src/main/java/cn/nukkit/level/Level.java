@@ -3021,39 +3021,4 @@ public class Level implements ChunkManager, Metadatable {
     public boolean canBlockSeeSky(Vector3 pos) {
         return this.getHighestBlockAt(pos.getFloorX(), pos.getFloorZ()) < pos.getY();
     }
-    
-    /**
-     * Returns the lowest block with the given id at the given coordinates.
-     * Returns 0 if the block was not found.
-     * @param x
-     * @param z
-     * @param id
-     * @return
-     */
-    public int getLowestWorkableBlock(int x, int z, int id)	{
-    	int i = 1;
-    	for (; i < 255; i++)	{
-    		if (this.getBlockIdAt(x, i, z) == id)	{
-    			return i;
-    		}
-    	}
-    	return 0;
-    }
-    
-    /**
-     * I seem to have to make this myself because the other one returns 255 for some reason.
-     * :/
-     * @param x
-     * @param z
-     * @return
-     */
-    public int getHighestNonAirBlock(int x, int z)	{
-    	int i = 255;
-    	for (; i > 0; i--)	{
-    		if (this.getBlockIdAt(x, i, z) != 0)	{
-    			return i;
-    		}
-    	}
-    	return 255;
-    }
 }
