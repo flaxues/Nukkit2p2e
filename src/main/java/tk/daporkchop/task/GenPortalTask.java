@@ -85,9 +85,7 @@ public class GenPortalTask extends TimerTask {
 		if (player.hasEffect(Effect.ABSORPTION))
 			player.removeEffect(Effect.ABSORPTION);
 
-		pos.x++;
 		pos.y++;
-		//pos.z++;
 
 		player.teleport(pos);
 	}
