@@ -11,7 +11,6 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -454,7 +453,7 @@ public class Config {
     }
 
     private String writeProperties() {
-        //String content = "#Properties Config file\r\n#" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) + "\r\n";
+        String content = "#Properties Config file\r\n";
         for (Object o : this.config.entrySet()) {
             Map.Entry<?, ?> entry = (Map.Entry<?, ?>) o;
             Object v = entry.getValue();

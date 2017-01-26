@@ -74,6 +74,11 @@ public class BlockNetherPortal extends BlockFlowable {
 
 	@Override
 	public void onEntityCollide(Entity entity) {
+		
+		if (entity instanceof Player && ((Player) entity).hasPortaled)	{
+			return;
+		}
+		
 		entity.inPortalTicks++;
 
 		if (entity.inPortalTicks == 160) {
@@ -85,7 +90,7 @@ public class BlockNetherPortal extends BlockFlowable {
 				return;
 			}
 			// PortalPort!
-			Level nether = Server.getInstance().getLevelByName("nether"), world = Server.getInstance().getLevelByName("world");
+			Level nether = Server.getInstance().getLevelByName("nether"), world = Server.getInstance().getDefaultLevel();
 
 			boolean toNether = entity.level == world; // true if entity needs to go to nether, false otherwise
 
