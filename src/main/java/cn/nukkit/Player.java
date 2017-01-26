@@ -4,6 +4,7 @@ import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockAir;
 import cn.nukkit.block.BlockDoor;
 import cn.nukkit.block.BlockEnderChest;
+import cn.nukkit.block.BlockNetherPortal;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntityItemFrame;
 import cn.nukkit.blockentity.BlockEntitySign;
@@ -209,6 +210,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     protected int lastEnderPearl = -1;
     
     public Position loginTempPos = this.getPosition();
+    public boolean hasPortaled = false;
 
     public BlockEnderChest getViewingEnderChest() {
         return viewingEnderChest;
@@ -602,7 +604,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     }
 
     @Override
-    protected boolean switchLevel(Level targetLevel) {
+    public boolean switchLevel(Level targetLevel) {
         Level oldLevel = this.level;
         if (super.switchLevel(targetLevel)) {
             for (long index : new ArrayList<>(this.usedChunks.keySet())) {
@@ -616,6 +618,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             pk.time = this.level.getTime();
             pk.started = !this.level.stopTime;
             this.dataPacket(pk);
+            
+            if(targetLevel.getDimension() != oldLevel.getDimension()){
+            	ChangeDimensionPacket pka = new ChangeDimensionPacket();
+            	pka.dimension = targetLevel.getDimension();
+            	pka.x = (float) this.x;
+            	pka.y = (float) this.y;
+            	pka.z = (float) this.z;
+				this.dataPacket(pka);
+			}
+            
+			if(this.spawned){
+				this.spawnToAll();
+			}
             return true;
         }
         return false;
@@ -1552,6 +1567,16 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.processMovement(tickDiff);
 
             this.entityBaseTick(tickDiff);
+            
+            IWishJavaHadGOTO: if (this.hasPortaled)	{
+            	for (Block block : this.getBlocksAround())	{
+            		if (block instanceof BlockNetherPortal)	{
+            			break IWishJavaHadGOTO;
+            		}
+            	}
+            	
+            	this.hasPortaled = false;
+            }
 
             if (this.isOnFire() && this.lastUpdate % 10 == 0) {
                 if (this.isCreative() && !this.isInsideOfFire()) {
@@ -3593,7 +3618,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     public void sendTip(String message) {
         TextPacket pk = new TextPacket();
         pk.type = TextPacket.TYPE_TIP;
-        pk.message = message;
+        pk.message = TextFormat.colorize(message);
         this.dataPacket(pk);
     }
 
@@ -4012,8 +4037,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 			break;
 
 		case EntityDamageEvent.CAUSE_CUSTOM:
+			message = getKillMessage(deathReasons.REASON_VOID);
 			break;
-
 		default:
 
 		}

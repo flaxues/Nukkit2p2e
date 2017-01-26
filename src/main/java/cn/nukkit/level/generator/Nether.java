@@ -78,7 +78,7 @@ public class Nether extends Generator {
         this.localSeed2 = this.random.nextLong();
         PopulatorOre ores = new PopulatorOre(Block.NETHERRACK);
         ores.setOreTypes(new OreType[]{
-                new OreType(new BlockOreQuartz(), 40, 16, 0, 255),
+                new OreType(new BlockOreQuartz(), 40, 16, 0, 127),
                 new OreType(new BlockLava(), 1, 16, 0, (int) this.waterHeight),
         });
         
@@ -102,7 +102,7 @@ public class Nether extends Generator {
     public void generateChunk(int chunkX, int chunkZ) {
         this.nukkitRandom.setSeed(chunkX * localSeed1 ^ chunkZ * localSeed2 ^ this.level.getSeed());
 
-        double[][][] noise = Generator.getFastNoise3D(this.noiseBase, 16, 255, 16, 4, 8, 4, chunkX * 16, 0, chunkZ * 16);
+        double[][][] noise = Generator.getFastNoise3D(this.noiseBase, 16, 128, 16, 4, 8, 4, chunkX * 16, 0, chunkZ * 16);
         FullChunk chunk = this.level.getChunk(chunkX, chunkZ);
 
         for (int x = 0; x < 16; ++x) {
@@ -121,7 +121,7 @@ public class Nether extends Generator {
                         chunk.setBlockId(x, 127 - y, z, Block.BEDROCK);
                     }
                 }
-                for (int y = 1; y < 255; ++y) {
+                for (int y = 1; y < 127; ++y) {
                     double noiseValue = (Math.abs(this.emptyHeight - y) / this.emptyHeight) * this.emptyAmplitude - noise[x][z][y];
                     noiseValue -= 1 - this.density;
                     if (noiseValue > 0) {

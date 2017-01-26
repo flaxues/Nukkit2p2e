@@ -2104,6 +2104,10 @@ public class Level implements ChunkManager, Metadatable {
             loader.onBlockChanged(temporalVector);
         }
     }
+    
+    public void setBlockIdAt(double x, double y, double z, int id) {
+        this.setBlockIdAt((int) x, (int) y, (int) z, id);
+    }
 
     public int getBlockExtraDataAt(int x, int y, int z) {
         return this.getChunk(x >> 4, z >> 4, true).getBlockExtraData(x & 0x0f, y & 0xff, z & 0x0f);
@@ -3017,5 +3021,4 @@ public class Level implements ChunkManager, Metadatable {
     public boolean canBlockSeeSky(Vector3 pos) {
         return this.getHighestBlockAt(pos.getFloorX(), pos.getFloorZ()) < pos.getY();
     }
-
 }

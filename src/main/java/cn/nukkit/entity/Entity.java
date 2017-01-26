@@ -225,6 +225,8 @@ public abstract class Entity extends Location implements Metadatable {
     protected Timing timing;
 
     protected boolean isPlayer = false;
+    
+    public boolean hasPortaled = false;
 
     public float getHeight() {
         return 0;
