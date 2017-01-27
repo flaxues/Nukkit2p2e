@@ -13,12 +13,11 @@ import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.biome.Biome;
 import cn.nukkit.level.generator.noise.Simplex;
 import cn.nukkit.level.generator.populator.Populator;
-import cn.nukkit.level.generator.populator.PopulatorEndFortress;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
 public class End extends Generator {
-	private Level level;
+	private ChunkManager level;
     /**
      * @var Random
      */
@@ -67,7 +66,8 @@ public class End extends Generator {
         return level;
     }
 
-    public void init(Level level, NukkitRandom random) {
+    @Override
+    public void init(ChunkManager level, NukkitRandom random) {
         this.level = level;
         this.nukkitRandom = random;
         this.random = new Random();
@@ -77,7 +77,7 @@ public class End extends Generator {
         this.localSeed1 = this.random.nextLong();
         this.localSeed2 = this.random.nextLong();
         
-        this.generationPopulators.add(new PopulatorEndFortress());
+        //this.generationPopulators.add(new PopulatorEndFortress());
     }
 
     @Override
@@ -116,8 +116,4 @@ public class End extends Generator {
     public Vector3 getSpawn() {
         return new Vector3(0, 128, 0);
     }
-
-	@Override
-	public void init(ChunkManager level, NukkitRandom random) {		
-	}
 }

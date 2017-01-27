@@ -8,7 +8,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.utils.BlockColor;
-import tk.daporkchop.task.GenPortalTask;
+import tk.daporkchop.task.GenEnderPortalTask;
 
 public class BlockEndPortal extends BlockFlowable {
 
@@ -107,6 +107,6 @@ public class BlockEndPortal extends BlockFlowable {
 	}
     
     public void genPortal(Position pos, Player p) {		
-		Server.getInstance().getScheduler().scheduleDelayedTask(new GenPortalTask(pos, p), 2, false);
+		Server.getInstance().getScheduler().scheduleDelayedTask(new GenEnderPortalTask(pos, p), 2, false);
 	}
 }

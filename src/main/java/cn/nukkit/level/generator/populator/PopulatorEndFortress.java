@@ -1,14 +1,9 @@
 package cn.nukkit.level.generator.populator;
 
 import cn.nukkit.block.Block;
-import cn.nukkit.block.BlockChest;
-import cn.nukkit.blockentity.BlockEntityChest;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.ChunkManager;
-import cn.nukkit.level.Level;
-import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.math.NukkitRandom;
-import cn.nukkit.math.Vector3;
 import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
 public class PopulatorEndFortress extends Populator {
@@ -16,7 +11,6 @@ public class PopulatorEndFortress extends Populator {
 	@Override
 	public void populate(ChunkManager level, int chunkX, int chunkZ, NukkitRandom random) {
 		if (true/*Utils.rand(1, 1000) == 394*/) {
-			BaseFullChunk chunk = level.getChunk(chunkX, chunkZ);
 
 			int x = 2,
 					y = 65,
