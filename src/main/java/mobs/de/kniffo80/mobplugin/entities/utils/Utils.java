@@ -45,5 +45,4 @@ public class Utils {
     public static boolean rand() {
         return random.nextBoolean();
     }
-
 }

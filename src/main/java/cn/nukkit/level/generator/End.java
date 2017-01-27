@@ -13,11 +13,12 @@ import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.biome.Biome;
 import cn.nukkit.level.generator.noise.Simplex;
 import cn.nukkit.level.generator.populator.Populator;
+import cn.nukkit.level.generator.populator.PopulatorEndFortress;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
 public class End extends Generator {
-	private ChunkManager level;
+	private Level level;
     /**
      * @var Random
      */
@@ -66,8 +67,7 @@ public class End extends Generator {
         return level;
     }
 
-    @Override
-    public void init(ChunkManager level, NukkitRandom random) {
+    public void init(Level level, NukkitRandom random) {
         this.level = level;
         this.nukkitRandom = random;
         this.random = new Random();
@@ -76,13 +76,15 @@ public class End extends Generator {
         this.nukkitRandom.setSeed(this.level.getSeed());
         this.localSeed1 = this.random.nextLong();
         this.localSeed2 = this.random.nextLong();
+        
+        this.generationPopulators.add(new PopulatorEndFortress());
     }
 
     @Override
     public void generateChunk(int chunkX, int chunkZ) {
         this.nukkitRandom.setSeed(chunkX * localSeed1 ^ chunkZ * localSeed2 ^ this.level.getSeed());
-
-        double[][][] noise = Generator.getFastNoise3D(this.noiseBase, 16, 32, 16, 4, 2, 4, chunkX * 16, 0, chunkZ * 16);
+        
+        double[][][] noise = Generator.getFastNoise3D(this.noiseBase, 16, 32, 16, 4, 1, 4, chunkX * 16, 0, chunkZ * 16);
         FullChunk chunk = this.level.getChunk(chunkX, chunkZ);
 
         for (int x = 0; x < 16; ++x) {
@@ -114,4 +116,8 @@ public class End extends Generator {
     public Vector3 getSpawn() {
         return new Vector3(0, 128, 0);
     }
+
+	@Override
+	public void init(ChunkManager level, NukkitRandom random) {		
+	}
 }
