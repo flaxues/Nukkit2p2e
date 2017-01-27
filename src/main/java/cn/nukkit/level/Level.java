@@ -82,7 +82,8 @@ public class Level implements ChunkManager, Metadatable {
     public static final int TIME_FULL = 24000;
 
     public static final int DIMENSION_OVERWORLD = 0;
-    public static final int DIMENSION_NETHER = 1;
+    public static final int DIMENSION_NETHER = 1; //Technically this should be -1 and end should be 1, but I'm not changing it for fear of breaking stuff
+    public static final int DIMENSION_END = -1;
 
     // Lower values use less memory
     public static final int MAX_BLOCK_CACHE = 512;
