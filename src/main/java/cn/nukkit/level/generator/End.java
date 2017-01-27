@@ -82,7 +82,7 @@ public class End extends Generator {
     public void generateChunk(int chunkX, int chunkZ) {
         this.nukkitRandom.setSeed(chunkX * localSeed1 ^ chunkZ * localSeed2 ^ this.level.getSeed());
 
-        double[][][] noise = Generator.getFastNoise3D(this.noiseBase, 16, 32, 16, 4, 8, 4, chunkX * 16, 0, chunkZ * 16);
+        double[][][] noise = Generator.getFastNoise3D(this.noiseBase, 16, 32, 16, 4, 2, 4, chunkX * 16, 0, chunkZ * 16);
         FullChunk chunk = this.level.getChunk(chunkX, chunkZ);
 
         for (int x = 0; x < 16; ++x) {
@@ -92,10 +92,10 @@ public class End extends Generator {
                 int biomecolor = biome.getColor();
                 chunk.setBiomeColor(x, z, (biomecolor >> 16), (biomecolor >> 8) & 0xff, (biomecolor & 0xff));
                 
-                for (int y = 31; y < 64; ++y) {
-                    double noiseValue = (Math.abs(this.emptyHeight - y) / this.emptyHeight) * this.emptyAmplitude - noise[x][z][y];
+                for (int y = 32; y < 64; ++y) {
+                    double noiseValue = (Math.abs(this.emptyHeight - y) / this.emptyHeight) * this.emptyAmplitude - noise[x][z][y - 32];
                     noiseValue -= 1 - this.density;
-                    if (noiseValue < 0) {
+                    if (noiseValue > 0) {
                         chunk.setBlockId(x, y, z, Block.END_STONE);
                     }
                 }
