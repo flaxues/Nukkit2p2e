@@ -77,7 +77,7 @@ public class BlockEndPortal extends BlockFlowable {
         }
         
         // PortalPort!
-     	Level end = Server.getInstance().getLevelByName("end");
+     	Level end = Server.getInstance().getEndLevel();
      	
      	Position pos = new Position(0, 64, 0, end);
      	if (entity instanceof Player)	{

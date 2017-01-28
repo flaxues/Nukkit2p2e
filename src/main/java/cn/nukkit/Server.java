@@ -179,6 +179,8 @@ public class Server {
     private final ServiceManager serviceManager = new NKServiceManager();
 
     private Level defaultLevel = null;
+    private Level netherLevel = null;
+    private Level endLevel = null;
 
     @SuppressWarnings("unchecked")
 	public Server(MainLogger logger, final String filePath, String dataPath, String pluginPath) {
@@ -431,6 +433,9 @@ public class Server {
             }
 
             this.setDefaultLevel(this.getLevelByName(defaultName));
+            
+            this.setNetherLevel(this.getLevelByName("nether"));
+            this.setEndLevel(this.getLevelByName("end"));
         }
 
         this.properties.save(true);
@@ -1921,5 +1926,20 @@ public class Server {
     public static Server getInstance() {
         return instance;
     }
-
+    
+    public void setNetherLevel(Level lvl)	{
+        this.netherLevel = lvl;
+    }
+    
+    public Level getNetherLevel()	{
+    	return this.netherLevel;
+    }
+    
+    public void setEndLevel(Level lvl)	{
+        this.endLevel = lvl;
+    }
+    
+    public Level getEndLevel()	{
+    	return this.endLevel;
+    }
 }
