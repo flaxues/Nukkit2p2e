@@ -13,6 +13,7 @@ import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.biome.Biome;
 import cn.nukkit.level.generator.noise.Simplex;
 import cn.nukkit.level.generator.populator.Populator;
+import cn.nukkit.level.generator.populator.PopulatorElytraStone;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
@@ -78,6 +79,7 @@ public class End extends Generator {
         this.localSeed2 = this.random.nextLong();
         
         //this.generationPopulators.add(new PopulatorEndFortress());
+        this.generationPopulators.add(new PopulatorElytraStone());
     }
 
     @Override
@@ -103,14 +105,13 @@ public class End extends Generator {
                 }
             }
         }
-        for (Populator populator : this.generationPopulators) {
-            populator.populate(this.level, chunkX, chunkZ, this.nukkitRandom);
-        }
     }
 
     @Override
     public void populateChunk(int chunkX, int chunkZ) {
-    	
+    	for (Populator populator : this.generationPopulators) {
+            populator.populate(this.level, chunkX, chunkZ, this.nukkitRandom);
+        }
     }
 
     public Vector3 getSpawn() {

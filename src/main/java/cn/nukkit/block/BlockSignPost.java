@@ -69,7 +69,7 @@ public class BlockSignPost extends BlockTransparent {
                     .putString("Text4", "");
 
             if (face == 1) {
-                meta = (int) Math.floor(((player.yaw + 180) * 16 / 360) + 0.5) & 0x0f;
+                meta = (int) Math.floor(((player == null ? 180 : player.yaw + 180) * 16 / 360) + 0.5) & 0x0f;
                 getLevel().setBlock(block, new BlockSignPost(meta), true);
             } else {
                 meta = face;
