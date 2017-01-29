@@ -18,6 +18,7 @@ import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.redstone.RedstoneUpdateEvent;
 import cn.nukkit.event.weather.LightningStrikeEvent;
 import cn.nukkit.inventory.InventoryHolder;
+import cn.nukkit.inventory.SimpleTransactionGroup;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.enchantment.Enchantment;
@@ -1957,6 +1958,10 @@ public class Level implements ChunkManager, Metadatable {
         }
 
         if (player != null) {
+        	if (SimpleTransactionGroup.isBannedItem(block.getId()))	{
+        		return null;
+        	}
+        	
             BlockPlaceEvent event = new BlockPlaceEvent(player, hand, block, target, item);
             int distance = this.server.getSpawnRadius();
             if (!player.isOp() && distance > -1) {

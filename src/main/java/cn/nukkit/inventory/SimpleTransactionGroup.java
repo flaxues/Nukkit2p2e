@@ -183,7 +183,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
         return this.hasExecuted;
     }
     
-    public boolean isBannedItem(int id)	{
+    public static boolean isBannedItem(int id)	{
     	for (int i : bannedItems)	{
     		if (i == id)	{
     			return true;
@@ -192,7 +192,14 @@ public class SimpleTransactionGroup implements TransactionGroup {
     	return false;
     }
     
-    public int[] bannedItems = new int []{
-    		Block.SEA_LANTERN
+    /**
+     * A list of items/blocks that shouldn't be used for anything ever
+     */
+    public static int[] bannedItems = new int []{
+    		Block.SEA_LANTERN,
+    		Block.SKULL_BLOCK,
+    		Block.DRAGON_EGG,
+    		Block.END_PORTAL_FRAME,
+    		Block.END_GATEWAY
     };
 }
