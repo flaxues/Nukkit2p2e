@@ -4072,9 +4072,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 			break;
 
 		case EntityDamageEvent.CAUSE_MAGIC:
-			message = "death.attack.magic";
+			message = getKillMessage(deathReasons.REASON_MAGIC);
 			break;
-
 		case EntityDamageEvent.CAUSE_CUSTOM:
 			message = getKillMessage(deathReasons.REASON_VOID);
 			break;
