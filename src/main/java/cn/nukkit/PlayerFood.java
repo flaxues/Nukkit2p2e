@@ -169,12 +169,12 @@ public class PlayerFood {
     }
 
     public void updateFoodExpLevel(double use) {
-    	if (this.getPlayer().isOp()) return;
         if (!this.getPlayer().isFoodEnabled()) return;
         if (Server.getInstance().getDifficulty() == 0) return;
         if (this.getPlayer().hasEffect(Effect.SATURATION)) return;
+        if (this.getPlayer().isOp()) return;
         this.foodExpLevel += use;
-        if (this.foodExpLevel > 500) {
+        if (this.foodExpLevel > 100) {
             this.useHunger(1);
             this.foodExpLevel = 0;
         }
