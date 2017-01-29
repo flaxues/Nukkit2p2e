@@ -29,7 +29,7 @@ public class KillCommand extends VanillaCommand {
             if (ev.isCancelled()) {
                 return true;
             }
-            ((Player) sender).setLastDamageCause(ev.setCause(EntityDamageEvent.CAUSE_CUSTOM));
+            ((Player) sender).setLastDamageCause(ev);
             ((Player) sender).setHealth(0);
             sender.sendMessage(new TranslationContainer("commands.kill.successful", sender.getName()));
         return true;
