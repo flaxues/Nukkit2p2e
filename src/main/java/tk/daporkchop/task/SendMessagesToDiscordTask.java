@@ -21,7 +21,7 @@ public class SendMessagesToDiscordTask extends TimerTask {
 		}
 		PorkUtils.queuedMessages.clear(); //I know that this might discard some messages, but if there are more than 2000 characters showing up in chat at the same time something is wrong
 		if (toSend.length() > 4)	{ // Impossibly short message, don't bother sending it
-			PorkUtils.minecraftChannel.sendMessage(toSend).queue();
+			PorkUtils.minecraftChannel.sendMessage(toSend.replaceAll("*", "\\*").replaceAll("_", "\\_")).queue();
 		}
 	}
 
