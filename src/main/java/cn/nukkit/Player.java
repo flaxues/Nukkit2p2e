@@ -3874,7 +3874,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " was melted by lava";
 			case 1:
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED
-						+ " mined straight down and found something unwanted";
+						+ " was lava'd to death";
 			case 2:
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " tried to swim in lava";
 			}
@@ -3896,7 +3896,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " incinerated themself";
 			case 1:
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED
-						+ " tried to extingish themself, but couldn't";
+						+ " just got roasted";
 			case 2:
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " was burned to a crisp";
 			}
@@ -3906,9 +3906,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 			case 0:
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " forgot how to swim";
 			case 1:
-				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " pretended they were a fish";
+				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " was drowned";
 			case 2:
-				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " thought they had gills";
+				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " was taken by the sea";
 			}
 			break;
 		case REASON_CACTUS:
@@ -3926,7 +3926,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 		case REASON_PLAYER_ARROW:
 			switch (r.nextInt(3)) {
 			case 0:
-				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + "'s brains were blown out by "
+				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + "'s brains were shot out by "
 						+ TextFormat.AQUA + ((Player) args[0]).getName();
 			case 1:
 				return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " took " + TextFormat.AQUA
@@ -3950,13 +3950,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 						+ " threw a fatal punch at " + TextFormat.AQUA + this.getName();
 			}
 			break;
+		case REASON_MAGIC:
+			return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " was destroyed by magic";
 		}
 
 		return toReturn;
 	}
 
 	public enum deathReasons {
-		REASON_PLAYER_KILL, REASON_ENTITY_KILL, REASON_PLAYER_ARROW, REASON_ENTITY_ARROW, REASON_GENERIC, REASON_VOID, REASON_FALLING, REASON_LAVA, REASON_SUFFOCATE, REASON_BURNING, REASON_DROWN, REASON_CACTUS, REASON_EXPLOSION
+		REASON_PLAYER_KILL, REASON_ENTITY_KILL, REASON_PLAYER_ARROW, REASON_ENTITY_ARROW, REASON_GENERIC, REASON_VOID, REASON_FALLING, REASON_LAVA, REASON_SUFFOCATE, REASON_BURNING, REASON_DROWN, REASON_CACTUS, REASON_EXPLOSION, REASON_MAGIC
 	}
 
 	@Override
@@ -3964,6 +3966,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 		if (!this.spawned) {
 			return;
 		}
+		
+		this.sendMessage("&l&bYour death coords: x: " + this.getFloorX() + " y: " + this.getFloorY() + " z:" + this.getFloorZ());
 		
 		if (this.level != this.server.getDefaultLevel())	{
 			for (Item item : this.getInventory().getContents().values()) {
@@ -4120,7 +4124,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 			
 			if (-128 <= this.spawnPosition.x && this.spawnPosition.x <= 128) {
 				if (-128 <= this.spawnPosition.z && this.spawnPosition.z <= 128) {
-					System.out.println("Making new spawn");
+					//System.out.println("Making new spawn");
 					// Player's spawn point is in a 128 block radius of 0, 0
 					// Assume that they haven't slept in a bed and find a new pos in
 					// spawn
