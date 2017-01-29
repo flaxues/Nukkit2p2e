@@ -15,14 +15,14 @@ public class SavannaTreePopulator extends Populator {
     private int randomAmount;
     private int baseAmount;
 
-    private final int type;
+    //private final int type;
 
     public SavannaTreePopulator() {
         this(BlockSapling.ACACIA);
     }
 
     public SavannaTreePopulator(int type) {
-        this.type = type;
+        //this.type = type;
     }
 
     public void setRandomAmount(int randomAmount) {

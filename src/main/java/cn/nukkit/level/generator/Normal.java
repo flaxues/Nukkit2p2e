@@ -98,12 +98,14 @@ public class Normal extends Generator {
     private final int mountainHeight = 25; // 26 / 2
     private final int basegroundHeight = 2;
 
-    private int waterColor = 16777215;
+    //private int waterColor = 16777215;
     //private boolean enableSnow; Coming soon
     
     protected float rainfall = 0.5F;
     protected float temperature = 0.5F;
     protected int grassColor = 0;
+    
+    //private int heightOffset;
 
     public Normal() {
         this(new HashMap<>());
@@ -160,7 +162,7 @@ public class Normal extends Generator {
         this.noiseRiver = new Simplex(this.nukkitRandom, 2F, 1F, 1F / 512F);
         this.nukkitRandom.setSeed(this.level.getSeed());
         this.selector = new BiomeSelector(this.nukkitRandom, Biome.getBiome(Biome.FOREST));
-        this.heightOffset = random.nextRange(-5, 3);
+        //this.heightOffset = random.nextRange(-5, 3);
 
         this.selector.addBiome(Biome.getBiome(OCEAN));
         this.selector.addBiome(Biome.getBiome(PLAINS));
@@ -202,10 +204,10 @@ public class Normal extends Generator {
                 new OreType(new BlockOreGold(), 10, 8, 0, 32),
                 new OreType(new BlockOreDiamond(), 6, 8, 0, 16),
                 new OreType(new BlockDirt(), 5, 32, 30, 128),
-                new OreType(new BlockGravel(), 5, 32, 30, 128)
-                new OreType(new BlockStone(BlockStone.GRANITE), 10, 33, 0, 80),
-                new OreType(new BlockStone(BlockStone.DIORITE), 10, 33, 0, 80),
-                new OreType(new BlockStone(BlockStone.ANDESITE), 10, 33, 0, 80)
+                new OreType(new BlockGravel(), 5, 32, 30, 128),
+                new OreType(new BlockStone(BlockStone.GRANITE), 10, 33, 0, 100),
+                new OreType(new BlockStone(BlockStone.DIORITE), 10, 33, 0, 100),
+                new OreType(new BlockStone(BlockStone.ANDESITE), 10, 33, 0, 100)
         });
         this.populators.add(ores);
     }

@@ -1,12 +1,10 @@
 package cn.nukkit.level.generator.biome;
 
-import cn.nukkit.level.generator.Normal;
-import cn.nukkit.level.generator.biome.Biome;
-import cn.nukkit.level.generator.noise.Simplex;
-import cn.nukkit.math.NukkitRandom;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import cn.nukkit.level.generator.noise.Simplex;
+import cn.nukkit.math.NukkitRandom;
 
 /**
  * author: MagicDroidX
@@ -37,6 +35,8 @@ public class BiomeSelector {
                 if (temperature < 2.0f) {
                     if (rainfall == 0.0f) {
                         return Biome.DESERT;
+                    } else {
+                    	return Biome.MESA_PLATEAU;
                     }
                 }
             }

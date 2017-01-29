@@ -14,14 +14,14 @@ public class DarkOakTreePopulator extends Populator {
     private int randomAmount;
     private int baseAmount;
 
-    private final int type;
+    //private final int type;
 
     public DarkOakTreePopulator() {
         this(BlockSapling.DARK_OAK);
     }
 
     public DarkOakTreePopulator(int type) {
-        this.type = type;
+        //this.type = type;
     }
 
     public void setRandomAmount(int randomAmount) {

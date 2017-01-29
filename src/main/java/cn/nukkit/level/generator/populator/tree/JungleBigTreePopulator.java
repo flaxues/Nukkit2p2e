@@ -17,14 +17,14 @@ public class JungleBigTreePopulator extends Populator {
     private int randomAmount;
     private int baseAmount;
 
-    private final int type;
+    //private final int type;
 
     public JungleBigTreePopulator() {
         this(BlockSapling.JUNGLE);
     }
 
     public JungleBigTreePopulator(int type) {
-        this.type = type;
+        //this.type = type;
     }
 
     public void setRandomAmount(int randomAmount) {

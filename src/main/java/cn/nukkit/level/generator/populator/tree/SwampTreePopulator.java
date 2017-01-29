@@ -14,14 +14,14 @@ public class SwampTreePopulator extends Populator {
     private int randomAmount;
     private int baseAmount;
 
-    private final int type;
+    //private final int type;
 
     public SwampTreePopulator() {
         this(BlockSapling.OAK);
     }
 
     public SwampTreePopulator(int type) {
-        this.type = type;
+        //this.type = type;
     }
 
     public void setRandomAmount(int randomAmount) {

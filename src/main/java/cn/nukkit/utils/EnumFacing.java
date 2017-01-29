@@ -215,7 +215,11 @@ public enum EnumFacing {
         throw new IllegalArgumentException("No such direction: " + axisDirectionIn + " " + axisIn);
     }
 
-    static {
+    public Vector3 getDirectionVec() {
+		return directionVec;
+	}
+
+	static {
         for (EnumFacing enumfacing : values()) {
             VALUES[enumfacing.index] = enumfacing;
 
