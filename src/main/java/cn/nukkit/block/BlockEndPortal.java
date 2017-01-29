@@ -64,11 +64,7 @@ public class BlockEndPortal extends BlockFlowable {
     public void onEntityCollide(Entity entity) {
     	
     	Level world = Server.getInstance().getDefaultLevel();
-    	
-    	if (entity.level != world)	{ //somebody is skidding stuff ...
-     		return;
-     	}
-    	
+        
         EntityPortalEnterEvent ev = new EntityPortalEnterEvent(entity, EntityPortalEnterEvent.TYPE_END);
         this.level.getServer().getPluginManager().callEvent(ev);
         
@@ -79,11 +75,19 @@ public class BlockEndPortal extends BlockFlowable {
         // PortalPort!
      	Level end = Server.getInstance().getEndLevel();
      	
-     	Position pos = new Position(0, 64, 0, end);
-     	if (entity instanceof Player)	{
-     		genPortal(pos, (Player) entity);
-     	}
-     	entity.teleport(pos);
+         if (entity.level == world)  {
+     	    Position pos = new Position(0, 64, 0, end);
+     	    if (entity instanceof Player)	{
+     		    genPortal(pos, (Player) entity);
+     	    }
+         	entity.teleport(pos);
+        } else {
+        	if (entity instanceof Player)  {
+        	    entity.teleport(((Player) entity).spawnPosition == null ? new Position(0, 256, 0, world) : ((Player) entity).spawnPosition);
+            } else {
+            	entity.teleport(new Position(0, 256, 0, world));
+            } 
+        } 
     }
 
 
