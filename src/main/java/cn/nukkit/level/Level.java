@@ -18,6 +18,7 @@ import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.redstone.RedstoneUpdateEvent;
 import cn.nukkit.event.weather.LightningStrikeEvent;
 import cn.nukkit.inventory.InventoryHolder;
+import cn.nukkit.inventory.SimpleTransactionGroup;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.enchantment.Enchantment;
@@ -82,7 +83,8 @@ public class Level implements ChunkManager, Metadatable {
     public static final int TIME_FULL = 24000;
 
     public static final int DIMENSION_OVERWORLD = 0;
-    public static final int DIMENSION_NETHER = 1;
+    public static final int DIMENSION_NETHER = 1; //Technically this should be -1 and end should be 1, but I'm not changing it for fear of breaking stuff
+    public static final int DIMENSION_END = 2;
 
     // Lower values use less memory
     public static final int MAX_BLOCK_CACHE = 512;
@@ -1956,6 +1958,10 @@ public class Level implements ChunkManager, Metadatable {
         }
 
         if (player != null) {
+        	if (SimpleTransactionGroup.isBannedItem(block.getId()))	{
+        		return null;
+        	}
+        	
             BlockPlaceEvent event = new BlockPlaceEvent(player, hand, block, target, item);
             int distance = this.server.getSpawnRadius();
             if (!player.isOp() && distance > -1) {

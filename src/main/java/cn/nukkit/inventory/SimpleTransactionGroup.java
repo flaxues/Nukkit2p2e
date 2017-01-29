@@ -2,6 +2,7 @@ package cn.nukkit.inventory;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.block.Block;
 import cn.nukkit.event.inventory.InventoryTransactionEvent;
 import cn.nukkit.item.Item;
 
@@ -105,16 +106,21 @@ public class SimpleTransactionGroup implements TransactionGroup {
         
         while (iter1.hasNext())	{
         	Item needItem = iter1.next();
-        	if (needItem.hasEnchantments())	{
-        		iter1.remove();
-        		continue;
-        	}
+        	if (needItem.hasEnchantments())
         	while (iter2.hasNext())	{
         		Item haveItem = iter2.next();
-        		if (haveItem.hasEnchantments())	{
+        		if (haveItem.hasEnchantments() || needItem.hasEnchantments())	{
         			iter2.remove();
+        			iter1.remove();
         			continue;
         		}
+        		
+        		if (isBannedItem(haveItem.getId()) || isBannedItem(needItem.getId()))	{
+        			iter2.remove();
+        			iter1.remove();
+        			continue;
+        		}
+        		
         		if (needItem.deepEquals(haveItem)) {
                     int amount = Math.min(haveItem.getCount(), needItem.getCount());
                     needItem.setCount(needItem.getCount() - amount);
@@ -176,4 +182,24 @@ public class SimpleTransactionGroup implements TransactionGroup {
     public boolean hasExecuted() {
         return this.hasExecuted;
     }
+    
+    public static boolean isBannedItem(int id)	{
+    	for (int i : bannedItems)	{
+    		if (i == id)	{
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    /**
+     * A list of items/blocks that shouldn't be used for anything ever
+     */
+    public static int[] bannedItems = new int []{
+    		Block.SEA_LANTERN,
+    		Block.SKULL_BLOCK,
+    		Block.DRAGON_EGG,
+    		Block.END_PORTAL_FRAME,
+    		Block.END_GATEWAY
+    };
 }

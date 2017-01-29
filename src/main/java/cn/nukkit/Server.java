@@ -32,6 +32,7 @@ import cn.nukkit.level.format.LevelProviderManager;
 import cn.nukkit.level.format.anvil.Anvil;
 import cn.nukkit.level.format.leveldb.LevelDB;
 import cn.nukkit.level.format.mcregion.McRegion;
+import cn.nukkit.level.generator.End;
 import cn.nukkit.level.generator.Flat;
 import cn.nukkit.level.generator.Generator;
 import cn.nukkit.level.generator.Nether;
@@ -178,6 +179,8 @@ public class Server {
     private final ServiceManager serviceManager = new NKServiceManager();
 
     private Level defaultLevel = null;
+    private Level netherLevel = null;
+    private Level endLevel = null;
 
     @SuppressWarnings("unchecked")
 	public Server(MainLogger logger, final String filePath, String dataPath, String pluginPath) {
@@ -201,7 +204,7 @@ public class Server {
         this.pluginPath = new File(pluginPath).getAbsolutePath() + "/";
 
         this.console = new CommandReader();
-        //todo: VersionString 现在不必要
+        //todo: VersionString çŽ°åœ¨ä¸�å¿…è¦�
 
         if (!new File(this.dataPath + "nukkit.yml").exists()) {
             this.getLogger().info(TextFormat.GREEN + "Welcome! Please choose a language first!");
@@ -381,6 +384,7 @@ public class Server {
         Generator.addGenerator(Normal.class, "normal", Generator.TYPE_INFINITE);
         Generator.addGenerator(Normal.class, "default", Generator.TYPE_INFINITE);
         Generator.addGenerator(Nether.class, "nether", Generator.TYPE_NETHER);
+        Generator.addGenerator(End.class, "end", Generator.TYPE_END);
         //todo: add old generator and hell generator
 
         for (String name : ((Map<String, Object>) this.getConfig("worlds", new HashMap<>())).keySet()) {
@@ -429,6 +433,9 @@ public class Server {
             }
 
             this.setDefaultLevel(this.getLevelByName(defaultName));
+            
+            this.setNetherLevel(this.getLevelByName("nether"));
+            this.setEndLevel(this.getLevelByName("end"));
         }
 
         this.properties.save(true);
@@ -1931,5 +1938,20 @@ public class Server {
     public static Server getInstance() {
         return instance;
     }
-
+    
+    public void setNetherLevel(Level lvl)	{
+        this.netherLevel = lvl;
+    }
+    
+    public Level getNetherLevel()	{
+    	return this.netherLevel;
+    }
+    
+    public void setEndLevel(Level lvl)	{
+        this.endLevel = lvl;
+    }
+    
+    public Level getEndLevel()	{
+    	return this.endLevel;
+    }
 }

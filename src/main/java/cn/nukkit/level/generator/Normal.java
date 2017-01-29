@@ -210,6 +210,8 @@ public class Normal extends Generator {
                 new OreType(new BlockStone(BlockStone.ANDESITE), 10, 33, 0, 100)
         });
         this.populators.add(ores);
+        
+        this.populators.add(new PopulatorEndPortal());
     }
 
     @Override

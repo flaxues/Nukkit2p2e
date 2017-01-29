@@ -116,7 +116,9 @@ aliases:
 
 worlds:
  #These settings will override the generator set in server.properties and allows loading multiple levels
- #Example:
  nether:
   seed: 1
   generator: NETHER
+ end:
+  seed: 1
+  generator: END

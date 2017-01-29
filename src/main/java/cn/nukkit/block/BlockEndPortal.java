@@ -1,9 +1,14 @@
 package cn.nukkit.block;
 
+import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.event.entity.EntityPortalEnterEvent;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Level;
+import cn.nukkit.level.Position;
 import cn.nukkit.utils.BlockColor;
+import tk.daporkchop.task.GenEnderPortalTask;
 
 public class BlockEndPortal extends BlockFlowable {
 
@@ -57,6 +62,13 @@ public class BlockEndPortal extends BlockFlowable {
 
     @Override
     public void onEntityCollide(Entity entity) {
+    	
+    	Level world = Server.getInstance().getDefaultLevel();
+    	
+    	if (entity.level != world)	{ //somebody is skidding stuff ...
+     		return;
+     	}
+    	
         EntityPortalEnterEvent ev = new EntityPortalEnterEvent(entity, EntityPortalEnterEvent.TYPE_END);
         this.level.getServer().getPluginManager().callEvent(ev);
         
@@ -64,7 +76,14 @@ public class BlockEndPortal extends BlockFlowable {
             return;
         }
         
-        //todo: teleport to the end
+        // PortalPort!
+     	Level end = Server.getInstance().getEndLevel();
+     	
+     	Position pos = new Position(0, 64, 0, end);
+     	if (entity instanceof Player)	{
+     		genPortal(pos, (Player) entity);
+     	}
+     	entity.teleport(pos);
     }
 
 
@@ -72,5 +91,22 @@ public class BlockEndPortal extends BlockFlowable {
     public BlockColor getColor() {
         return BlockColor.AIR_BLOCK_COLOR;
     }
-
+    
+    @Override
+	public boolean onBreak(Item item) {
+		boolean result = super.onBreak(item);
+		for (int side = 0; side <= 5; side++) {
+			Block b = this.getSide(side);
+			if (b != null) {
+				if (b instanceof BlockEndPortal) {
+					result &= b.onBreak(item);
+				}
+			}
+		}
+		return result;
+	}
+    
+    public void genPortal(Position pos, Player p) {		
+		Server.getInstance().getScheduler().scheduleDelayedTask(new GenEnderPortalTask(pos, p), 2, false);
+	}
 }

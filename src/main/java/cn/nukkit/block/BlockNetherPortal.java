@@ -90,7 +90,7 @@ public class BlockNetherPortal extends BlockFlowable {
 				return;
 			}
 			// PortalPort!
-			Level nether = Server.getInstance().getLevelByName("nether"), world = Server.getInstance().getDefaultLevel();
+			Level nether = Server.getInstance().getNetherLevel(), world = Server.getInstance().getDefaultLevel();
 
 			boolean toNether = entity.level == world; // true if entity needs to go to nether, false otherwise
 
