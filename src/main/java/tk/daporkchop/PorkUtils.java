@@ -36,6 +36,16 @@ import tk.daporkchop.task.UpdatePlayerCountTask;
 
 public class PorkUtils extends PluginBase {
 	
+	/**
+	 * Essentially a list of players i want muted because thy are fags
+	 */
+	public static final ArrayList<String> muted = new ArrayList<String>();
+	
+	static {
+		muted.add("zLord47");
+		muted.add("InfernoViper");
+	}
+	
 	public static JDA api;
 	public static TextChannel minecraftChannel;
 	public static String[] welcomeMessage;
