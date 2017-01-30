@@ -85,7 +85,7 @@ public class BlockRail extends BlockFlowable {
             int z = xz[1];
             for (int y : arrayY) {
                 Vector3 v3 = new Vector3(x, y, z).add(this);
-                Block v3block = this.getLevel().getBlock(v3);
+                Block v3block = this.getLevel().getBlock(v3.x, v3.y, v3.z);
                 if (v3block == null) continue;
                 if (!isRailBlock(v3block.getId()) || !isValidRailMeta(v3block.getDamage())) continue;
                 if (!(v3block instanceof BlockRail)) continue;

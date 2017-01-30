@@ -117,7 +117,7 @@ public class EntityFallingBlock extends Entity {
             Vector3 pos = new Vector3(x - 0.5, y, z - 0.5).round();
 
             if (ticksLived == 1) {
-                Block block = level.getBlock(pos);
+                Block block = level.getBlock(pos.x, pos.y, pos.z);
                 if (block.getId() != blockId) {
                     kill();
                     return true;
@@ -139,7 +139,7 @@ public class EntityFallingBlock extends Entity {
 
             if (onGround) {
                 kill();
-                Block block = level.getBlock(pos);
+                Block block = level.getBlock(pos.x, pos.y, pos.z);
                 if (block.getId() > 0 && !block.isSolid() && !(block instanceof BlockLiquid)) {
                     getLevel().dropItem(this, Item.get(this.getBlock(), this.getDamage(), 1));
                 } else {

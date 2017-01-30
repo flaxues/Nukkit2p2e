@@ -1161,7 +1161,7 @@ public abstract class Entity extends Location implements Metadatable {
         }
 
         if (fallDistance > 0.75) {
-            Block down = this.level.getBlock(this.temporalVector.setComponents(getFloorX(), getFloorY() - 1, getFloorZ()));
+            Block down = this.level.getBlock(this.temporalVector.setComponents(getFloorX(), getFloorY() - 1, getFloorZ()).x, this.temporalVector.y, this.temporalVector.z);
 
             if (down.getId() == Item.FARMLAND) {
                 if (this instanceof Player) {
@@ -1229,7 +1229,7 @@ public abstract class Entity extends Location implements Metadatable {
 
     public boolean isInsideOfWater() {
         double y = this.y + this.getEyeHeight();
-        Block block = this.level.getBlock(this.temporalVector.setComponents(NukkitMath.floorDouble(this.x), NukkitMath.floorDouble(y), NukkitMath.floorDouble(this.z)));
+        Block block = this.level.getBlock(this.temporalVector.setComponents(NukkitMath.floorDouble(this.x), NukkitMath.floorDouble(y), NukkitMath.floorDouble(this.z)).x, this.temporalVector.y, this.temporalVector.z);
 
         if (block instanceof BlockWater) {
             double f = (block.y + 1) - (((BlockWater) block).getFluidHeightPercent() - 0.1111111);
@@ -1245,7 +1245,9 @@ public abstract class Entity extends Location implements Metadatable {
                 this.temporalVector.setComponents(
                         NukkitMath.floorDouble(this.x),
                         NukkitMath.floorDouble(y),
-                        NukkitMath.floorDouble(this.z))
+                        NukkitMath.floorDouble(this.z)).x,
+                this.temporalVector.y,
+                this.temporalVector.z
         );
 
         AxisAlignedBB bb = block.getBoundingBox();
@@ -1435,7 +1437,7 @@ public abstract class Entity extends Location implements Metadatable {
             for (int z = minZ; z <= maxZ; ++z) {
                 for (int x = minX; x <= maxX; ++x) {
                     for (int y = minY; y <= maxY; ++y) {
-                        Block block = this.level.getBlock(this.temporalVector.setComponents(x, y, z));
+                        Block block = this.level.getBlock(this.temporalVector.setComponents(x, y, z).x, this.temporalVector.y, this.temporalVector.z);
                         if (block.hasEntityCollision()) {
                             this.blocksAround.add(block);
                         }

@@ -801,7 +801,8 @@ public abstract class Block extends Position implements Metadatable, Cloneable {
         return this.getSide(side, 1);
     }
 
-    public Block getSide(int side, int step) {
+    @SuppressWarnings("deprecation")
+	public Block getSide(int side, int step) {
         if (this.isValid()) {
             return this.getLevel().getBlock(super.getSide(side, step));
         }

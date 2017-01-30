@@ -138,7 +138,7 @@ public abstract class BlockEntity extends Position {
     }
 
     public Block getBlock() {
-        return this.level.getBlock(this);
+        return this.level.getBlock(this.x, this.y, this.z);
     }
 
     public abstract boolean isBlockEntityValid();

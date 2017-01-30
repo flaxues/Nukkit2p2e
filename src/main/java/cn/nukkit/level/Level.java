@@ -1353,10 +1353,12 @@ public class Level implements ChunkManager, Metadatable {
         return this.getChunk(x >> 4, z >> 4, false).getFullBlock(x & 0x0f, y & 0xff, z & 0x0f);
     }
 
+    @Deprecated
     public Block getBlock(Vector3 pos) {
         return this.getBlock(pos, true);
     }
 
+    @Deprecated
     public Block getBlock(Vector3 pos, boolean cached) {
         long chunkIndex = Level.chunkHash((int) pos.x >> 4, (int) pos.z >> 4);
         BlockVector3 index = Level.blockHash((int) pos.x, (int) pos.y, (int) pos.z);
@@ -1384,6 +1386,10 @@ public class Level implements ChunkManager, Metadatable {
         this.blockCache.put(index, block);
 
         return block;
+    }
+    
+    public Block getBlock(double x, double y, double z)	{
+    	return this.getBlock((int) x, (int) y, (int) z, true);
     }
     
     public Block getBlock(int x, int y, int z) {

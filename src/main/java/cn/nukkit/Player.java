@@ -997,7 +997,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         }
 
         PlayerBedEnterEvent ev;
-        this.server.getPluginManager().callEvent(ev = new PlayerBedEnterEvent(this, this.level.getBlock(pos)));
+        this.server.getPluginManager().callEvent(ev = new PlayerBedEnterEvent(this, this.level.getBlock(pos.x, pos.y, pos.z)));
         if (ev.isCancelled()) {
             return false;
         }
@@ -1033,7 +1033,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     public void stopSleep() {
         if (this.sleeping != null) {
-            this.server.getPluginManager().callEvent(new PlayerBedLeaveEvent(this, this.level.getBlock(this.sleeping)));
+            this.server.getPluginManager().callEvent(new PlayerBedLeaveEvent(this, this.level.getBlock(this.sleeping.x, this.sleeping.y, this.sleeping.z)));
 
             this.sleeping = null;
             this.setDataProperty(new IntPositionEntityData(DATA_PLAYER_BED_POSITION, 0, 0, 0));
@@ -1220,7 +1220,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             for (int z = minZ; z <= maxZ; ++z) {
                 for (int x = minX; x <= maxX; ++x) {
                     for (int y = minY; y <= maxY; ++y) {
-                        Block block = this.level.getBlock(this.temporalVector.setComponents(x, y, z));
+                        Block block = this.level.getBlock(this.temporalVector.setComponents(x, y, z).x, this.temporalVector.y, this.temporalVector.z);
 
                         if (!block.canPassThrough() && block.collidesWithBB(realBB)) {
                             onGround = true;
@@ -4137,14 +4137,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 					int y = r.nextInt(127) + 1;
 					Level world = this.server.getLevelByName("world");
 					
-					while (!(world.getBlock(new Vector3(x, y, z)).getId() == Block.AIR
-						&& world.getBlock(new Vector3(x, y + 1, z)).getId() == Block.AIR
-						&& world.getBlock(new Vector3(x, y - 1, z)).getId() != Block.LAVA
-						&& world.getBlock(new Vector3(x, y - 1, z)).getId() != Block.STILL_LAVA
-						&& world.getBlock(new Vector3(x, y - 1, z)).getId() != Block.WATER
-						&& world.getBlock(new Vector3(x, y - 1, z)).getId() != Block.STILL_WATER
-						&& world.getBlock(new Vector3(x, y - 1, z)).getId() != Block.FIRE
-						&& world.getBlock(new Vector3(x, y - 1, z)).getId() != Block.AIR)) {
+					while (!(world.getBlock(x, y, z).getId() == Block.AIR
+						&& world.getBlock(x, y + 1, z).getId() == Block.AIR
+						&& world.getBlock(x, y - 1, z).getId() != Block.LAVA
+						&& world.getBlock(x, y - 1, z).getId() != Block.STILL_LAVA
+						&& world.getBlock(x, y - 1, z).getId() != Block.WATER
+						&& world.getBlock(x, y - 1, z).getId() != Block.STILL_WATER
+						&& world.getBlock(x, y - 1, z).getId() != Block.FIRE
+						&& world.getBlock(x, y - 1, z).getId() != Block.AIR)) {
 						x = r.nextInt(257) - 128;
 						z = r.nextInt(257) - 128;
 						y = r.nextInt(127) + 1;
@@ -4276,7 +4276,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 ) {
             source.setCancelled();
         } else if (source.getCause() == EntityDamageEvent.CAUSE_FALL) {
-            if (this.getLevel().getBlock(this.getPosition().floor().add(0.5, -1, 0.5)).getId() == Block.SLIME_BLOCK) {
+        	Vector3 pos = this.getPosition().floor().add(0.5, -1, 0.5);
+            if (this.getLevel().getBlock(pos.x, pos.y, pos.z).getId() == Block.SLIME_BLOCK) {
                 if (!this.isSneaking()) {
                     source.setCancelled();
                     this.resetFallDistance();

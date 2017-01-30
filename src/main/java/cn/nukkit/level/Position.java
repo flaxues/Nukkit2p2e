@@ -88,7 +88,7 @@ public class Position extends Vector3 {
     }
 
     public Block getLevelBlock() {
-        if (this.isValid()) return this.level.getBlock(this);
+        if (this.isValid()) return this.level.getBlock(this.x, this.y, this.z);
         else throw new LevelException("Undefined Level reference");
     }
 
@@ -183,7 +183,7 @@ public class Position extends Vector3 {
     }
     
     public boolean isBrokenBed()	{
-    	Block block = this.level.getBlock(this);
+    	Block block = this.level.getBlock(this.x, this.y, this.z);
     	
     	Block blockNorth = block.getSide(2);
         Block blockSouth = block.getSide(3);

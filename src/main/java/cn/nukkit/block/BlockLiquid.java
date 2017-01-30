@@ -63,7 +63,7 @@ public abstract class BlockLiquid extends BlockTransparent {
 
     protected int getFlowDecay(Vector3 pos) {
         if (!(pos instanceof Block)) {
-            pos = this.getLevel().getBlock(pos);
+            pos = this.getLevel().getBlock(pos.x, pos.y, pos.z);
         }
 
         if (((Block) pos).getId() != this.getId()) {
@@ -75,7 +75,7 @@ public abstract class BlockLiquid extends BlockTransparent {
 
     protected int getEffectiveFlowDecay(Vector3 pos) {
         if (!(pos instanceof Block)) {
-            pos = this.getLevel().getBlock(pos);
+            pos = this.getLevel().getBlock(pos.x, pos.y, pos.z);
         }
 
         if (((Block) pos).getId() != this.getId()) {
@@ -115,7 +115,7 @@ public abstract class BlockLiquid extends BlockTransparent {
             } else if (j == 3) {
                 ++z;
             }
-            Block sideBlock = this.getLevel().getBlock(this.temporalVector.setComponents(x, y, z));
+            Block sideBlock = this.getLevel().getBlock(this.temporalVector.setComponents(x, y, z).x, this.temporalVector.y, this.temporalVector.z);
             int blockDecay = this.getEffectiveFlowDecay(sideBlock);
 
             if (blockDecay < 0) {
@@ -123,7 +123,7 @@ public abstract class BlockLiquid extends BlockTransparent {
                     continue;
                 }
 
-                blockDecay = this.getEffectiveFlowDecay(this.getLevel().getBlock(this.temporalVector.setComponents(x, y - 1, z)));
+                blockDecay = this.getEffectiveFlowDecay(this.getLevel().getBlock(this.temporalVector.setComponents(x, y - 1, z).x, this.temporalVector.y, this.temporalVector.z));
 
                 if (blockDecay >= 0) {
                     int realDecay = blockDecay - (decay - 8);
@@ -144,21 +144,21 @@ public abstract class BlockLiquid extends BlockTransparent {
         if (this.getDamage() >= 8) {
             boolean falling = false;
 
-            if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y, this.z - 1)).canBeFlowedInto()) {
+            if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y, this.z - 1).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
-            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y, this.z + 1)).canBeFlowedInto()) {
+            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y, this.z + 1).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
-            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x - 1, this.y, this.z)).canBeFlowedInto()) {
+            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x - 1, this.y, this.z).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
-            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x + 1, this.y, this.z)).canBeFlowedInto()) {
+            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x + 1, this.y, this.z).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
-            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y + 1, this.z - 1)).canBeFlowedInto()) {
+            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y + 1, this.z - 1).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
-            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y + 1, this.z + 1)).canBeFlowedInto()) {
+            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x, this.y + 1, this.z + 1).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
-            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x - 1, this.y + 1, this.z)).canBeFlowedInto()) {
+            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x - 1, this.y + 1, this.z).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
-            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x + 1, this.y + 1, this.z)).canBeFlowedInto()) {
+            } else if (!this.getLevel().getBlock(this.temporalVector.setComponents(this.x + 1, this.y + 1, this.z).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 falling = true;
             }
 
@@ -211,10 +211,10 @@ public abstract class BlockLiquid extends BlockTransparent {
             if (decay > 0) {
                 smallestFlowDecay = -100;
                 this.adjacentSources = 0;
-                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z - 1)), smallestFlowDecay);
-                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z + 1)), smallestFlowDecay);
-                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x - 1, this.y, this.z)), smallestFlowDecay);
-                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x + 1, this.y, this.z)), smallestFlowDecay);
+                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z - 1).x, this.temporalVector.y, this.temporalVector.z), smallestFlowDecay);
+                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z + 1).x, this.temporalVector.y, this.temporalVector.z), smallestFlowDecay);
+                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x - 1, this.y, this.z).x, this.temporalVector.y, this.temporalVector.z), smallestFlowDecay);
+                smallestFlowDecay = this.getSmallestFlowDecay(this.level.getBlock(this.temporalVector.setComponents(this.x + 1, this.y, this.z).x, this.temporalVector.y, this.temporalVector.z), smallestFlowDecay);
 
                 int k = smallestFlowDecay + multiplier;
 
@@ -223,7 +223,8 @@ public abstract class BlockLiquid extends BlockTransparent {
                 }
 
                 int topFlowDecay;
-                if ((topFlowDecay = this.getFlowDecay(this.level.getBlock(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y + 1, this.z))))) >= 0) {
+                Block b = null;
+                if ((topFlowDecay = this.getFlowDecay(this.level.getBlock((b = this.level.getBlock(this.temporalVector.setComponents(this.x, this.y + 1, this.z).x, this.temporalVector.y, this.temporalVector.z)).x, b.y, b.z))) >= 0) {
                     if (topFlowDecay >= 8) {
                         k = topFlowDecay;
                     } else {
@@ -233,7 +234,7 @@ public abstract class BlockLiquid extends BlockTransparent {
 
 
                 if (this.adjacentSources >= 2 && this instanceof BlockWater) {
-                    Block bottomBlock = this.level.getBlock(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y - 1, this.z)));
+                    Block bottomBlock = this.level.getBlock((b = this.level.getBlock(this.temporalVector.setComponents(this.x, this.y - 1, this.z).x, this.temporalVector.y, this.temporalVector.z)).x, b.y, b.z);
                     if (bottomBlock.isSolid()) {
                         k = 0;
                     } else if (bottomBlock instanceof BlockWater && bottomBlock.getDamage() == 0) {
@@ -261,7 +262,7 @@ public abstract class BlockLiquid extends BlockTransparent {
                 //this.updateFlow();
             }
 
-            Block bottomBlock = this.level.getBlock(this.temporalVector.setComponents(this.x, this.y - 1, this.z));
+            Block bottomBlock = this.level.getBlock(this.temporalVector.setComponents(this.x, this.y - 1, this.z).x, this.temporalVector.y, this.temporalVector.z);
 
             if (bottomBlock.canBeFlowedInto() || bottomBlock instanceof BlockLiquid) {
                 if (this instanceof BlockLava && bottomBlock instanceof BlockWater) {
@@ -300,19 +301,19 @@ public abstract class BlockLiquid extends BlockTransparent {
                 }
 
                 if (flags[0]) {
-                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x - 1, this.y, this.z)), l);
+                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x - 1, this.y, this.z).x, this.temporalVector.y, this.temporalVector.z), l);
                 }
 
                 if (flags[1]) {
-                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x + 1, this.y, this.z)), l);
+                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x + 1, this.y, this.z).x, this.temporalVector.y, this.temporalVector.z), l);
                 }
 
                 if (flags[2]) {
-                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z - 1)), l);
+                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z - 1).x, this.temporalVector.y, this.temporalVector.z), l);
                 }
 
                 if (flags[3]) {
-                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z + 1)), l);
+                    this.flowIntoBlock(this.level.getBlock(this.temporalVector.setComponents(this.x, this.y, this.z + 1).x, this.temporalVector.y, this.temporalVector.z), l);
                 }
             }
 
@@ -359,13 +360,13 @@ public abstract class BlockLiquid extends BlockTransparent {
                 } else if (j == 3) {
                     ++z;
                 }
-                Block blockSide = this.getLevel().getBlock(this.temporalVector.setComponents(x, y, z));
+                Block blockSide = this.getLevel().getBlock(this.temporalVector.setComponents(x, y, z).x, this.temporalVector.y, this.temporalVector.z);
 
                 if (!blockSide.canBeFlowedInto() && !(blockSide instanceof BlockLiquid)) {
                     continue;
                 } else if (blockSide instanceof BlockLiquid && blockSide.getDamage() == 0) {
                     continue;
-                } else if (this.getLevel().getBlock(this.temporalVector.setComponents(x, y - 1, z)).canBeFlowedInto()) {
+                } else if (this.getLevel().getBlock(this.temporalVector.setComponents(x, y - 1, z).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                     return accumulatedCost;
                 }
 
@@ -415,13 +416,13 @@ public abstract class BlockLiquid extends BlockTransparent {
             } else if (j == 3) {
                 ++z;
             }
-            Block block = this.getLevel().getBlock(this.temporalVector.setComponents(x, y, z));
+            Block block = this.getLevel().getBlock(this.temporalVector.setComponents(x, y, z).x, this.temporalVector.y, this.temporalVector.z);
 
             if (!block.canBeFlowedInto() && !(block instanceof BlockLiquid)) {
                 continue;
             } else if (block instanceof BlockLiquid && block.getDamage() == 0) {
                 continue;
-            } else if (this.getLevel().getBlock(this.temporalVector.setComponents(x, y - 1, z)).canBeFlowedInto()) {
+            } else if (this.getLevel().getBlock(this.temporalVector.setComponents(x, y - 1, z).x, this.temporalVector.y, this.temporalVector.z).canBeFlowedInto()) {
                 this.flowinCost[j] = 0;
             } else {
                 this.flowinCost[j] = this.calculateFlowCost(block, 1, j);

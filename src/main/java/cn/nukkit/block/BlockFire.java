@@ -144,7 +144,7 @@ public class BlockFire extends BlockFlowable {
                                         k += (y - (this.y + 1)) * 100;
                                     }
 
-                                    Block block = this.getLevel().getBlock(new Vector3(x, y, z));
+                                    Block block = this.getLevel().getBlock(x, y, z);
                                     int chance = this.getChanceOfNeighborsEncouragingFire(block);
 
                                     if (chance > 0) {

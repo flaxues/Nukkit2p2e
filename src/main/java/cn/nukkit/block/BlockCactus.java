@@ -9,7 +9,6 @@ import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.AxisAlignedBB;
-import cn.nukkit.math.Vector3;
 import cn.nukkit.utils.BlockColor;
 
 /**
@@ -80,7 +79,7 @@ public class BlockCactus extends BlockTransparent {
             if (getSide(0).getId() != CACTUS) {
                 if (this.meta == 0x0F) {
                     for (int y = 1; y < 3; ++y) {
-                        Block b = this.getLevel().getBlock(new Vector3(this.x, this.y + y, this.z));
+                        Block b = this.getLevel().getBlock(this.x, this.y + y, this.z);
                         if (b.getId() == AIR) {
                             BlockGrowEvent event = new BlockGrowEvent(b, new BlockCactus());
                             Server.getInstance().getPluginManager().callEvent(event);

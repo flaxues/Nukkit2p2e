@@ -28,10 +28,9 @@ public class ItemMinecartHopper extends Item {
         return true;
     }
 
-    @SuppressWarnings("unused")
 	@Override
     public boolean onActivate(Level level, Player player, Block block, Block target, int face, double fx, double fy, double fz) {
-        Block secret = level.getBlock(block.add(0, -1, 0));
+        //Block secret = level.getBlock(block.add(0, -1, 0));
         // TODO: 2016/1/30 check if blockId of secret is a rail
         EntityMinecartHopper minecart = new EntityMinecartHopper(
                 level.getChunk(block.getFloorX() >> 4, block.getFloorZ() >> 4), new CompoundTag("")

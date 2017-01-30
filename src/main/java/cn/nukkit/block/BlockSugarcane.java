@@ -5,7 +5,6 @@ import cn.nukkit.Server;
 import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
-import cn.nukkit.math.Vector3;
 import cn.nukkit.utils.BlockColor;
 
 /**
@@ -43,7 +42,7 @@ public class BlockSugarcane extends BlockFlowable {
         if (item.getId() == Item.DYE && item.getDamage() == 0x0F) { //Bonemeal
             if (this.getSide(0).getId() != SUGARCANE_BLOCK) {
                 for (y = 1; y < 3; ++y) {
-                    Block b = this.getLevel().getBlock(new Vector3(this.x, this.y + y, this.z));
+                    Block b = this.getLevel().getBlock(this.x, this.y + y, this.z);
                     if (b.getId() == AIR) {
                         BlockGrowEvent ev = new BlockGrowEvent(b, new BlockSugarcane());
                         Server.getInstance().getPluginManager().callEvent(ev);
@@ -76,7 +75,7 @@ public class BlockSugarcane extends BlockFlowable {
             if (this.getSide(0).getId() != SUGARCANE_BLOCK) {
                 if (this.meta == 0x0F) {
                     for (y = 1; y < 3; ++y) {
-                        Block b = this.getLevel().getBlock(new Vector3(this.x, this.y + y, this.z));
+                        Block b = this.getLevel().getBlock(this.x, this.y + y, this.z);
                         if (b.getId() == AIR) {
                             this.getLevel().setBlock(b, new BlockSugarcane(), true);
                             break;

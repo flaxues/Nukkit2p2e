@@ -91,7 +91,7 @@ public class Explosion {
                             if (vBlock.y < 0 || vBlock.y > 255) {
                                 break;
                             }
-                            Block block = this.level.getBlock(vBlock);
+                            Block block = this.level.getBlock(vBlock.x, vBlock.y, vBlock.z);
 
                             if (block.getId() != 0) {
                                 blastForce -= (block.getResistance() / 5 + 0.3d) * this.stepLen;
@@ -204,7 +204,7 @@ public class Explosion {
                 Vector3 sideBlock = pos.getSide(side);
                 BlockVector3 index = Level.blockHash((int) sideBlock.x, (int) sideBlock.y, (int) sideBlock.z);
                 if (!this.affectedBlocks.contains(sideBlock) && !updateBlocks.containsKey(index)) {
-                    BlockUpdateEvent ev = new BlockUpdateEvent(this.level.getBlock(sideBlock));
+                    BlockUpdateEvent ev = new BlockUpdateEvent(this.level.getBlock(sideBlock.x, sideBlock.y, sideBlock.z));
                     this.level.getServer().getPluginManager().callEvent(ev);
                     if (!ev.isCancelled()) {
                         ev.getBlock().onUpdate(Level.BLOCK_UPDATE_NORMAL);
