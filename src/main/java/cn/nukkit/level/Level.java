@@ -1958,7 +1958,7 @@ public class Level implements ChunkManager, Metadatable {
         }
 
         if (player != null) {
-        	if (SimpleTransactionGroup.isBannedItem(block.getId()))	{
+        	if (SimpleTransactionGroup.isBannedItem(block.getId(), player.isOp()))	{
         		return null;
         	}
         	

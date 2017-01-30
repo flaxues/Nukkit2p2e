@@ -115,7 +115,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
         			continue;
         		}
         		
-        		if (isBannedItem(haveItem.getId()) || isBannedItem(needItem.getId()))	{
+        		if (isBannedItem(haveItem.getId(), false) || isBannedItem(needItem.getId(), false))	{
         			iter2.remove();
         			iter1.remove();
         			continue;
@@ -183,7 +183,11 @@ public class SimpleTransactionGroup implements TransactionGroup {
         return this.hasExecuted;
     }
     
-    public static boolean isBannedItem(int id)	{
+    public static boolean isBannedItem(int id, boolean isOp)	{
+    	if (isOp)	{
+    		return true;
+    	}
+    	
     	for (int i : bannedItems)	{
     		if (i == id)	{
     			return true;
@@ -200,6 +204,15 @@ public class SimpleTransactionGroup implements TransactionGroup {
     		Block.SKULL_BLOCK,
     		Block.DRAGON_EGG,
     		Block.END_PORTAL_FRAME,
-    		Block.END_GATEWAY
+    		Block.END_GATEWAY,
+    		Block.END_PORTAL,
+    		Block.BEDROCK,
+    		Block.INVISIBLE_BEDROCK,
+    		Block.FIRE,
+    		Block.MONSTER_SPAWNER,
+    		Block.FARMLAND,
+    		Block.MONSTER_EGG,
+    		Block.PISTON_EXTENSION,
+    		Block.PISTON_HEAD
     };
 }
