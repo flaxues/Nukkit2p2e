@@ -123,9 +123,9 @@ public class Blaze extends FlyingMonster {
 
     protected boolean checkJump(double dx, double dz) {
         if (this.motionY == this.getGravity() * 2) {
-            return this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) this.y, NukkitMath.floorDouble(this.z))) instanceof BlockLiquid;
+            return this.level.getBlock(NukkitMath.floorDouble(this.x), (int) this.y, NukkitMath.floorDouble(this.z)) instanceof BlockLiquid;
         } else {
-            if (this.level.getBlock(new Vector3(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z))) instanceof BlockLiquid) {
+            if (this.level.getBlock(NukkitMath.floorDouble(this.x), (int) (this.y + 0.8), NukkitMath.floorDouble(this.z)) instanceof BlockLiquid) {
                 this.motionY = this.getGravity() * 2;
                 return true;
             }
@@ -136,7 +136,7 @@ public class Blaze extends FlyingMonster {
         }
 
         int[] sides = { Block.SIDE_SOUTH, Block.SIDE_WEST, Block.SIDE_NORTH, Block.SIDE_EAST };
-        Block that = this.getLevel().getBlock(new Vector3(NukkitMath.floorDouble(this.x + dx), (int) this.y, NukkitMath.floorDouble(this.z + dz)));
+        Block that = this.getLevel().getBlock(NukkitMath.floorDouble(this.x + dx), (int) this.y, NukkitMath.floorDouble(this.z + dz));
         if (this.getDirection() == null) {
             return false;
         }

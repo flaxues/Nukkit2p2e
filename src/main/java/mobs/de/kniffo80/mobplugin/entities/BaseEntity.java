@@ -174,7 +174,7 @@ public abstract class BaseEntity extends EntityCreature {
             for (int z = minZ; z <= maxZ; ++z) {
                 for (int x = minX; x <= maxX; ++x) {
                     for (int y = minY; y <= maxY; ++y) {
-                        Block block = this.level.getBlock(this.temporalVector.setComponents(x, y, z));
+                        Block block = this.level.getBlock(this.temporalVector.setComponents(x, y, z).x, this.temporalVector.y, this.temporalVector.z);
                         if (block.hasEntityCollision()) {
                             this.blocksAround.add(block);
                         }
@@ -261,7 +261,7 @@ public abstract class BaseEntity extends EntityCreature {
 
     @Override
     public boolean isInsideOfSolid() {
-        Block block = this.level.getBlock(this.temporalVector.setComponents(NukkitMath.floorDouble(this.x), NukkitMath.floorDouble(this.y + this.getHeight() - 0.18f), NukkitMath.floorDouble(this.z)));
+        Block block = this.level.getBlock(this.temporalVector.setComponents(NukkitMath.floorDouble(this.x), NukkitMath.floorDouble(this.y + this.getHeight() - 0.18f), NukkitMath.floorDouble(this.z)).x, this.temporalVector.y, this.temporalVector.z);
         AxisAlignedBB bb = block.getBoundingBox();
         return bb != null && block.isSolid() && !block.isTransparent() && bb.intersectsWith(this.getBoundingBox());
     }
