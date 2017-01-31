@@ -212,6 +212,7 @@ public class Normal extends Generator {
         this.populators.add(ores);
         
         this.populators.add(new PopulatorEndPortal());
+        this.populators.add(new PopulatorClay());
     }
 
     @Override
