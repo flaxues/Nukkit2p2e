@@ -116,13 +116,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     protected int messageCounter = 2;
 
-    protected int sendIndex = 0;
-
     private String clientSecret;
 
     public Vector3 speed = null;
-
-    public boolean blocked = false;
 
     public final HashSet<String> achievements = new HashSet<>();
 
@@ -130,13 +126,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     public int craftingType = CRAFTING_SMALL;
 
-    protected boolean isCrafting = false;
-
     public long creationTime = 0;
 
     protected long randomClientId;
-
-    protected double lastMovement = 0;
 
     protected Vector3 forceMovement = null;
 
@@ -2117,7 +2109,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     this.setDataFlag(Player.DATA_FLAGS, Player.DATA_FLAG_ACTION, false);
                     break;
                 case ProtocolInfo.USE_ITEM_PACKET:
-                    if (!this.spawned || !this.isAlive() || this.blocked) {
+                    if (!this.spawned || !this.isAlive()) {
                         break;
                     }
 
@@ -2379,7 +2371,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     }
                     break;
                 case ProtocolInfo.PLAYER_ACTION_PACKET:
-                    if (!this.spawned || this.blocked || (!this.isAlive() && ((PlayerActionPacket) packet).action != PlayerActionPacket.ACTION_RESPAWN && ((PlayerActionPacket) packet).action != PlayerActionPacket.ACTION_DIMENSION_CHANGE)) {
+                    if (!this.spawned || (!this.isAlive() && ((PlayerActionPacket) packet).action != PlayerActionPacket.ACTION_RESPAWN && ((PlayerActionPacket) packet).action != PlayerActionPacket.ACTION_DIMENSION_CHANGE)) {
                         break;
                     }
 
@@ -2545,8 +2537,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             this.inventory.sendContents(this);
                             this.inventory.sendArmorContents(this);
 
-                            this.blocked = false;
-
                             this.spawnToAll();
                             this.scheduleUpdate();
                             break;
@@ -2619,7 +2609,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     this.setDataFlag(Player.DATA_FLAGS, Player.DATA_FLAG_ACTION, false);
                     break;
                 case ProtocolInfo.REMOVE_BLOCK_PACKET:
-                    if (!this.spawned || this.blocked || !this.isAlive()) {
+                    if (!this.spawned || !this.isAlive()) {
                         break;
                     }
                     this.craftingType = CRAFTING_SMALL;
@@ -2662,7 +2652,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     break;
 
                 case ProtocolInfo.INTERACT_PACKET:
-                    if (!this.spawned || !this.isAlive() || this.blocked) {
+                    if (!this.spawned || !this.isAlive()) {
                         break;
                     }
                     this.craftingType = CRAFTING_SMALL;
@@ -2813,7 +2803,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     break;
 
                 case ProtocolInfo.ENTITY_EVENT_PACKET:
-                    if (!this.spawned || this.blocked || !this.isAlive()) {
+                    if (!this.spawned || !this.isAlive()) {
                         break;
                     }
                     this.craftingType = CRAFTING_SMALL;
@@ -2869,7 +2859,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     }
                     break;
                 case ProtocolInfo.DROP_ITEM_PACKET:
-                    if (!this.spawned || this.blocked || !this.isAlive()) {
+                    if (!this.spawned || !this.isAlive()) {
                         break;
                     }
                     DropItemPacket dropItem = (DropItemPacket) packet;
@@ -3319,7 +3309,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                     break;
                 case ProtocolInfo.CONTAINER_SET_SLOT_PACKET:
-                    if (!this.spawned || this.blocked || !this.isAlive()) {
+                    if (!this.spawned || !this.isAlive()) {
                         break;
                     }
 
@@ -3415,7 +3405,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                     break;
                 case ProtocolInfo.BLOCK_ENTITY_DATA_PACKET:
-                    if (!this.spawned || this.blocked || !this.isAlive()) {
+                    if (!this.spawned || !this.isAlive()) {
                         break;
                     }
                     BlockEntityDataPacket blockEntityDataPacket = (BlockEntityDataPacket) packet;
