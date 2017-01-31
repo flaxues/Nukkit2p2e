@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.security.auth.login.LoginException;
 
@@ -25,6 +26,7 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.impl.GameImpl;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import tk.daporkchop.command.AnnounceCommand;
+import tk.daporkchop.command.CoordsCommand;
 import tk.daporkchop.command.GetPosCommand;
 import tk.daporkchop.command.VoteCommand;
 import tk.daporkchop.command.VoterewardCommand;
@@ -111,6 +113,17 @@ public class PorkUtils extends PluginBase {
         SimpleCommandMap.INSTANCE.register("nukkit", new AnnounceCommand("announce"));
         SimpleCommandMap.INSTANCE.register("nukkit", new VoterewardCommand("votereward"));
         SimpleCommandMap.INSTANCE.register("nukkit", new VoteCommand("vote"));
+        SimpleCommandMap.INSTANCE.register("nukkit", new CoordsCommand("coords"));
+        
+        Server.getInstance().getScheduler().scheduleDelayedRepeatingTask(new TimerTask() {
+
+			@Override
+			public void run() {
+				for (Player p : CoordsCommand.onCoords)	{
+					p.sendTip("&l&ax: " + p.getFloorX() + " y: " + p.getFloorY() + " z: " + p.getFloorZ());
+				}
+			}
+        }, 10000, 1000);
         
         try {
 			new WebServer(new Timer());

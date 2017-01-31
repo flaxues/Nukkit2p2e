@@ -203,7 +203,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     public Position loginTempPos = this.getPosition();
     public boolean hasPortaled = false;
-
+    
     public BlockEnderChest getViewingEnderChest() {
         return viewingEnderChest;
     }
