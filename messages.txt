@@ -1,4 +1,4 @@
-&l&2==========&a<>&2==========@&6Owned by &lDaPorkchop_@&3Welcome to &l&b2p2e&r&f&3!@&cVisit the official website: &l&9http://2p2e.tk@&5Join the official &9&lDiscord&r&f&5 server: &l&9http://discord.gg/EfDE9VW@&6Use &e/getpos &6to get your coordinates!@&5The coord exploit has been patched!@&l&2==========&a<>&2==========
+&l&2==========&a<>&2==========@&6Owned by &lDaPorkchop_@&3Welcome to &l&b2p2e&r&f&3!@&cVisit the official website: &l&9http://2p2e.tk@&5Join the official &9&lDiscord&r&f&5 server: &l&9http://discord.gg/EfDE9VW@&6Use &e/getpos &6to get your coordinates!@&5Use /coords to toogle coords!@&l&2==========&a<>&2==========
 &2Join the official Discord server! &9http://discord.gg/EfDE9VW
 &2Vote! &9https://goo.gl/rw6KEj
 &2Visit the official website! &9http://2p2e.tk
