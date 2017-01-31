@@ -82,6 +82,7 @@ public final class Timings {
 
     public static final Timing permissibleCalculationTimer;
     public static final Timing permissionDefaultTimer;
+    public static final Timing syncChunkLoadEntitiesTimer;
 
     static {
         setTimingsEnabled((boolean) Server.getInstance().getConfig("timings.enabled", false));
@@ -128,6 +129,7 @@ public final class Timings {
 
         permissibleCalculationTimer = TimingsManager.getTiming("Permissible Calculation");
         permissionDefaultTimer = TimingsManager.getTiming("Default Permission Calculation");
+        syncChunkLoadEntitiesTimer = permissionDefaultTimer;
     }
 
     public static boolean isTimingsEnabled() {
