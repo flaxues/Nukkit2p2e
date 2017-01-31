@@ -1,7 +1,9 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Explosion;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.utils.BlockColor;
 import cn.nukkit.utils.TextFormat;
@@ -64,6 +66,13 @@ public class BlockBed extends BlockTransparent {
 
     @Override
     public boolean onActivate(Item item, Player player) {
+    	
+    	if (player.level != Server.getInstance().getDefaultLevel())	{
+            Explosion explosion = new Explosion(this, 8, this);
+            explosion.explodeA();
+            explosion.explodeB();
+            return true;
+    	}
 
         Block blockNorth = this.getSide(2);
         Block blockSouth = this.getSide(3);

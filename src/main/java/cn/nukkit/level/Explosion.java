@@ -39,12 +39,37 @@ public class Explosion {
     private final double stepLen = 0.3d;
 
     private final Object what;
+    
+    private boolean instaKill = false;
 
     public Explosion(Position center, double size, Entity what) {
         this.level = center.getLevel();
         this.source = center;
         this.size = Math.max(size, 0);
         this.what = what;
+    }
+    
+    public Explosion(Position center, double size, Block what) {
+        this.level = center.getLevel();
+        this.source = center;
+        this.size = Math.max(size, 0);
+        this.what = what;
+    }
+    
+    public Explosion(Position center, double size, Entity what, boolean instaKill) {
+        this.level = center.getLevel();
+        this.source = center;
+        this.size = Math.max(size, 0);
+        this.what = what;
+        this.instaKill = instaKill;
+    }
+    
+    public Explosion(Position center, double size, Block what, boolean instaKill) {
+        this.level = center.getLevel();
+        this.source = center;
+        this.size = Math.max(size, 0);
+        this.what = what;
+        this.instaKill = instaKill;
     }
 
     /**
@@ -153,13 +178,13 @@ public class Explosion {
                 int damage = (int) (((impact * impact + impact) / 2) * 8 * explosionSize + 1);
 
                 if (this.what instanceof Entity) {
-                    EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent((Entity) this.what, entity, EntityDamageEvent.CAUSE_ENTITY_EXPLOSION, damage);
+                    EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent((Entity) this.what, entity, EntityDamageEvent.CAUSE_ENTITY_EXPLOSION, instaKill ? entity.getHealth() : damage);
                     entity.attack(ev);
                 } else if (this.what instanceof Block) {
-                    EntityDamageByBlockEvent ev = new EntityDamageByBlockEvent((Block) this.what, entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, damage);
+                    EntityDamageByBlockEvent ev = new EntityDamageByBlockEvent((Block) this.what, entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, instaKill ? entity.getHealth() : damage);
                     entity.attack(ev);
                 } else {
-                    EntityDamageEvent ev = new EntityDamageEvent(entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, damage);
+                    EntityDamageEvent ev = new EntityDamageEvent(entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, instaKill ? entity.getHealth() : damage);
                     entity.attack(ev);
                 }
 
