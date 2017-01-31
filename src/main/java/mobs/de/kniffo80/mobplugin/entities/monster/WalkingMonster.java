@@ -11,7 +11,7 @@ import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.potion.Effect;
-import cn.nukkit.timings.Timings;
+import co.aikar.timings.Timings;
 import mobs.de.kniffo80.mobplugin.entities.WalkingEntity;
 import mobs.de.kniffo80.mobplugin.entities.monster.walking.Enderman;
 import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
