@@ -9,9 +9,9 @@ public interface ProtocolInfo {
     /**
      * Actual Minecraft: PE protocol version
      */
-    byte CURRENT_PROTOCOL = 100;
-    String MINECRAFT_VERSION = "v1.0.0";
-    String MINECRAFT_VERSION_NETWORK = "1.0.0";
+    byte CURRENT_PROTOCOL = 101;
+    String MINECRAFT_VERSION = "v1.0.3.0";
+    String MINECRAFT_VERSION_NETWORK = "1.0.3.0";
     
     byte[] ACCEPTED_PROTOCOLS = new byte[] {100, 101} ;
 
@@ -95,4 +95,5 @@ public interface ProtocolInfo {
     byte RESOURCE_PACK_DATA_INFO_PACKET = 0x4f;
     byte RESOURCE_PACK_CHUNK_DATA_PACKET = 0x50;
     byte RESOURCE_PACK_CHUNK_REQUEST_PACKET = 0x51;
+    byte TRANSFER_PACKET = 0x52;
 }
