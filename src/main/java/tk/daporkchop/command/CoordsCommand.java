@@ -19,9 +19,11 @@ public class CoordsCommand extends VanillaCommand {
 
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-		Player p = sender.getServer().getPlayer(args[0]);
-
-		if (p == null) {
+		Player p;
+		if (sender instanceof Player)	{
+			p = (Player) sender;
+		} else {
+			sender.sendMessage("You need to be a player to do that!");
 			return true;
 		}
 		

@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.security.auth.login.LoginException;
 
@@ -33,6 +32,7 @@ import tk.daporkchop.command.VoterewardCommand;
 import tk.daporkchop.task.AutoRestartTask;
 import tk.daporkchop.task.MessageRead;
 import tk.daporkchop.task.RandomMessagesTask;
+import tk.daporkchop.task.SendCoordsTask;
 import tk.daporkchop.task.SendMessagesToDiscordTask;
 import tk.daporkchop.task.UpdatePlayerCountTask;
 
@@ -108,22 +108,13 @@ public class PorkUtils extends PluginBase {
         new Timer().schedule(new RandomMessagesTask(), 1000, 120000);
         new Timer().schedule(new AutoRestartTask(), 0, 1000);
         new Timer().schedule(new SendMessagesToDiscordTask(), 5000, 1000);
+        new Timer().schedule(new SendCoordsTask(), 10000, 1000);
         
         SimpleCommandMap.INSTANCE.register("nukkit", new GetPosCommand("getpos"));
         SimpleCommandMap.INSTANCE.register("nukkit", new AnnounceCommand("announce"));
         SimpleCommandMap.INSTANCE.register("nukkit", new VoterewardCommand("votereward"));
         SimpleCommandMap.INSTANCE.register("nukkit", new VoteCommand("vote"));
         SimpleCommandMap.INSTANCE.register("nukkit", new CoordsCommand("coords"));
-        
-        Server.getInstance().getScheduler().scheduleDelayedRepeatingTask(new TimerTask() {
-
-			@Override
-			public void run() {
-				for (Player p : CoordsCommand.onCoords)	{
-					p.sendTip("&l&ax: " + p.getFloorX() + " y: " + p.getFloorY() + " z: " + p.getFloorZ());
-				}
-			}
-        }, 10000, 1000);
         
         try {
 			new WebServer(new Timer());
