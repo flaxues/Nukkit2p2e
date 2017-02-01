@@ -114,8 +114,8 @@ public class BlockBed extends BlockTransparent {
 
     @Override
     public boolean place(Item item, Block block, Block target, int face, double fx, double fy, double fz, Player player) {
-        //Block down = this.getSide(0);
-        //if (!down.isTransparent()) {
+        Block down = this.getSide(0);
+        if (!down.isTransparent()) {
             int[] faces = {3, 4, 2, 5};
             int d = player != null ? player.getDirection() : 0;
             Block next = this.getSide(faces[((d + 3) % 4)]);
@@ -128,7 +128,7 @@ public class BlockBed extends BlockTransparent {
 
                 return true;
             }
-        //}
+        }
 
         return false;
     }

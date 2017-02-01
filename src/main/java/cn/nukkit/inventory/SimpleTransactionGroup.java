@@ -106,6 +106,11 @@ public class SimpleTransactionGroup implements TransactionGroup {
         
         while (iter1.hasNext())	{
         	Item needItem = iter1.next();
+        	
+        	if (isBannedItem(needItem.getId(), false))	{
+        		continue;
+        	}
+        	
         	if (needItem.hasEnchantments())
         	while (iter2.hasNext())	{
         		Item haveItem = iter2.next();
@@ -115,9 +120,9 @@ public class SimpleTransactionGroup implements TransactionGroup {
         			continue;
         		}
         		
-        		if (isBannedItem(haveItem.getId(), false) || isBannedItem(needItem.getId(), false))	{
-        			iter2.remove();
-        			iter1.remove();
+        		if (isBannedItem(haveItem.getId(), false))	{
+        			//iter2.remove();
+        			//iter1.remove();
         			continue;
         		}
         		
@@ -185,7 +190,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
     
     public static boolean isBannedItem(int id, boolean isOp)	{
     	if (isOp)	{
-    		return true;
+    		return false;
     	}
     	
     	for (int i : bannedItems)	{
@@ -204,7 +209,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
     		Block.SKULL_BLOCK,
     		Block.DRAGON_EGG,
     		Block.END_PORTAL_FRAME,
-    		Block.END_GATEWAY,
+    		//Block.END_GATEWAY,
     		Block.END_PORTAL,
     		Block.BEDROCK,
     		Block.INVISIBLE_BEDROCK,
