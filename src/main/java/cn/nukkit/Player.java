@@ -1915,13 +1915,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     String message;
                     if (Network.isAcceptedProtocol(loginPacket.getProtocol())/*loginPacket.getProtocol() != ProtocolInfo.CURRENT_PROTOCOL*/) {
                         if (loginPacket.getProtocol() < ProtocolInfo.CURRENT_PROTOCOL) {
-                            message = "2p2e's running MCPE " + Nukkit.MINECRAFT_VERSION_NETWORK + ", but you're not. Update your game!";
+                            message = "2p2e's running MCPE " + ProtocolInfo.MINECRAFT_VERSION + ", but you're not. Update your game!";
 
                             PlayStatusPacket pk = new PlayStatusPacket();
                             pk.status = PlayStatusPacket.LOGIN_FAILED_CLIENT;
                             this.directDataPacket(pk);
                         } else {
-                            message = "You're using a newer version of the game! Downgrade to " + Nukkit.MINECRAFT_VERSION_NETWORK + " to play!";
+                            message = "You're using a newer version of the game! Downgrade to " + ProtocolInfo.MINECRAFT_VERSION + " to play!";
 
                             PlayStatusPacket pk = new PlayStatusPacket();
                             pk.status = PlayStatusPacket.LOGIN_FAILED_SERVER;
