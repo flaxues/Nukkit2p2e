@@ -66,14 +66,6 @@ public class BlockBed extends BlockTransparent {
 
     @Override
     public boolean onActivate(Item item, Player player) {
-    	
-    	if (player.level != Server.getInstance().getDefaultLevel())	{
-            Explosion explosion = new Explosion(this, 8, this);
-            explosion.explodeA();
-            explosion.explodeB();
-            return true;
-    	}
-
         Block blockNorth = this.getSide(2);
         Block blockSouth = this.getSide(3);
         Block blockEast = this.getSide(5);
@@ -99,6 +91,14 @@ public class BlockBed extends BlockTransparent {
                 return true;
             }
         }
+        
+        if (player.level != Server.getInstance().getDefaultLevel())	{
+            Explosion explosion = new Explosion(this, 8, this, true);
+            explosion.explodeA();
+            explosion.fire();
+            explosion.explodeB();
+            return true;
+    	}
 
         if (player != null && !player.sleepOn(b)) {
             player.sendMessage(TextFormat.GRAY + "This bed is occupied");
@@ -114,8 +114,8 @@ public class BlockBed extends BlockTransparent {
 
     @Override
     public boolean place(Item item, Block block, Block target, int face, double fx, double fy, double fz, Player player) {
-        Block down = this.getSide(0);
-        if (!down.isTransparent()) {
+        //Block down = this.getSide(0);
+        //if (!down.isTransparent()) {
             int[] faces = {3, 4, 2, 5};
             int d = player != null ? player.getDirection() : 0;
             Block next = this.getSide(faces[((d + 3) % 4)]);
@@ -128,7 +128,7 @@ public class BlockBed extends BlockTransparent {
 
                 return true;
             }
-        }
+        //}
 
         return false;
     }

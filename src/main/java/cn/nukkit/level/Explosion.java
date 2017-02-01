@@ -19,6 +19,7 @@ import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.*;
 import cn.nukkit.network.protocol.ExplodePacket;
+import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -253,6 +254,20 @@ public class Explosion {
         this.level.addSound(new ExplodeSound(new Vector3(this.source.x, this.source.y, this.source.z)));
         
         return true;
+    }
+    
+    public void fire()	{
+    	for (int i = 0; i < Utils.rand(5, 10); i++)	{
+    		int x = this.source.getFloorX() + Utils.rand(-8, 8);
+    		int z = this.source.getFloorZ() + Utils.rand(-8, 8);
+    		
+    		for (int y = this.source.getFloorY(); y > this.source.getFloorY() - 10; y--)	{
+    			if (this.level.getBlockIdAt(x, y, z) != Block.AIR)	{
+    				this.level.setBlockIdAt(x, y + 1, z, Block.FIRE);
+    				break;
+    			}
+    		}
+    	}
     }
 
 }
