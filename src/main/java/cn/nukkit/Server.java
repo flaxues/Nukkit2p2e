@@ -189,6 +189,9 @@ public class Server {
         currentThread = Thread.currentThread(); // Saves the current thread instance as a reference, used in Server#isPrimaryThread()
         instance = this;
         this.logger = logger;
+        
+    	ProtocolInfo.ACCEPTED_PROTOCOLS.add(100);
+    	ProtocolInfo.ACCEPTED_PROTOCOLS.add(101);
 
         this.filePath = filePath;
         if (!new File(dataPath + "worlds/").exists()) {
