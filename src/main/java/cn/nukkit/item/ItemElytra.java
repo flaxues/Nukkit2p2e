@@ -4,7 +4,7 @@ package cn.nukkit.item;
  * author: MagicDroidX
  * Nukkit Project
  */
-public class ItemElytra extends ItemTool {
+public class ItemElytra extends ItemArmor {
 
     public ItemElytra() {
         this(0, 1);
@@ -20,7 +20,7 @@ public class ItemElytra extends ItemTool {
 
     @Override
     public int getMaxDurability() {
-        return 431;
+        return -1;
     }
 
     @Override
@@ -32,5 +32,10 @@ public class ItemElytra extends ItemTool {
     public boolean isChestplate() {
         return true;
     }
-
+    
+    @Override
+    public int getTier() {
+    	//High enchantability
+        return ItemArmor.TIER_GOLD;
+    }
 }
