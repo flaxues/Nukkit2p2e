@@ -190,9 +190,6 @@ public class Server {
         instance = this;
         this.logger = logger;
         
-    	ProtocolInfo.ACCEPTED_PROTOCOLS.add(100);
-    	ProtocolInfo.ACCEPTED_PROTOCOLS.add(101);
-
         this.filePath = filePath;
         if (!new File(dataPath + "worlds/").exists()) {
             new File(dataPath + "worlds/").mkdirs();

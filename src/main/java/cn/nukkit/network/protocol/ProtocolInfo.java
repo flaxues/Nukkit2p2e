@@ -1,7 +1,5 @@
 package cn.nukkit.network.protocol;
 
-import java.util.ArrayList;
-
 /**
  * author: MagicDroidX & iNevet
  * Nukkit Project
@@ -15,7 +13,7 @@ public interface ProtocolInfo {
     String MINECRAFT_VERSION = "v1.0.3.0";
     String MINECRAFT_VERSION_NETWORK = "1.0.3.0";
     
-    ArrayList<Integer> ACCEPTED_PROTOCOLS = new ArrayList<Integer>();
+    int[] ACCEPTED_PROTOCOLS = new int[] {CURRENT_PROTOCOL, 101};
     
     byte LOGIN_PACKET = 0x01;
     byte PLAY_STATUS_PACKET = 0x02;
