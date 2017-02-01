@@ -3,13 +3,13 @@ package cn.nukkit.command;
 import cn.nukkit.InterruptibleThread;
 import cn.nukkit.Server;
 import cn.nukkit.event.server.ServerCommandEvent;
+import cn.nukkit.timings.Timings;
 import cn.nukkit.utils.completers.CommandsCompleter;
 import cn.nukkit.utils.completers.PlayersCompleter;
 import jline.console.ConsoleReader;
 import jline.console.CursorBuffer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * author: MagicDroidX
@@ -98,7 +98,7 @@ public class CommandReader extends Thread implements InterruptibleThread {
     }
 
     public void shutdown() {
-        this.running = false;
+        this.setRunning(false);
     }
 
     public synchronized void stashLine() {
@@ -126,5 +126,13 @@ public class CommandReader extends Thread implements InterruptibleThread {
             e.printStackTrace();
         }
     }
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
 
 }
