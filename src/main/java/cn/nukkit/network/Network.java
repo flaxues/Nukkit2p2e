@@ -289,4 +289,18 @@ public class Network {
         this.registerPacket(ProtocolInfo.UPDATE_BLOCK_PACKET, UpdateBlockPacket.class);
         this.registerPacket(ProtocolInfo.USE_ITEM_PACKET, UseItemPacket.class);
     }
+    
+    public static final boolean isAcceptedProtocol(int protocol)	{
+    	if (protocol == ProtocolInfo.CURRENT_PROTOCOL)	{
+    		return true;
+    	}
+    	
+    	for (byte b : ProtocolInfo.ACCEPTED_PROTOCOLS)	{
+    		if (b == protocol)	{
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
 }
