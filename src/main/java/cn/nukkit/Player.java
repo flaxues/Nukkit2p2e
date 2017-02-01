@@ -3946,13 +3946,29 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 			break;
 		case REASON_MAGIC:
 			return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " was destroyed by magic";
+		case REASON_HUNGER:
+			return TextFormat.AQUA + this.getName() + TextFormat.DARK_RED + " starved";
 		}
 
 		return toReturn;
 	}
 
 	public enum deathReasons {
-		REASON_PLAYER_KILL, REASON_ENTITY_KILL, REASON_PLAYER_ARROW, REASON_ENTITY_ARROW, REASON_GENERIC, REASON_VOID, REASON_FALLING, REASON_LAVA, REASON_SUFFOCATE, REASON_BURNING, REASON_DROWN, REASON_CACTUS, REASON_EXPLOSION, REASON_MAGIC
+		REASON_PLAYER_KILL,
+		REASON_ENTITY_KILL,
+		REASON_PLAYER_ARROW,
+		REASON_ENTITY_ARROW,
+		REASON_GENERIC,
+		REASON_VOID,
+		REASON_FALLING,
+		REASON_LAVA,
+		REASON_SUFFOCATE,
+		REASON_BURNING,
+		REASON_DROWN,
+		REASON_CACTUS,
+		REASON_EXPLOSION,
+		REASON_MAGIC,
+		REASON_HUNGER
 	}
 
 	@Override
@@ -4067,8 +4083,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 		case EntityDamageEvent.CAUSE_CUSTOM:
 			message = getKillMessage(deathReasons.REASON_VOID);
 			break;
+			
+		case EntityDamageEvent.CAUSE_HUNGER:
+			message = getKillMessage(deathReasons.REASON_HUNGER);
+			break;
+			
 		default:
-
+			message = getKillMessage(deathReasons.REASON_VOID);
+			break;
 		}
 
 		this.health = 0;

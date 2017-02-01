@@ -43,6 +43,7 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     public static final int CAUSE_MAGIC = 13;
     public static final int CAUSE_CUSTOM = 14;
     public static final int CAUSE_LIGHTNING = 15;
+    public static final int CAUSE_HUNGER = 15;
 
     private int cause;
 
