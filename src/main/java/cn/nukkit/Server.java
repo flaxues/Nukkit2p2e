@@ -1098,11 +1098,7 @@ public class Server {
 
     // TODO: Fix title tick
     @SuppressWarnings("unused")
-	public void titleTick() {
-        if (true || !Nukkit.ANSI) {
-            return;
-        }
-
+    public void titleTick() {
         Runtime runtime = Runtime.getRuntime();
         double used = NukkitMath.round((double) (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024, 2);
         double max = NukkitMath.round(((double) runtime.maxMemory()) / 1024 / 1024, 2);
