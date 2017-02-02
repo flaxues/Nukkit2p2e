@@ -158,6 +158,9 @@ public abstract class EntityHumanType extends EntityCreature implements Inventor
 
             for (int slot = 0; slot < 4; slot++) {
                 Item armor = this.inventory.getArmorItem(slot);
+                if (armor.getId() == Item.ELYTRA)	{
+                	continue;
+                }
 
                 if (armor.hasEnchantments()) {
                     if (damager != null) {

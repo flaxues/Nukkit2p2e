@@ -1097,7 +1097,8 @@ public class Server {
     }
 
     // TODO: Fix title tick
-    public void titleTick() {
+    @SuppressWarnings("unused")
+	public void titleTick() {
         if (true || !Nukkit.ANSI) {
             return;
         }
