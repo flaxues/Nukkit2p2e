@@ -768,6 +768,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
         this.sendPotionEffects(this);
         this.sendData(this);
+        
+        this.clearHackedItems();
         this.inventory.sendContents(this);
         this.inventory.sendArmorContents(this);
 
@@ -4692,5 +4694,20 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
      */
     public void notifyACK(int identification) {
         needACK.put(identification, true);
+    }
+    
+    /**
+     * Clears all hacked in (banned) items from the player's inventory
+     */
+    public void clearHackedItems()	{
+    	if (this.isOp())	{
+    		return;
+    	}
+    	
+    	for(Map.Entry<Integer, Item> entry : this.inventory.getContents().entrySet())	{
+    		if (SimpleTransactionGroup.isBannedItem(entry.getValue().getId(), false))	{
+    			this.inventory.setItem(entry.getKey(), new ItemBlock(new BlockAir()));
+    		}
+    	}
     }
 }

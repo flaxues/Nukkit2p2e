@@ -188,6 +188,12 @@ public class SimpleTransactionGroup implements TransactionGroup {
         return this.hasExecuted;
     }
     
+    /**
+     * Returns true if the given item is banned, false otherwise.
+     * @param id
+     * @param isOp
+     * @return
+     */
     public static boolean isBannedItem(int id, boolean isOp)	{
     	if (isOp)	{
     		return false;
@@ -209,7 +215,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
     		Block.SKULL_BLOCK,
     		Block.DRAGON_EGG,
     		Block.END_PORTAL_FRAME,
-    		//Block.END_GATEWAY,
+    		Block.END_GATEWAY,
     		Block.END_PORTAL,
     		Block.BEDROCK,
     		Block.INVISIBLE_BEDROCK,
