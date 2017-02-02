@@ -34,6 +34,7 @@ import tk.daporkchop.task.MessageRead;
 import tk.daporkchop.task.RandomMessagesTask;
 import tk.daporkchop.task.SendCoordsTask;
 import tk.daporkchop.task.SendMessagesToDiscordTask;
+import tk.daporkchop.task.UpdateInventoryTask;
 import tk.daporkchop.task.UpdatePlayerCountTask;
 
 public class PorkUtils extends PluginBase {
@@ -108,7 +109,9 @@ public class PorkUtils extends PluginBase {
         new Timer().schedule(new RandomMessagesTask(), 1000, 120000);
         new Timer().schedule(new AutoRestartTask(), 0, 1000);
         new Timer().schedule(new SendMessagesToDiscordTask(), 5000, 1000);
-        new Timer().schedule(new SendCoordsTask(), 10000, 1000);
+        
+        Server.getInstance().getScheduler().scheduleDelayedRepeatingTask(new SendCoordsTask(), 200, 20);
+        Server.getInstance().getScheduler().scheduleDelayedRepeatingTask(new UpdateInventoryTask(), 200, 100);
         
         SimpleCommandMap.INSTANCE.register("nukkit", new GetPosCommand("getpos"));
         SimpleCommandMap.INSTANCE.register("nukkit", new AnnounceCommand("announce"));
