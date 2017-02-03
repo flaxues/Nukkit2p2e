@@ -224,6 +224,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
     		Block.FARMLAND,
     		Block.MONSTER_EGG,
     		Block.PISTON_EXTENSION,
-    		Block.PISTON_HEAD
+    		Block.PISTON_HEAD,
+            Block.NETHER_PORTAL
     };
 }
