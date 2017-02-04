@@ -117,7 +117,8 @@ public class BlockNetherPortal extends BlockFlowable {
 		return BlockColor.AIR_BLOCK_COLOR;
 	}
 
-	public void genPortal(Position pos, Player p) {		
+	public void genPortal(Position pos, Player p) {	
+		p.hasPortaled = true;
 		Server.getInstance().getScheduler().scheduleDelayedTask(new GenPortalTask(pos, p), 2, false);
 	}
 }

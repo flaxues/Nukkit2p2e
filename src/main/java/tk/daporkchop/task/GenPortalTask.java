@@ -35,6 +35,7 @@ public class GenPortalTask extends TimerTask {
 	@Override
 	public void run() {
 		if (++count < 30) {
+			player.hasPortaled = true;
 			player.teleport(pos);
 			s.getScheduler().scheduleDelayedTask(this, 2, false);
 			return;
