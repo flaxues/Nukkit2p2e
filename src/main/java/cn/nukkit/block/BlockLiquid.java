@@ -203,7 +203,7 @@ public abstract class BlockLiquid extends BlockTransparent {
             }
 
             int decay = this.getFlowDecay(this);
-            int multiplier = this instanceof BlockLava ? 8 : 1;
+            int multiplier = this instanceof BlockLava ? 2 : 1;
 
             boolean flag = true;
 
