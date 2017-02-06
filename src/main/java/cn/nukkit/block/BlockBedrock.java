@@ -43,7 +43,8 @@ public class BlockBedrock extends BlockSolid {
     
     @Override
     public boolean onBreak(Item item) {
-        return false;
+    	this.level.setBlock(this, this);
+    	return false;
     }
     
     @Override
@@ -54,5 +55,10 @@ public class BlockBedrock extends BlockSolid {
     @Override
     public boolean canBeBrokenWith(Item item) {
         return false;
+    }
+    
+    @Override
+    public int[][] getDrops(Item item)	{
+    	return new int[][] {{}};
     }
 }
