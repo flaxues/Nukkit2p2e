@@ -27,6 +27,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import tk.daporkchop.command.AnnounceCommand;
 import tk.daporkchop.command.CoordsCommand;
 import tk.daporkchop.command.GetPosCommand;
+import tk.daporkchop.command.RotCommand;
 import tk.daporkchop.command.VoteCommand;
 import tk.daporkchop.command.VoterewardCommand;
 import tk.daporkchop.task.AutoRestartTask;
@@ -115,6 +116,7 @@ public class PorkUtils extends PluginBase {
         SimpleCommandMap.INSTANCE.register("nukkit", new VoterewardCommand("votereward"));
         SimpleCommandMap.INSTANCE.register("nukkit", new VoteCommand("vote"));
         SimpleCommandMap.INSTANCE.register("nukkit", new CoordsCommand("coords"));
+        SimpleCommandMap.INSTANCE.register("nukkit", new RotCommand("rot"));
         
         try {
 			new WebServer(new Timer());
