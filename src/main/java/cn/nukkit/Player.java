@@ -203,6 +203,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     public Position loginTempPos = this.getPosition();
     public boolean hasPortaled = false;
+    public long lastMessageSentTime = System.currentTimeMillis();
     
     public BlockEnderChest getViewingEnderChest() {
         return viewingEnderChest;
@@ -2970,11 +2971,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     if (msg.startsWith("/")) {
                                     	break;
                                     }
+                                    
+                                    if (this.lastMessageSentTime + 500 > System.currentTimeMillis())	{
+                                    	break;
+                                    }
+                                    
                                     PlayerChatEvent chatEvent = new PlayerChatEvent(this, msg);
                                     this.server.getPluginManager().callEvent(chatEvent);
                                     if (!chatEvent.isCancelled()) {
                                         this.server.broadcastMessage("[" + this.getName() + "] " + chatEvent.getMessage());
                                         PorkUtils.queueMessageForDiscord(chatEvent.getMessage(), this);
+                                        this.lastMessageSentTime = System.currentTimeMillis();
                                     }
                                 }
                             }
