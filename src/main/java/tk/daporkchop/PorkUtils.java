@@ -109,7 +109,7 @@ public class PorkUtils extends PluginBase {
         new Timer().schedule(new RandomMessagesTask(), 1000, 120000);
         new Timer().schedule(new AutoRestartTask(), 0, 1000);
         new Timer().schedule(new SendMessagesToDiscordTask(), 5000, 1000);
-        new Timer().schedule(new SendCoordsTask(), 10000, 1000);
+        new Timer().schedule(new SendCoordsTask(), 10000, 250);
         
         SimpleCommandMap.INSTANCE.register("nukkit", new GetPosCommand("getpos"));
         SimpleCommandMap.INSTANCE.register("nukkit", new AnnounceCommand("announce"));

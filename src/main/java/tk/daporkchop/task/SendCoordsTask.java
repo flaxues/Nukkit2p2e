@@ -14,7 +14,7 @@ public class SendCoordsTask extends TimerTask {
 			p.sendTip("\n\n&l&ax: " + p.getFloorX() + " y: " + p.getFloorY() + " z: " + p.getFloorZ());
 		}
 		for (Player p : RotCommand.onRotation)	{
-			p.sendTip("\n\n&l&ayaw: " + p.getYaw() + " pitch: " + p.getPitch());
+			p.sendTip("\n\n&l&ayaw: " + Math.round(p.getYaw() * 1000d) / 1000d + " pitch: " + Math.round(p.getPitch() * 1000d) / 1000d);
 		}
 	}
 }
