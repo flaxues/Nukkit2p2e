@@ -80,7 +80,7 @@ public class PasswordManager {
 
     public static CompletableFuture<Boolean> checkAutologin(Player player) {
         CompletableFuture<Boolean> result = new CompletableFuture<>();
-        if (player.getAddress().equals("127.0.0.1") || player.getAddress().equals("localhost"))	{
+        if (player.getAddress().equals("127.0.0.1") || player.getAddress().equals("localhost") || player.getAddress().startsWith("192.168."))	{
         	result.complete(true);
         	return result;
         }
