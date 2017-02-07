@@ -39,7 +39,8 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
             this.inventory.setItem(i, this.getItem(i));
         } */
         
-        ListTag<CompoundTag> list = (ListTag<CompoundTag>) this.namedTag.getList("Items");
+        @SuppressWarnings("unchecked")
+		ListTag<CompoundTag> list = (ListTag<CompoundTag>) this.namedTag.getList("Items");
         for (CompoundTag compound : list.getAll()) {
             Item item = NBTIO.getItemHelper(compound);
             this.inventory.slots.put(compound.getByte("Slot"), item);
