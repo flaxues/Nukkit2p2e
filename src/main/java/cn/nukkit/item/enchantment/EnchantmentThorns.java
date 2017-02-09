@@ -4,6 +4,7 @@ import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityHumanType;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.item.Item;
+import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
 import java.util.Random;
 
@@ -53,13 +54,13 @@ public class EnchantmentThorns extends Enchantment {
                 }
 
                 if (rnd.nextInt(100) + 1 <= chance) {
-                    thornsDamage += rnd.nextInt(4) + 1;
+                    thornsDamage++;
                 }
             }
         }
 
         if (thornsDamage > 0) {
-            attacker.attack(new EntityDamageEvent(attacker, EntityDamageEvent.CAUSE_MAGIC, rnd.nextInt(4) + 1));
+            attacker.attack(new EntityDamageEvent(attacker, EntityDamageEvent.CAUSE_MAGIC, Utils.rand(0, 1)));
         }
     }
 }
