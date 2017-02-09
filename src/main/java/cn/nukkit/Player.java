@@ -54,7 +54,6 @@ import cn.nukkit.math.*;
 import cn.nukkit.metadata.MetadataValue;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.*;
-import cn.nukkit.network.Network;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.network.protocol.*;
 import cn.nukkit.permission.PermissibleBase;
@@ -1918,16 +1917,16 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     LoginPacket loginPacket = (LoginPacket) packet;
 
                     String message;
-                    if (!Network.isAcceptedProtocol(loginPacket.getProtocol())/*loginPacket.getProtocol() != ProtocolInfo.CURRENT_PROTOCOL*/) {
+                    if (loginPacket.getProtocol() != ProtocolInfo.CURRENT_PROTOCOL) {
                         if (loginPacket.getProtocol() < ProtocolInfo.CURRENT_PROTOCOL) {
-                            message = "2p2e's running MCPE " + ProtocolInfo.MINECRAFT_VERSION + ", but you're not. Update your game!";
-                            
+                            message = "2p2e's running MCPE " + Nukkit.MINECRAFT_VERSION_NETWORK + ", but you're not. Update your game!";
+
                             PlayStatusPacket pk = new PlayStatusPacket();
                             pk.status = PlayStatusPacket.LOGIN_FAILED_CLIENT;
                             this.directDataPacket(pk);
                         } else {
-                            message = "You're using a newer version of the game! Downgrade to " + ProtocolInfo.MINECRAFT_VERSION + " to play!";
-                            
+                            message = "You're using a newer version of the game! Downgrade to " + Nukkit.MINECRAFT_VERSION_NETWORK + " to play!";
+
                             PlayStatusPacket pk = new PlayStatusPacket();
                             pk.status = PlayStatusPacket.LOGIN_FAILED_SERVER;
                             this.directDataPacket(pk);
