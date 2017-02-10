@@ -8,6 +8,7 @@ import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityEnderCrystal;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.DoubleTag;
 import cn.nukkit.nbt.tag.FloatTag;
@@ -40,13 +41,14 @@ public class ItemEndCrystal extends Item {
             return false;
         }
         
-        if (target.getId() != OBSIDIAN || target.getId() != BEDROCK)	{
+        if (face != Vector3.SIDE_UP)	{
         	return false;
         }
-
-        CompoundTag nbt = new CompoundTag()
-                .putList(new ListTag<DoubleTag>("Pos")
-                        .add(new DoubleTag("", block.getX() + 0.5))
+        
+        if (target.getId() == OBSIDIAN || target.getId() == BEDROCK)	{
+        	CompoundTag nbt = new CompoundTag()
+        		.putList(new ListTag<DoubleTag>("Pos")
+        				.add(new DoubleTag("", block.getX() + 0.5))
                         .add(new DoubleTag("", block.getY()))
                         .add(new DoubleTag("", block.getZ() + 0.5)))
                 .putList(new ListTag<DoubleTag>("Motion")
@@ -56,21 +58,22 @@ public class ItemEndCrystal extends Item {
                 .putList(new ListTag<FloatTag>("Rotation")
                         .add(new FloatTag("", new Random().nextFloat() * 360))
                         .add(new FloatTag("", 0)));
-
-        if (this.hasCustomName()) {
-            nbt.putString("CustomName", this.getCustomName());
-        }
-
-        Entity entity = Entity.createEntity(EntityEnderCrystal.NETWORK_ID, chunk, nbt);
-
-        if (entity != null) {
-            if (player.isSurvival()) {
-                Item item = player.getInventory().getItemInHand();
-                item.setCount(item.getCount() - 1);
-                player.getInventory().setItemInHand(item);
-            }
-            entity.spawnToAll();
-            return true;
+        	
+        	if (this.hasCustomName()) {
+        		nbt.putString("CustomName", this.getCustomName());
+        	}
+        	
+        	Entity entity = Entity.createEntity(EntityEnderCrystal.NETWORK_ID, chunk, nbt);
+        	
+        	if (entity != null) {
+        		if (player.isSurvival()) {
+        			Item item = player.getInventory().getItemInHand();
+        			item.setCount(item.getCount() - 1);
+        			player.getInventory().setItemInHand(item);
+        		}
+        		entity.spawnToAll();
+        		return true;
+        	}
         }
 
         return false;
