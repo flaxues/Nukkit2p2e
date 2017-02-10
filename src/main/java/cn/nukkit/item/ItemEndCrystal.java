@@ -39,6 +39,10 @@ public class ItemEndCrystal extends Item {
         if (chunk == null) {
             return false;
         }
+        
+        if (target.getId() != OBSIDIAN || target.getId() != BEDROCK)	{
+        	return false;
+        }
 
         CompoundTag nbt = new CompoundTag()
                 .putList(new ListTag<DoubleTag>("Pos")
