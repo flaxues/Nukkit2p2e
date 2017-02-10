@@ -49,10 +49,8 @@ public class EntityEnderCrystal extends EntityLiving implements EntityExplosive 
         this.getServer().getPluginManager().callEvent(ev);
         
         if (!ev.isCancelled()) {
-            Explosion explosion = new Explosion(this, ev.getForce(), this);
-            if (ev.isBlockBreaking()) {
-                explosion.explodeA();
-            }
+            Explosion explosion = new Explosion(this, ev.getForce(), this, true);
+            explosion.explodeA();
             explosion.explodeB();
         }
     }
