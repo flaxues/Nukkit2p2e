@@ -3995,6 +3995,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 			
 			this.teleport(new Position(0, 10000, 0, this.server.getDefaultLevel()));
 			this.kill();
+			return;
 		}
 
 		String message = TextFormat.AQUA + this.getName() + TextFormat.DARK_RED;
