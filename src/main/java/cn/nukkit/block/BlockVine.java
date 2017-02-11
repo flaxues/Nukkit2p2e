@@ -6,6 +6,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.AxisAlignedBB;
+import cn.nukkit.math.Vector3;
 
 /**
  * Created by Pub4Game on 15.01.2016.
@@ -154,17 +155,17 @@ public class BlockVine extends BlockTransparent {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
             int[] faces = {
                     0,
-                    this.SIDE_SOUTH,
-                    this.SIDE_WEST,
+                    Vector3.SIDE_SOUTH,
+                    Vector3.SIDE_WEST,
                     0,
-                    this.SIDE_NORTH,
+                    Vector3.SIDE_NORTH,
                     0,
                     0,
                     0,
-                    this.SIDE_EAST
+                    Vector3.SIDE_EAST
             };
             if (!this.getSide(faces[this.meta]).isSolid()) {
-                Block up = this.getSide(this.SIDE_UP);
+                Block up = this.getSide(Vector3.SIDE_UP);
                 if (up.getId() != this.getId() || up.meta != this.meta) {
                     this.getLevel().useBreakOn(this);
                     return Level.BLOCK_UPDATE_NORMAL;

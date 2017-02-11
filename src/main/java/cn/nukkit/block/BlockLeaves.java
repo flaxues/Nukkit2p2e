@@ -5,6 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.event.block.LeavesDecayEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.level.Level;
 import cn.nukkit.utils.BlockColor;
 
@@ -75,6 +76,15 @@ public class BlockLeaves extends BlockTransparent {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         if (item.isShears()) {
             return new int[][]{
                     {Item.LEAVES, this.meta & 0x03, 1}

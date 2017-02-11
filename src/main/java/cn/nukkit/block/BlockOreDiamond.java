@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.math.NukkitRandom;
 
 /**
@@ -46,6 +47,15 @@ public class BlockOreDiamond extends BlockSolid {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_IRON) {
             return new int[][]{
                     {Item.DIAMOND, 0, 1}

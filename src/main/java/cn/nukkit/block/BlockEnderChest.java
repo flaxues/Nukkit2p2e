@@ -5,6 +5,7 @@ import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntityEnderChest;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.StringTag;
@@ -137,13 +138,16 @@ public class BlockEnderChest extends BlockTransparent {
 
     @Override
     public int[][] getDrops(Item item) {
-        if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new int[][]{
-                    {Item.OBSIDIAN, 0, 8}
-            };
-        } else {
-            return new int[0][0];
-        }
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
+        return new int[0][0];
     }
 
     @Override

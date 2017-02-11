@@ -4,6 +4,7 @@ import cn.nukkit.Server;
 import cn.nukkit.event.block.BlockSpreadEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.utils.BlockColor;
@@ -48,6 +49,15 @@ public class BlockMycelium extends BlockSolid {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         return new int[][]{
                 {Item.DIRT, 0, 1}
         };

@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 
 
 public class BlockPrismarine extends BlockSolid {
@@ -51,6 +52,15 @@ public class BlockPrismarine extends BlockSolid {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_WOODEN) {
             return new int[][]{
                     {Item.PRISMARINE, this.getDamage(), 1}

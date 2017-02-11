@@ -1,6 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
+import cn.nukkit.item.enchantment.Enchantment;
 
 /**
  * author: Angelic47
@@ -38,6 +39,15 @@ public class BlockGlass extends BlockTransparent {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         return new int[0][0];
     }
 }

@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.utils.BlockColor;
 
 import java.util.Random;
@@ -48,6 +49,15 @@ public class BlockGravel extends BlockFallable {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         if (new Random().nextInt(9) == 0) {
             return new int[][]{
                     {Item.FLINT, 0, 1}

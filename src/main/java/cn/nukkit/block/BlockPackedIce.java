@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 
 /**
  * author: MagicDroidX
@@ -39,8 +40,15 @@ public class BlockPackedIce extends BlockIce {
 
     @Override
     public int[][] getDrops(Item item) {
-        return new int[][]{
-                {this.getId(), 0, 1}
-        };
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
+        return new int[0][0];
     }
 }

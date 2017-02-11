@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.utils.BlockColor;
 
 import java.util.Random;
@@ -41,6 +42,15 @@ public class BlockMelon extends BlockSolid {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         return new int[][]{
                 {Item.MELON_SLICE, 0, new Random().nextInt(4) + 3}
         };

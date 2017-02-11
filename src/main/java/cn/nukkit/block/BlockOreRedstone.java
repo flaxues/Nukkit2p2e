@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.NukkitRandom;
 
@@ -48,6 +49,15 @@ public class BlockOreRedstone extends BlockSolid {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_IRON) {
             return new int[][]{
                     {Item.REDSTONE_DUST, 0, new Random().nextInt(1) + 4}

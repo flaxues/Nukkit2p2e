@@ -1,6 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
+import cn.nukkit.item.enchantment.Enchantment;
 
 /**
  * Created on 2015/12/1 by xtypr.
@@ -33,6 +34,15 @@ public class BlockLeaves2 extends BlockLeaves {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         if (item.isShears()) {
             return new int[][]{
                     {Item.LEAVES2, this.meta & 0x03, 1}

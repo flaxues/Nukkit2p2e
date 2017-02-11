@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.block.BlockSpreadEvent;
 import cn.nukkit.item.Item;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.generator.object.ObjectTallGrass;
 import cn.nukkit.math.NukkitRandom;
@@ -102,5 +103,25 @@ public class BlockGrass extends BlockDirt {
     @Override
     public BlockColor getColor() {
         return BlockColor.GRASS_BLOCK_COLOR;
+    }
+    
+    @Override
+    public int[][] getDrops(Item item)	{
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
+    	return new int[][] {
+    		{
+    			Block.DIRT,
+    			0,
+    			1
+    		}
+    	};
     }
 }

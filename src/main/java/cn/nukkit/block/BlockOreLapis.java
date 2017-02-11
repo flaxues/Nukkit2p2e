@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.math.NukkitRandom;
 
 import java.util.Random;
@@ -48,6 +49,15 @@ public class BlockOreLapis extends BlockSolid {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_STONE) {
             return new int[][]{
                     {Item.DYE, 4, new Random().nextInt(4) + 4}

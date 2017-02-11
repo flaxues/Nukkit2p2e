@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.Player;
 import cn.nukkit.item.Item;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.item.food.Food;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.AxisAlignedBB;
@@ -82,6 +83,15 @@ public class BlockCake extends BlockTransparent {
 
     @Override
     public int[][] getDrops(Item item) {
+    	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
+    		return new int[][] {
+    			{
+    				this.getId(),
+    				0,
+    				1
+    			}
+    		};
+    	}
         return new int[0][0];
     }
 
