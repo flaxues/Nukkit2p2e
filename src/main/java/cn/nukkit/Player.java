@@ -54,7 +54,6 @@ import cn.nukkit.math.*;
 import cn.nukkit.metadata.MetadataValue;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.*;
-import cn.nukkit.network.Network;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.network.protocol.*;
 import cn.nukkit.permission.PermissibleBase;
@@ -68,6 +67,8 @@ import cn.nukkit.timings.Timings;
 import cn.nukkit.utils.Binary;
 import cn.nukkit.utils.TextFormat;
 import cn.nukkit.utils.Zlib;
+import co.aikar.timings.Timing;
+import co.aikar.timings.Timings;
 import ru.nukkit.welcome.players.PlayerManager;
 import tk.daporkchop.PorkUtils;
 
@@ -75,6 +76,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.nio.ByteOrder;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -203,7 +205,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     private BlockEnderChest viewingEnderChest = null;
     
     protected int lastEnderPearl = -1;
-    
+
+    private String deviceModel;
+
     public Position loginTempPos = this.getPosition();
     public boolean hasPortaled = false;
     public long lastMessageSentTime = System.currentTimeMillis();
@@ -1918,16 +1922,16 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     LoginPacket loginPacket = (LoginPacket) packet;
 
                     String message;
-                    if (!Network.isAcceptedProtocol(loginPacket.getProtocol())/*loginPacket.getProtocol() != ProtocolInfo.CURRENT_PROTOCOL*/) {
+                    if (loginPacket.getProtocol() != ProtocolInfo.CURRENT_PROTOCOL) {
                         if (loginPacket.getProtocol() < ProtocolInfo.CURRENT_PROTOCOL) {
-                            message = "2p2e's running MCPE " + ProtocolInfo.MINECRAFT_VERSION + ", but you're not. Update your game!";
-                            
+                            message = "2p2e's running MCPE " + Nukkit.MINECRAFT_VERSION_NETWORK + ", but you're not. Update your game!";
+
                             PlayStatusPacket pk = new PlayStatusPacket();
                             pk.status = PlayStatusPacket.LOGIN_FAILED_CLIENT;
                             this.directDataPacket(pk);
                         } else {
-                            message = "You're using a newer version of the game! Downgrade to " + ProtocolInfo.MINECRAFT_VERSION + " to play!";
-                            
+                            message = "You're using a newer version of the game! Downgrade to " + Nukkit.MINECRAFT_VERSION_NETWORK + " to play!";
+
                             PlayStatusPacket pk = new PlayStatusPacket();
                             pk.status = PlayStatusPacket.LOGIN_FAILED_SERVER;
                             this.directDataPacket(pk);
@@ -1982,6 +1986,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     } else {
                         this.setSkin(loginPacket.getSkin());
                     }
+
+                    this.deviceModel = loginPacket.deviceModel;
 
                     PlayerPreLoginEvent playerPreLoginEvent;
                     this.server.getPluginManager().callEvent(playerPreLoginEvent = new PlayerPreLoginEvent(this, "Plugin reason"));
@@ -4759,6 +4765,21 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.movementSpeed += sprintSpeedChange;
         }
         this.setMovementSpeed(this.movementSpeed);
+    }
+
+    public void transfer(InetSocketAddress address) {
+        String hostName = address.getHostName();
+        int port = address.getPort();
+        TransferPacket pk = new TransferPacket();
+        pk.address = hostName;
+        pk.port = port;
+        this.dataPacket(pk);
+        String message = "tranferred to " + address + ":" + port;
+        this.close(message, message, false);
+    }
+
+    public String getDeviceModel() {
+        return deviceModel;
     }
 
     @Override
