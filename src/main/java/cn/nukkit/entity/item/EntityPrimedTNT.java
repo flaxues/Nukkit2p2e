@@ -146,15 +146,8 @@ public class EntityPrimedTNT extends Entity implements EntityExplosive {
     }
 
     public void explode() {
-        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(this, 6);
-        server.getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
-            return;
-        }
-        Explosion explosion = new Explosion(this, event.getForce(), this);
-        if (event.isBlockBreaking()) {
-            explosion.explodeA();
-        }
+        Explosion explosion = new Explosion(this, 6, this);
+        explosion.explodeA();
         explosion.explodeB();
     }
 

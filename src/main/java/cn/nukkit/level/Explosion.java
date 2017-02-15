@@ -178,19 +178,21 @@ public class Explosion {
                 int exposure = 1;
                 double impact = (1 - distance) * exposure;
                 int damage = (int) (((impact * impact + impact) / 2) * 8 * explosionSize + 1);
-
-                if (this.what instanceof Entity) {
-                    EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent((Entity) this.what, entity, EntityDamageEvent.CAUSE_ENTITY_EXPLOSION, instaKill ? entity.getHealth() : damage);
-                    entity.attack(ev);
-                } else if (this.what instanceof Block) {
-                    EntityDamageByBlockEvent ev = new EntityDamageByBlockEvent((Block) this.what, entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, instaKill ? entity.getHealth() : damage);
-                    entity.attack(ev);
+                if (this.instaKill)	{
+                	entity.setHealth(0);
                 } else {
-                    EntityDamageEvent ev = new EntityDamageEvent(entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, instaKill ? entity.getHealth() : damage);
-                    entity.attack(ev);
-                }
-
-                entity.setMotion(motion.multiply(impact));
+                	if (this.what instanceof Entity) {
+                		EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent((Entity) this.what, entity, EntityDamageEvent.CAUSE_ENTITY_EXPLOSION, damage);
+                		entity.attack(ev);
+                	} else if (this.what instanceof Block) {
+                		EntityDamageByBlockEvent ev = new EntityDamageByBlockEvent((Block) this.what, entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, damage);
+                		entity.attack(ev);
+                	} else {
+                		EntityDamageEvent ev = new EntityDamageEvent(entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, damage);
+                		entity.attack(ev);
+                	}
+                	entity.setMotion(motion.multiply(impact));
+            	}
             }
         }
 
