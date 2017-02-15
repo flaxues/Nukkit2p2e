@@ -141,7 +141,7 @@ public class BlockEnderChest extends BlockTransparent {
     	if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null)	{
     		return new int[][] {
     			{
-    				this.getId(),
+    				ENDER_CHEST,
     				0,
     				1
     			}
