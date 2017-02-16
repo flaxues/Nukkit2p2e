@@ -1,5 +1,6 @@
 package cn.nukkit.level.format.anvil;
 
+import cn.nukkit.Server;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntitySpawnable;
 import cn.nukkit.level.Level;
@@ -240,7 +241,9 @@ public class Anvil extends BaseLevelProvider {
         try {
             chunk = this.getRegion(regionX, regionZ).readChunk(x & 0x1f, z & 0x1f);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Server.getInstance().broadcastMessage("&l&4A corrupt chunk was loaded, regenerating...");
+            chunk = null;
+            create = true;
         }
         if (chunk == null && create) {
             chunk = this.getEmptyChunk(x, z);
