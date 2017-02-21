@@ -20,21 +20,23 @@ public class DiscordEventHandler extends ListenerAdapter {
 	
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-		if (event.getAuthor().getId().equals(PorkUtils.api.getSelfUser().getId()))
+		if (event.getAuthor().getId().equals(PorkUtils.api.getSelfUser().getId()))	{
 			return;
+		}
+
+		if (event.getMessage().getRawContent().contains("!players")) {
+			String msg = "Online players: " + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers() + "\n\n";
+			for (Player p : Server.getInstance().getOnlinePlayers().values()) {
+				msg += p.getName() + "\n";
+			}
+			msg += "";
+			event.getChannel().sendMessage(msg).queue();
+			return;
+		}
 		
 		if (msgDiscords.contains(event.getChannel().getId())) {
-			if (event.getMessage().getRawContent().contains("!players")) {
-				String msg = "Online players: " + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers() + "\n\n";
-				for (Player p : Server.getInstance().getOnlinePlayers().values()) {
-					msg += p.getName() + "\n";
-				}
-				msg += "";
-				event.getChannel().sendMessage(msg).queue();
-				return;
-			}
-			
 			PorkUtils.sendMessageToServer(event.getMessage().getStrippedContent(), event.getAuthor());
+			return;
 		}
 	}
 	
