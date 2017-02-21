@@ -2915,7 +2915,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                         switch (par.type) {
                                             case CommandParameter.ARG_TYPE_TARGET:
                                                 CommandArg rules = new Gson().fromJson(arg, CommandArg.class);
-                                                commandText += " " + rules.getRules()[0].getValue();
+                                                try {
+                                                	commandText += " " + rules.getRules()[0].getValue();
+                                                } catch (NullPointerException e){
+                                                	//idk how this could happen, but it does. ignore it for now
+                                                	//TODO
+                                                }
                                                 break;
                                             case CommandParameter.ARG_TYPE_BLOCK_POS:
                                                 CommandArgBlockVector bv = new Gson().fromJson(arg, CommandArgBlockVector.class);
