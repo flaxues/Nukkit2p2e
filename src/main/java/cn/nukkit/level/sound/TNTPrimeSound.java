@@ -6,7 +6,6 @@ import cn.nukkit.network.protocol.LevelEventPacket;
 /**
  * Created by Pub4Game on 04.03.2016.
  */
-@Deprecated
 public class TNTPrimeSound extends GenericSound {
 
     public TNTPrimeSound(Vector3 pos) {

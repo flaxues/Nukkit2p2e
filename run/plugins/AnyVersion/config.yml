@@ -1,0 +1,4 @@
+write-messages-in-log: true
+client-filter:
+  enable: false
+  allowed-protocols: 100, 101, 102
