@@ -16,7 +16,7 @@ public class DiscordCommandSender extends ConsoleCommandSender {
 	public void sendMessage(String message) {
 		message = this.getServer().getLanguage().translateString(message);
 		try {
-			user.getPrivateChannel().sendMessage(message.trim()).queue();
+			user.getPrivateChannel().sendMessage(TextFormat.clean(message.trim())).queue();
 		} catch (UnsupportedOperationException e) {
 		}
 	}
