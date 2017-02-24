@@ -2,6 +2,7 @@ package tk.daporkchop;
 
 import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.lang.TextContainer;
+import cn.nukkit.utils.TextFormat;
 import net.dv8tion.jda.core.entities.User;
 
 public class DiscordCommandSender extends ConsoleCommandSender {
