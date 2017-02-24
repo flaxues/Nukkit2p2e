@@ -1,6 +1,3 @@
 [submodule "src/main/resources/lang"]
 	path = src/main/resources/lang
 	url = https://github.com/Nukkit/Languages.git
-[submodule "src/main/java/mobs"]
-	path = src/main/java/mobs
-	url = https://github.com/2pocket2edition/Mobz-2p2e.git
