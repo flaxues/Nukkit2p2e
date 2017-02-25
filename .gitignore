@@ -54,3 +54,5 @@ plugins/PocketVote/*
 *.dat
 eclipseJars/
 eclipseJars/*
+
+run/
