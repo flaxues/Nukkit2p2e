@@ -84,14 +84,10 @@ public class BlockEndPortal extends BlockFlowable {
              int z = r.nextInt(257) - 128;
              int y = r.nextInt(127) + 1;
 
-             while (!(end.getBlock(x, y, z).getId() == Block.AIR
-                     && end.getBlock(x, y + 1, z).getId() == Block.AIR
-                     && end.getBlock(x, y - 1, z).getId() != Block.LAVA
-                     && end.getBlock(x, y - 1, z).getId() != Block.STILL_LAVA
-                     && end.getBlock(x, y - 1, z).getId() != Block.WATER
-                     && end.getBlock(x, y - 1, z).getId() != Block.STILL_WATER
-                     && end.getBlock(x, y - 1, z).getId() != Block.FIRE
-                     && end.getBlock(x, y - 1, z).getId() != Block.AIR)) {
+             while (!(!end.getBlock(x, y, z).isSolid()
+                     && !end.getBlock(x, y + 1, z).isSolid()
+                     && end.getBlock(x, y + 2, z).isSolid()
+                     && end.getBlock(x, y - 1, z).isSolid())) {
                  x = r.nextInt(257) - 128;
                  z = r.nextInt(257) - 128;
                  y = r.nextInt(127) + 1;
@@ -107,14 +103,10 @@ public class BlockEndPortal extends BlockFlowable {
                 int z = r.nextInt(257) - 128;
                 int y = r.nextInt(127) + 1;
 
-                while (!(world.getBlock(x, y, z).getId() == Block.AIR
-                        && world.getBlock(x, y + 1, z).getId() == Block.AIR
-                        && world.getBlock(x, y - 1, z).getId() != Block.LAVA
-                        && world.getBlock(x, y - 1, z).getId() != Block.STILL_LAVA
-                        && world.getBlock(x, y - 1, z).getId() != Block.WATER
-                        && world.getBlock(x, y - 1, z).getId() != Block.STILL_WATER
-                        && world.getBlock(x, y - 1, z).getId() != Block.FIRE
-                        && world.getBlock(x, y - 1, z).getId() != Block.AIR)) {
+                while (!(!world.getBlock(x, y, z).isSolid()
+                        && !world.getBlock(x, y + 1, z).isSolid()
+                        && world.getBlock(x, y + 2, z).isSolid()
+                        && world.getBlock(x, y - 1, z).isSolid())) {
                     x = r.nextInt(257) - 128;
                     z = r.nextInt(257) - 128;
                     y = r.nextInt(127) + 1;
