@@ -51,7 +51,7 @@ public abstract class WalkingEntity extends BaseEntity{
 
                 this.stayTime = 0;
                 this.moveTime = 0;
-                this.target = creature;
+                this.setTarget(creature);
             }
         }
 

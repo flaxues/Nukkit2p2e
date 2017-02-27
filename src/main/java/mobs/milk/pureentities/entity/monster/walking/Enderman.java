@@ -8,6 +8,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 import mobs.milk.pureentities.entity.monster.WalkingMonster;
+import mobs.milk.pureentities.util.Utils;
 
 import java.util.HashMap;
 
@@ -36,6 +37,11 @@ public class Enderman extends WalkingMonster{
     @Override
     public double getSpeed(){
         return 1.21;
+    }
+
+    @Override
+    public void setTarget(Entity target) {
+        this.target = this.add(Utils.rand() ? x : -x, Utils.rand(-20, 20) / 10, Utils.rand() ? z : -z);
     }
 
     protected void initEntity(){
@@ -70,4 +76,11 @@ public class Enderman extends WalkingMonster{
         return new Item[0];
     }
 
+    @Override
+    public void attack(EntityDamageEvent source)    {
+        super.attack(source);
+        if (source instanceof EntityDamageByEntityEvent) {
+            this.target = ((EntityDamageByEntityEvent) source).getDamager();
+        }
+    }
 }
