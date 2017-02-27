@@ -35,6 +35,10 @@ import cn.nukkit.timings.Timing;
 import cn.nukkit.timings.Timings;
 import cn.nukkit.timings.TimingsHistory;
 import cn.nukkit.utils.ChunkException;
+import cn.nukkit.utils.MainLogger;
+import co.aikar.timings.Timing;
+import co.aikar.timings.Timings;
+import co.aikar.timings.TimingsHistory;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -599,7 +603,7 @@ public abstract class Entity extends Location implements Metadatable {
 
                     }
                 } catch (Exception e) {
-                    //ignore
+                    MainLogger.getLogger().logException(e);
                 }
 
             }
@@ -639,7 +643,7 @@ public abstract class Entity extends Location implements Metadatable {
             this.namedTag.putString("id", this.getSaveId());
             if (!this.getNameTag().equals("")) {
                 this.namedTag.putString("CustomName", this.getNameTag());
-                this.namedTag.putString("CustomNameVisible", String.valueOf(this.isNameTagVisible()));
+                this.namedTag.putBoolean("CustomNameVisible", this.isNameTagVisible());
             } else {
                 this.namedTag.remove("CustomName");
                 this.namedTag.remove("CustomNameVisible");
