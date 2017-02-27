@@ -57,7 +57,7 @@ public class AutoSpawnTask implements Runnable{
                 }
             } else if (player.getLevel() == Server.getInstance().getDefaultLevel()) {
                 int time = player.getLevel().getTime() % Level.TIME_FULL;
-                Server.getInstance().getLogger().info(time + " " + (time >= Level.TIME_NIGHT && time < Level.TIME_SUNRISE));
+                //Server.getInstance().getLogger().info(time + " " + (time >= Level.TIME_NIGHT && time < Level.TIME_SUNRISE));
                 if (time >= Level.TIME_NIGHT && time < Level.TIME_SUNRISE) { //check if it's night
                     if (blockLightLevel < 6) { //check if it's dark enough
                         switch (Utils.rand(1, 6)) {
