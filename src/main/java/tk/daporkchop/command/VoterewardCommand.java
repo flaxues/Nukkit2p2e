@@ -10,7 +10,7 @@ import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.command.defaults.VanillaCommand;
 import cn.nukkit.item.Item;
 import cn.nukkit.utils.TextFormat;
-import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
+import mobs.milk.pureentities.util.Utils;
 import tk.daporkchop.PorkUtils;
 
 public class VoterewardCommand extends VanillaCommand {

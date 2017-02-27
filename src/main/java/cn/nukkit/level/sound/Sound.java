@@ -7,7 +7,6 @@ import cn.nukkit.network.protocol.DataPacket;
  * author: MagicDroidX
  * Nukkit Project
  */
-@Deprecated
 public abstract class Sound extends Vector3 {
 
     public Sound() {

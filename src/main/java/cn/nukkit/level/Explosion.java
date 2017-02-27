@@ -19,7 +19,7 @@ import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.*;
 import cn.nukkit.network.protocol.ExplodePacket;
-import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
+import mobs.milk.pureentities.util.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -566,7 +566,7 @@ public class PluginManager {
 
     public void registerEvents(Listener listener, Plugin plugin) {
         if (!plugin.isEnabled()) {
-            throw new PluginException("Plugin attempted to register " + listener.getClass().getName() + " while not enabled");
+            //throw new PluginException("Plugin attempted to register " + listener.getClass().getName() + " while not enabled");
         }
 
         Set<Method> methods;
