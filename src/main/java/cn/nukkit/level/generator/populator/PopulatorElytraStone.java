@@ -3,7 +3,7 @@ package cn.nukkit.level.generator.populator;
 import cn.nukkit.block.Block;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.math.NukkitRandom;
-import mobs.milk.pureentities.util.Utils;
+import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
 public class PopulatorElytraStone extends Populator {
 

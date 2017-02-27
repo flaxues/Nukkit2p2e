@@ -4,7 +4,7 @@ import cn.nukkit.block.Block;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.NukkitRandom;
-import mobs.milk.pureentities.util.Utils;
+import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
 public class PopulatorMelonPumpkin extends Populator {
     private ChunkManager level;

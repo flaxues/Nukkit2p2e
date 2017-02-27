@@ -4,7 +4,7 @@ import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityHumanType;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.item.Item;
-import mobs.milk.pureentities.util.Utils;
+import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
 import java.util.Random;
 

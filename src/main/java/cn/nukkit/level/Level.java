@@ -65,6 +65,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.LoadingCache;
+import com.google.common.collect.MapMaker;
 
 /**
  * author: MagicDroidX Nukkit Project
@@ -439,14 +441,17 @@ public class Level implements ChunkManager, Metadatable {
         this.server.getLevels().remove(this.levelId);
     }
 
+    @Deprecated
     public void addSound(Sound sound) {
         this.addSound(sound, (Player[]) null);
     }
 
+    @Deprecated
     public void addSound(Sound sound, Player player) {
         this.addSound(sound, new Player[]{player});
     }
 
+    @Deprecated
     public void addSound(Sound sound, Player[] players) {
         DataPacket[] packets = sound.encode();
 
@@ -531,6 +536,7 @@ public class Level implements ChunkManager, Metadatable {
         }
     }
     
+    @Deprecated
     public void addSound(Sound sound, Collection<Player> players) {
         this.addSound(sound, players.stream().toArray(Player[]::new));
     }
@@ -2226,12 +2232,7 @@ public class Level implements ChunkManager, Metadatable {
     }
 
     public int getBlockSkyLightAt(int x, int y, int z) {
-        if (this.canBlockSeeSky(x, y, z))   {
-            int time = this.getTime() % Level.TIME_FULL;
-            return time >= Level.TIME_NIGHT && time < Level.TIME_SUNRISE ? 0 : 15;
-            //return 0 if it's night, 15 otherwise
-        }
-        return 0;
+        return this.getChunk(x >> 4, z >> 4, true).getBlockSkyLight(x & 0x0f, y & 0xff, z & 0x0f);
     }
 
     public void setBlockSkyLightAt(int x, int y, int z, int level) {
@@ -3115,9 +3116,5 @@ public class Level implements ChunkManager, Metadatable {
 
     public boolean canBlockSeeSky(Vector3 pos) {
         return this.getHighestBlockAt(pos.getFloorX(), pos.getFloorZ()) < pos.getY();
-    }
-
-    public boolean canBlockSeeSky(int x, int y, int z) {
-        return this.getHighestBlockAt(x, z) < y;
     }
 }
