@@ -10,8 +10,6 @@ import cn.nukkit.level.Position;
 import cn.nukkit.utils.BlockColor;
 import tk.daporkchop.task.GenEnderPortalTask;
 
-import java.util.Random;
-
 public class BlockEndPortal extends BlockFlowable {
 
     public BlockEndPortal() {
@@ -78,50 +76,14 @@ public class BlockEndPortal extends BlockFlowable {
      	Level end = Server.getInstance().getEndLevel();
      	
          if (this.getLevel() == world)  {
-             Position pos;
-             Random r = new Random(); // Don't want to affect nukkitRandom
-             int x = r.nextInt(257) - 128;
-             int z = r.nextInt(257) - 128;
-             int y = r.nextInt(127) + 1;
-
-             while (!(end.getBlock(x, y, z).getId() == Block.AIR
-                     && end.getBlock(x, y + 1, z).getId() == Block.AIR
-                     && end.getBlock(x, y - 1, z).getId() != Block.LAVA
-                     && end.getBlock(x, y - 1, z).getId() != Block.STILL_LAVA
-                     && end.getBlock(x, y - 1, z).getId() != Block.WATER
-                     && end.getBlock(x, y - 1, z).getId() != Block.STILL_WATER
-                     && end.getBlock(x, y - 1, z).getId() != Block.FIRE
-                     && end.getBlock(x, y - 1, z).getId() != Block.AIR)) {
-                 x = r.nextInt(257) - 128;
-                 z = r.nextInt(257) - 128;
-                 y = r.nextInt(127) + 1;
-             }
-
-             pos = new Position(x + 0.5, y, z + 0.5, end);
+     	    Position pos = new Position(0, 64, 0, end);
+     	    if (entity instanceof Player)	{
+     		    genPortal(pos, (Player) entity);
+     	    }
          	entity.teleport(pos);
         } else {
         	if (entity instanceof Player)  {
-        	    Position pos;
-                Random r = new Random(); // Don't want to affect nukkitRandom
-                int x = r.nextInt(257) - 128;
-                int z = r.nextInt(257) - 128;
-                int y = r.nextInt(127) + 1;
-
-                while (!(world.getBlock(x, y, z).getId() == Block.AIR
-                        && world.getBlock(x, y + 1, z).getId() == Block.AIR
-                        && world.getBlock(x, y - 1, z).getId() != Block.LAVA
-                        && world.getBlock(x, y - 1, z).getId() != Block.STILL_LAVA
-                        && world.getBlock(x, y - 1, z).getId() != Block.WATER
-                        && world.getBlock(x, y - 1, z).getId() != Block.STILL_WATER
-                        && world.getBlock(x, y - 1, z).getId() != Block.FIRE
-                        && world.getBlock(x, y - 1, z).getId() != Block.AIR)) {
-                    x = r.nextInt(257) - 128;
-                    z = r.nextInt(257) - 128;
-                    y = r.nextInt(127) + 1;
-                }
-
-                pos = new Position(x + 0.5, y, z + 0.5, world);
-        	    entity.teleport(pos);
+        	    entity.teleport(((Player) entity).spawnPosition == null ? new Position(0, 256, 0, world) : ((Player) entity).spawnPosition);
             } else {
             	entity.teleport(new Position(0, 256, 0, world));
             } 
