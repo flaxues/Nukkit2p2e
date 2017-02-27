@@ -40,6 +40,20 @@ public class GenEnderPortalTask extends TimerTask {
 			return;
 		}
 
+		for (int x = (int) pos.x - 2; x < pos.x + 2; x++) {
+			for (int y = (int) pos.y; y < pos.y + 4; y++) {
+				for (int z = (int) pos.z - 2; z < pos.z + 2; z++) {
+					pos.level.setBlockIdAt(x, y, z, Block.AIR);
+				}
+			}
+		}
+
+		for (int x = (int) pos.x - 2; x < pos.x + 2; x++) {
+			for (int z = (int) pos.z - 2; z < pos.z + 2; z++) {
+				pos.level.setBlockIdAt(x, pos.getFloorY(), z, Block.OBSIDIAN);
+			}
+		}
+
 		if (player.hasEffect(Effect.ABSORPTION))
 			player.removeEffect(Effect.ABSORPTION);
 
