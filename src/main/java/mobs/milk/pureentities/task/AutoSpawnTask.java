@@ -16,7 +16,7 @@ public class AutoSpawnTask implements Runnable{
     @SuppressWarnings("deprecation")
     public void run(){
         Server.getInstance().getOnlinePlayers().forEach((name, player) -> {
-            if(Utils.rand(1, 210) > 40){
+            if(Utils.rand()){
                 return;
             }
 
