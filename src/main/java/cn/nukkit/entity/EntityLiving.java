@@ -15,6 +15,8 @@ import cn.nukkit.network.protocol.EntityEventPacket;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.timings.Timings;
 import cn.nukkit.utils.BlockIterator;
+import mobs.de.kniffo80.mobplugin.entities.BaseEntity;
+import mobs.de.kniffo80.mobplugin.entities.MobDrops;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -167,7 +169,7 @@ public abstract class EntityLiving extends Entity implements EntityDamageable {
             return;
         }
         super.kill();
-        EntityDeathEvent ev = new EntityDeathEvent(this, this.getDrops());
+        EntityDeathEvent ev = new EntityDeathEvent(this, this instanceof BaseEntity ? MobDrops.getDrops((BaseEntity) this) : this.getDrops());
         this.server.getPluginManager().callEvent(ev);
         for (cn.nukkit.item.Item item : ev.getDrops()) {
             this.getLevel().dropItem(this, item);
