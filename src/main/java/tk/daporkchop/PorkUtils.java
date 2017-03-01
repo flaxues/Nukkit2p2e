@@ -31,7 +31,6 @@ import tk.daporkchop.command.RotCommand;
 import tk.daporkchop.command.VoteCommand;
 import tk.daporkchop.command.VoterewardCommand;
 import tk.daporkchop.task.AutoRestartTask;
-import tk.daporkchop.task.DetectFrozenTask;
 import tk.daporkchop.task.MessageRead;
 import tk.daporkchop.task.RandomMessagesTask;
 import tk.daporkchop.task.SendCoordsTask;
@@ -111,7 +110,6 @@ public class PorkUtils extends PluginBase {
         new Timer().schedule(new AutoRestartTask(), 0, 1000);
         new Timer().schedule(new SendMessagesToDiscordTask(), 5000, 1000);
         new Timer().schedule(new SendCoordsTask(), 10000, 250);
-        new Timer().schedule(new DetectFrozenTask(), 10000, 10000);
         
         SimpleCommandMap.INSTANCE.register("nukkit", new GetPosCommand("getpos"));
         SimpleCommandMap.INSTANCE.register("nukkit", new AnnounceCommand("announce"));
