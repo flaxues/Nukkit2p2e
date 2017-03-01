@@ -63,7 +63,7 @@ public class BlockEndPortal extends BlockFlowable {
     @Override
     public void onEntityCollide(Entity entity) {
     	
-    	Level world = Server.getInstance().getDefaultLevel();
+    	/*Level world = Server.getInstance().getDefaultLevel();
         
         EntityPortalEnterEvent ev = new EntityPortalEnterEvent(entity, EntityPortalEnterEvent.TYPE_END);
         this.level.getServer().getPluginManager().callEvent(ev);
@@ -87,7 +87,7 @@ public class BlockEndPortal extends BlockFlowable {
             } else {
             	entity.teleport(new Position(0, 256, 0, world));
             } 
-        } 
+        } */
     }
 
 
