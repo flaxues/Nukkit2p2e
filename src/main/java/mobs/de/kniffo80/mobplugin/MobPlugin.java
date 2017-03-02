@@ -8,30 +8,22 @@ package mobs.de.kniffo80.mobplugin;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 import cn.nukkit.IPlayer;
 import cn.nukkit.OfflinePlayer;
 import cn.nukkit.Player;
-import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockAir;
-import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.item.EntityItem;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.BlockPlaceEvent;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDeathEvent;
-import cn.nukkit.event.player.PlayerInteractEvent;
-import cn.nukkit.event.player.PlayerMouseOverEntityEvent;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.food.Food;
-import cn.nukkit.item.food.FoodNormal;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
@@ -41,10 +33,8 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.DoubleTag;
 import cn.nukkit.nbt.tag.FloatTag;
 import cn.nukkit.nbt.tag.ListTag;
-import cn.nukkit.network.protocol.EntityEventPacket;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
-import cn.nukkit.utils.DyeColor;
 import mobs.de.kniffo80.mobplugin.entities.BaseEntity;
 import mobs.de.kniffo80.mobplugin.entities.animal.flying.Bat;
 import mobs.de.kniffo80.mobplugin.entities.animal.swimming.Squid;
@@ -60,7 +50,6 @@ import mobs.de.kniffo80.mobplugin.entities.animal.walking.Rabbit;
 import mobs.de.kniffo80.mobplugin.entities.animal.walking.Sheep;
 import mobs.de.kniffo80.mobplugin.entities.animal.walking.SkeletonHorse;
 import mobs.de.kniffo80.mobplugin.entities.animal.walking.ZombieHorse;
-import mobs.de.kniffo80.mobplugin.entities.block.BlockEntitySpawner;
 import mobs.de.kniffo80.mobplugin.entities.monster.flying.Blaze;
 import mobs.de.kniffo80.mobplugin.entities.monster.flying.Ghast;
 import mobs.de.kniffo80.mobplugin.entities.monster.walking.CaveSpider;
@@ -78,11 +67,6 @@ import mobs.de.kniffo80.mobplugin.entities.monster.walking.Zombie;
 import mobs.de.kniffo80.mobplugin.entities.monster.walking.ZombieVillager;
 import mobs.de.kniffo80.mobplugin.entities.projectile.EntityFireBall;
 import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
-import mobs.de.kniffo80.mobplugin.items.ItemEnderPearl;
-import mobs.de.kniffo80.mobplugin.items.ItemInkSac;
-import mobs.de.kniffo80.mobplugin.items.ItemMuttonCooked;
-import mobs.de.kniffo80.mobplugin.items.ItemMuttonRaw;
-import mobs.de.kniffo80.mobplugin.items.MobPluginItems;
 
 /**
  * @author <a href="mailto:kniffman@googlemail.com">Michael Gertz (kniffo80)</a>
@@ -91,14 +75,11 @@ public class MobPlugin extends PluginBase implements Listener {
 
 	public static boolean MOB_AI_ENABLED = false;
 
-	private int counter = 0;
-
 	private Config pluginConfig = null;
 
 	@Override
 	public void onLoad() {
 		registerEntities();
-		registerItems();
 		Utils.logServerInfo("Plugin loaded successfully.");
 	}
 
@@ -115,9 +96,6 @@ public class MobPlugin extends PluginBase implements Listener {
 		this.getServer().getPluginManager().registerEvents(this, this);
 
 		if (spawnDelay > 0) {
-			//this.getServer().getScheduler().scheduleDelayedRepeatingTask(new AutoSpawnTask(this), 200, spawnDelay, true);
-			Timer timer = new Timer();
-
 			this.getServer().getScheduler().scheduleRepeatingTask(new AutoSpawnTask(), 150);
 		}
 		
@@ -241,27 +219,7 @@ public class MobPlugin extends PluginBase implements Listener {
 		Entity.registerEntity("FireBall", EntityFireBall.class);
 
 		// register the mob spawner (which is probably not needed anymore)
-		BlockEntity.registerBlockEntity("MobSpawner", BlockEntitySpawner.class);
 		Utils.logServerInfo("registerEntites: done.");
-	}
-
-	private void registerItems() {
-		// register the new items
-		Item.addCreativeItem(new ItemMuttonCooked());
-		Item.addCreativeItem(new ItemMuttonRaw());
-		Item.addCreativeItem(new ItemEnderPearl());
-		Item.addCreativeItem(new ItemInkSac());
-
-		// register the items as food
-		Food.registerFood(new FoodNormal(6, 9.6F).addRelative(MobPluginItems.COOKED_MUTTON), this);
-		Food.registerFood(new FoodNormal(2, 1.2F).addRelative(MobPluginItems.RAW_MUTTON), this);
-
-		Item.list[MobPluginItems.COOKED_MUTTON] = ItemMuttonCooked.class;
-		Item.list[MobPluginItems.RAW_MUTTON] = ItemMuttonRaw.class;
-		Item.list[MobPluginItems.ENDER_PEARL] = ItemEnderPearl.class;
-		Item.list[MobPluginItems.INK_SAC] = ItemInkSac.class;
-
-		Utils.logServerInfo("registerItems: done.");
 	}
 
 	/**
@@ -360,31 +318,6 @@ public class MobPlugin extends PluginBase implements Listener {
 	}
 
 	@EventHandler
-	public void PlayerInteractEvent(PlayerInteractEvent ev) {
-		if (ev.getFace() == 255 || ev.getAction() != PlayerInteractEvent.RIGHT_CLICK_BLOCK) {
-			return;
-		}
-
-		Item item = ev.getItem();
-		Block block = ev.getBlock();
-		if (item.getId() == Item.SPAWN_EGG && block.getId() == Item.MONSTER_SPAWNER) {
-			ev.setCancelled(true);
-
-			BlockEntity blockEntity = block.getLevel().getBlockEntity(block);
-			if (blockEntity != null && blockEntity instanceof BlockEntitySpawner) {
-				((BlockEntitySpawner) blockEntity).setSpawnEntityType(item.getDamage());
-			} else {
-				if (blockEntity != null) {
-					blockEntity.close();
-				}
-				CompoundTag nbt = new CompoundTag().putString("id", BlockEntity.MOB_SPAWNER).putInt("EntityId", item.getDamage()).putInt("x", (int) block.x).putInt("y", (int) block.y).putInt("z", (int) block.z);
-
-				new BlockEntitySpawner(block.getLevel().getChunk((int) block.x >> 4, (int) block.z >> 4), nbt);
-			}
-		}
-	}
-
-	@EventHandler
 	public void BlockPlaceEvent(BlockPlaceEvent ev) {
 		if (ev.isCancelled()) {
 			return;
@@ -425,54 +358,8 @@ public class MobPlugin extends PluginBase implements Listener {
 			}
 		}
 	}
-
-	@EventHandler
-	public void BlockBreakEvent(BlockBreakEvent ev) {
-		if (ev.isCancelled()) {
-			return;
-		}
-
-		Block block = ev.getBlock();
-		if ((block.getId() == Block.STONE || block.getId() == Block.STONE_BRICK || block.getId() == Block.STONE_WALL || block.getId() == Block.STONE_BRICK_STAIRS) && block.getLevel().getBlockLightAt((int) block.x, (int) block.y, (int) block.z) < 12 && Utils.rand(1, 5) == 1) {
-			// TODO: 돌만 붓시면 되긋나
-			/*
-			 * Silverfish entity = (Silverfish) create("Silverfish", block.add(0.5, 0, 0.5)); if(entity != null){ entity.spawnToAll(); }
-			 */
-		}
-	}
-
-	@EventHandler
-	public void PlayerMouseOverEntityEvent(PlayerMouseOverEntityEvent ev) {
-		if (this.counter > 10) {
-			counter = 0;
-			FileLogger.debug(String.format("Received PlayerMouseOverEntityEvent [entity:%s]", ev.getEntity()));
-			// wolves can be tamed using bones
-			if (ev != null && ev.getEntity() != null && ev.getPlayer() != null && ev.getEntity().getNetworkId() == Wolf.NETWORK_ID && ev.getPlayer().getInventory().getItemInHand().getId() == Item.BONE) {
-				// check if already owned and tamed ...
-				Wolf wolf = (Wolf) ev.getEntity();
-				if (!wolf.isAngry() && wolf.getOwner() == null) {
-					// now try it out ...
-					EntityEventPacket packet = new EntityEventPacket();
-					packet.eid = ev.getEntity().getId();
-					packet.event = EntityEventPacket.TAME_SUCCESS;
-					Server.broadcastPacket(new Player[] { ev.getPlayer() }, packet);
-
-					// set the owner
-					wolf.setOwner(ev.getPlayer());
-					wolf.setCollarColor(DyeColor.BLUE);
-					wolf.saveNBT();
-				}
-			}
-		} else {
-			counter++;
-		}
-	}
-	//
-	// @EventHandler
-	// public void PlayerMouseRightEntityEvent(PlayerMouseRightEntityEvent ev) {
-	// FileLogger.debug(String.format("Received PlayerMouseRightEntityEvent [entity:%s]", ev.getEntity()));
-	// }
 	
+	//TODO
 	/*@EventHandler
 	public void onChunkGenerate(ChunkPopulateEvent event)	{
 		if (Utils.rand(0, 15) == 3)	{

@@ -1,8 +1,6 @@
 package mobs.de.kniffo80.mobplugin.entities.monster.walking;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import cn.nukkit.Player;
 import cn.nukkit.entity.Entity;
@@ -12,8 +10,6 @@ import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 import mobs.de.kniffo80.mobplugin.entities.monster.WalkingMonster;
-import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
-import mobs.de.kniffo80.mobplugin.items.MobPluginItems;
 
 public class Enderman extends WalkingMonster {
 
@@ -98,14 +94,7 @@ public class Enderman extends WalkingMonster {
 
     @Override
     public Item[] getDrops() {
-        List<Item> drops = new ArrayList<>();
-        if (this.lastDamageCause instanceof EntityDamageByEntityEvent) {
-            int enderPearls = Utils.rand(0, 2); // drops 0-1 enderpearls
-            for (int i=0; i < enderPearls; i++) {
-                drops.add(Item.get(MobPluginItems.ENDER_PEARL, 0, 1));
-            }
-        }
-        return drops.toArray(new Item[drops.size()]);
+    	return new Item[0];
     }
     
     @Override

@@ -21,6 +21,7 @@ import mobs.de.kniffo80.mobplugin.MobPlugin;
 import mobs.de.kniffo80.mobplugin.entities.monster.WalkingMonster;
 import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
+@SuppressWarnings("deprecation")
 public class SnowGolem extends WalkingMonster {
 
     public static final int NETWORK_ID = 21;
