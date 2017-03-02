@@ -24,6 +24,7 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockPlaceEvent;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDeathEvent;
+import cn.nukkit.event.level.ChunkPopulateEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Location;
@@ -219,7 +220,6 @@ public class MobPlugin extends PluginBase implements Listener {
 		// register the fireball entity
 		Entity.registerEntity("FireBall", EntityFireBall.class);
 
-		// register the mob spawner (which is probably not needed anymore)
 		Utils.logServerInfo("registerEntites: done.");
 	}
 
@@ -361,26 +361,36 @@ public class MobPlugin extends PluginBase implements Listener {
 	}
 	
 	//TODO
-	/*@EventHandler
+	@EventHandler
 	public void onChunkGenerate(ChunkPopulateEvent event)	{
-		if (Utils.rand(0, 15) == 3)	{
+		if (Utils.rand(0, 25) == 3)	{
 			FullChunk chunk = event.getChunk();
 			int spawnX = 0;
 			int spawnZ = 0;
 			int spawnY = 0;
-			int id = AutoSpawnTask.passiveMobsOverWorld.keySet().toArray(new Integer[AutoSpawnTask.passiveMobsOverWorld.keySet().size()])[Utils.rand(0, AutoSpawnTask.passiveMobsOverWorld.keySet().size())];
-			for (int i = 0; i < 3; i++)	{
+			String id = mobListPassiveOverworld.get(Utils.rand(0, mobListPassiveOverworld.size()));
+			for (int i = 0; i < Utils.rand(3, 5); i++)	{
 				spawnX = Utils.rand(0, 15);
 				spawnZ = Utils.rand(0, 15);
 				if (chunk.getBlockId(spawnX, spawnY = chunk.getHighestBlockAt(spawnX, spawnZ), spawnZ) == Block.GRASS)	{
-					Entity entity = MobPlugin.create(id, new Position(spawnX * 16 + 0.5, spawnY + 1, spawnZ * 16 + 0.5, event.getLevel()));
+					Entity entity = MobPlugin.create(id, new Position(spawnX * 16 + 0.5, spawnY + 2.3, spawnZ * 16 + 0.5, event.getLevel()));
 					if (entity != null) {
 						entity.spawnToAll();
 					}
 				}
 			}
 		}
-	}*/
+	}
+	
+	public static final ArrayList<String> mobListPassiveOverworld = new ArrayList<>();
+	
+	static {
+		mobListPassiveOverworld.add("Chicken");
+		mobListPassiveOverworld.add("Cow");
+		mobListPassiveOverworld.add("Pig");
+		mobListPassiveOverworld.add("Rabbit");
+		mobListPassiveOverworld.add("Sheep");
+	}
 	
 	/**
 	 * Reduce
