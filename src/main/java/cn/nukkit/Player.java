@@ -3557,11 +3557,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         return false;
     }
 
+    public boolean isChatMuted = false;
+
     @Override
     public void sendMessage(String message) {
-    	if (!PlayerManager.isPlayerLoggedIn(this))	{ //Don't want to send chat to players that aren't logged in
-    		return;
-    	}
+        this.sendMessage(message, false);
+    }
+
+    public void sendMessage(String message, boolean force) {
+        if (!force) {
+            if (!PlayerManager.isPlayerLoggedIn(this) || isChatMuted) { //Don't want to send chat to players that aren't logged in
+                return;
+            }
+        }
     	
         String[] mes = this.server.getLanguage().translateString(message).split("\\n");
         for (String m : mes) {
@@ -4134,7 +4142,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 		}
 
 		if (!Objects.equals(ev.getDeathMessage().toString(), "")) {
-			this.server.broadcast(ev.getDeathMessage(), Server.BROADCAST_CHANNEL_USERS);
+			this.server.broadcast(ev.getDeathMessage(), Server.BROADCAST_CHANNEL_USERS, true);
 			PorkUtils.queueMessageForDiscord(TextFormat.clean(message));
 		}
 
