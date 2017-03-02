@@ -24,5 +24,4 @@ public class SendMessagesToDiscordTask extends TimerTask {
 		}
 		PorkUtils.minecraftChannel.sendTyping();
 	}
-
 }

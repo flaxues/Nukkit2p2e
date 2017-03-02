@@ -92,19 +92,27 @@ public class PorkUtils extends PluginBase {
 		}
 
 		token = token.trim();
-		try {
-			api = new JDABuilder(AccountType.BOT).setToken(token).buildBlocking();
-			minecraftChannel = api.getTextChannelById("259327833535414272");
-			api.addEventListener(new DiscordEventHandler());
-		} catch (LoginException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (RateLimitedException e) {
-			e.printStackTrace();
-		}        
+		
+		final String tkn = token; //fuck final variables
+		(new Thread() {
+			@Override
+			public void run()	{
+				try {
+					api = new JDABuilder(AccountType.BOT).setToken(tkn).buildBlocking();
+					minecraftChannel = api.getTextChannelById("259327833535414272");
+					api.addEventListener(new DiscordEventHandler());
+				} catch (LoginException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (RateLimitedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		
         new Timer().schedule(new MessageRead(), 0, 7200000);
         new Timer().schedule(new UpdatePlayerCountTask(), 5000, 5000);
         new Timer().schedule(new RandomMessagesTask(), 1000, 120000);
