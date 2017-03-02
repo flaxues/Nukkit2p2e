@@ -30,7 +30,12 @@ public class DiscordEventHandler extends ListenerAdapter {
 			PorkUtils.sendMessageToServer(event.getMessage().getStrippedContent(), event.getAuthor());
 			return;
 		} else {
-			event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!");
+			try {
+				event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!");
+			} catch (IllegalStateException e)	{
+				event.getAuthor().openPrivateChannel();
+				event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!");
+			}
 			event.getMessage().deleteMessage();
 		}
 	}
