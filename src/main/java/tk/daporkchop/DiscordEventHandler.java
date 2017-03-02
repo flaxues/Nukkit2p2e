@@ -25,18 +25,20 @@ public class DiscordEventHandler extends ListenerAdapter {
 			return;
 		}
 		
-		if (event.getMessage().getStrippedContent().length() < 150) {
-			//prevent super long messages from spamming PE players
-			PorkUtils.sendMessageToServer(event.getMessage().getStrippedContent(), event.getAuthor());
-			return;
-		} else {
-			try {
-				event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!").queue();
-			} catch (IllegalStateException e)	{
-				event.getAuthor().openPrivateChannel();
-				event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!").queue();
+		if (event.getChannel().getId().equals("259327833535414272"))	{
+			if (event.getMessage().getStrippedContent().length() < 150) {
+				//prevent super long messages from spamming PE players
+				PorkUtils.sendMessageToServer(event.getMessage().getStrippedContent(), event.getAuthor());
+				return;
+			} else {
+				try {
+					event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!").queue();
+				} catch (IllegalStateException e)	{
+					event.getAuthor().openPrivateChannel();
+					event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!").queue();
+				}
+				event.getMessage().deleteMessage().queue();
 			}
-			event.getMessage().deleteMessage().queue();
 		}
 	}
 	
