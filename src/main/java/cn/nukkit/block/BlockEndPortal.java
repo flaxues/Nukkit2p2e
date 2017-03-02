@@ -10,6 +10,7 @@ import cn.nukkit.level.Position;
 import cn.nukkit.utils.BlockColor;
 import tk.daporkchop.task.GenEnderPortalTask;
 
+@SuppressWarnings("unused")
 public class BlockEndPortal extends BlockFlowable {
 
     public BlockEndPortal() {

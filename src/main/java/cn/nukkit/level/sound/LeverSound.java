@@ -7,7 +7,6 @@ import cn.nukkit.network.protocol.LevelEventPacket;
  * author: MagicDroidX
  * Nukkit Project
  */
-@Deprecated
 public class LeverSound extends GenericSound {
 
     public LeverSound(Vector3 pos, boolean isPowerOn) {

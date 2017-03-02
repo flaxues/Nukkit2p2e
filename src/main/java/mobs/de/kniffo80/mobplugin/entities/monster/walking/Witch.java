@@ -18,7 +18,6 @@ import mobs.de.kniffo80.mobplugin.MobPlugin;
 import mobs.de.kniffo80.mobplugin.entities.monster.WalkingMonster;
 import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
-@SuppressWarnings("deprecation")
 public class Witch extends WalkingMonster {
 
     public static final int  NETWORK_ID   = 45;

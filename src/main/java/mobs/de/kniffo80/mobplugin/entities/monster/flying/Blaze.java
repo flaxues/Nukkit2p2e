@@ -26,7 +26,6 @@ import mobs.de.kniffo80.mobplugin.entities.monster.FlyingMonster;
 import mobs.de.kniffo80.mobplugin.entities.projectile.EntityFireBall;
 import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
-@SuppressWarnings("deprecation")
 public class Blaze extends FlyingMonster {
 
     public static final int NETWORK_ID = 43;
