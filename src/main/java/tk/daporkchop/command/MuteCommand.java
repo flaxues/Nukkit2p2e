@@ -1,17 +1,13 @@
 package tk.daporkchop.command;
 
-import java.util.ArrayList;
-
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.defaults.VanillaCommand;
 
-public class CoordsCommand extends VanillaCommand {
-	
-	public static final ArrayList<Player> onCoords = new ArrayList<Player>();
+public class MuteCommand extends VanillaCommand {
 
-	public CoordsCommand(String name) {
-		super(name, "shows your coords as a tooltip", "/coords");
+	public MuteCommand(String name) {
+		super(name, "toggles your chat", "/mute");
 		this.setPermission("nukkit.command.help"); // everyone should be able to
 													// use this
 		this.commandParameters.clear();
@@ -27,14 +23,7 @@ public class CoordsCommand extends VanillaCommand {
 			return true;
 		}
 		
-		if (onCoords.contains(p))	 {
-			onCoords.remove(p);
-			p.sendMessage("Coords turned off");
-			p.sendTip("");
-		} else {
-			onCoords.add(p);
-			p.sendMessage("Coords turned on");
-		}
+		p.sendMessage("&l&aChat has been" + ((p.isChatMuted = !p.isChatMuted) ? "dis" : "en") + "abled!", true);
 		
 		return true;
 	}

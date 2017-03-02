@@ -2967,6 +2967,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     	}
                     	
                         textPacket.message = this.removeFormat ? TextFormat.clean(textPacket.message) : textPacket.message;
+                    	if (textPacket.message.length() > 100)  {
+                    	    this.sendMessage("&c&lMessage too long!");
+                        }
                         for (String msg : textPacket.message.split("\n")) {
                             if (!"".equals(msg.trim()) && msg.length() <= 255 && this.messageCounter-- > 0) {
                                 if (msg.startsWith("./")) { //Command
@@ -3554,11 +3557,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         return false;
     }
 
+    public boolean isChatMuted = false;
+
     @Override
     public void sendMessage(String message) {
-    	if (!PlayerManager.isPlayerLoggedIn(this))	{ //Don't want to send chat to players that aren't logged in
-    		return;
-    	}
+        this.sendMessage(message, false);
+    }
+
+    public void sendMessage(String message, boolean force) {
+        if (!force) {
+            if (!PlayerManager.isPlayerLoggedIn(this) || isChatMuted) { //Don't want to send chat to players that aren't logged in
+                return;
+            }
+        }
     	
         String[] mes = this.server.getLanguage().translateString(message).split("\\n");
         for (String m : mes) {
@@ -4131,7 +4142,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 		}
 
 		if (!Objects.equals(ev.getDeathMessage().toString(), "")) {
-			this.server.broadcast(ev.getDeathMessage(), Server.BROADCAST_CHANNEL_USERS);
+			this.server.broadcast(ev.getDeathMessage(), Server.BROADCAST_CHANNEL_USERS, true);
 			PorkUtils.queueMessageForDiscord(TextFormat.clean(message));
 		}
 
@@ -4153,11 +4164,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 					int z = r.nextInt(257) - 128;
 					int y = r.nextInt(127) + 1;
 					Level world = this.server.getLevelByName("world");
-
-                    while (!(!world.getBlock(x, y, z).isSolid()
-                            && !world.getBlock(x, y + 1, z).isSolid()
-                            && world.getBlock(x, y + 2, z).isSolid()
-                            && world.getBlock(x, y - 1, z).isSolid())) {
+					
+					while (!(world.getBlock(x, y, z).getId() == Block.AIR
+						&& world.getBlock(x, y + 1, z).getId() == Block.AIR
+						&& world.getBlock(x, y - 1, z).getId() != Block.LAVA
+						&& world.getBlock(x, y - 1, z).getId() != Block.STILL_LAVA
+						&& world.getBlock(x, y - 1, z).getId() != Block.WATER
+						&& world.getBlock(x, y - 1, z).getId() != Block.STILL_WATER
+						&& world.getBlock(x, y - 1, z).getId() != Block.FIRE
+						&& world.getBlock(x, y - 1, z).getId() != Block.AIR)) {
 						x = r.nextInt(257) - 128;
 						z = r.nextInt(257) - 128;
 						y = r.nextInt(127) + 1;

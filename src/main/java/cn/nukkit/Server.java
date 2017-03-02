@@ -528,6 +528,28 @@ public class Server {
         return recipients.size();
     }
 
+    public int broadcast(TextContainer message, String permissions, boolean force) {
+        Set<CommandSender> recipients = new HashSet<>();
+
+        for (String permission : permissions.split(";")) {
+            for (Permissible permissible : this.pluginManager.getPermissionSubscriptions(permission)) {
+                if (permissible instanceof CommandSender && permissible.hasPermission(permission)) {
+                    recipients.add((CommandSender) permissible);
+                }
+            }
+        }
+
+        for (CommandSender recipient : recipients) {
+            if (recipient instanceof Player) {
+                ((Player) recipient).sendMessage(message.getText(), force);
+            } else {
+                recipient.sendMessage(message);
+            }
+        }
+
+        return recipients.size();
+    }
+
 
     public static void broadcastPacket(Collection<Player> players, DataPacket packet) {
         broadcastPacket(players.stream().toArray(Player[]::new), packet);

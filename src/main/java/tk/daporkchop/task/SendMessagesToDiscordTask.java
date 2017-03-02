@@ -9,7 +9,6 @@ public class SendMessagesToDiscordTask extends TimerTask {
 
 	@Override
 	public void run() {
-		PorkUtils.minecraftChannel.sendTyping();
 		String toSend = "", temp = "", otherTemp = null;
 		Iterator<String> iter = PorkUtils.queuedMessages.iterator();
 		ESCAPE: while (iter.hasNext())	{
@@ -23,6 +22,6 @@ public class SendMessagesToDiscordTask extends TimerTask {
 		if (toSend.length() > 4)	{ // Impossibly short message, don't bother sending it
 			PorkUtils.minecraftChannel.sendMessage(toSend).queue();
 		}
+		PorkUtils.minecraftChannel.sendTyping();
 	}
-
 }
