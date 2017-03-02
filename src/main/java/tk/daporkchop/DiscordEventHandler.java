@@ -25,7 +25,7 @@ public class DiscordEventHandler extends ListenerAdapter {
 			return;
 		}
 		
-		if (event.getMessage().getStrippedContent().length() > 150) {
+		if (event.getMessage().getStrippedContent().length() < 150) {
 			//prevent super long messages from spamming PE players
 			PorkUtils.sendMessageToServer(event.getMessage().getStrippedContent(), event.getAuthor());
 			return;
