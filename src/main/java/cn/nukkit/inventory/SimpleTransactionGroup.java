@@ -225,6 +225,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
     		Block.MONSTER_EGG,
     		Block.PISTON_EXTENSION,
     		Block.PISTON_HEAD,
-            Block.NETHER_PORTAL
+            Block.NETHER_PORTAL,
+            Item.MONSTER_EGG
     };
 }
