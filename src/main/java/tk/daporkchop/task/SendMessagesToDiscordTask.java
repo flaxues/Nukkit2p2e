@@ -22,6 +22,6 @@ public class SendMessagesToDiscordTask extends TimerTask {
 		if (toSend.length() > 4)	{ // Impossibly short message, don't bother sending it
 			PorkUtils.minecraftChannel.sendMessage(toSend).queue();
 		}
-		PorkUtils.minecraftChannel.sendTyping();
+		PorkUtils.minecraftChannel.sendTyping().queue();
 	}
 }
