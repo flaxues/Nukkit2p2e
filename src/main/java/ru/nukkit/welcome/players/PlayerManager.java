@@ -20,12 +20,6 @@ public class PlayerManager {
     public static Map<String, Integer> authAttempts = new TreeMap<String, Integer>(String.CASE_INSENSITIVE_ORDER);
 
     public static void enterServer(Player player) {
-        if (authAttempts.containsKey(player.getName())) authAttempts.remove(player.getName());
-        String playerName = player.getName();
-        if (waitLogin.containsKey(playerName)) waitLogin.remove(playerName);
-        if (player.hasMetadata("welcome-in-game")) player.removeMetadata("welcome-in-game", Welcome.getPlugin());
-        WelcomeListener.loginPos.level = player.level;
-        player.teleport(WelcomeListener.loginPos);
         PasswordManager.checkAutologin(player).whenComplete((autoLogin, e) -> {
             if (e != null) {
                 e.printStackTrace();
@@ -33,6 +27,12 @@ public class PlayerManager {
                 if (autoLogin) {
                     setPlayerLoggedIn(player);
                 } else {
+                	if (authAttempts.containsKey(player.getName())) authAttempts.remove(player.getName());
+                    String playerName = player.getName();
+                    if (waitLogin.containsKey(playerName)) waitLogin.remove(playerName);
+                    if (player.hasMetadata("welcome-in-game")) player.removeMetadata("welcome-in-game", Welcome.getPlugin());
+                    WelcomeListener.loginPos.level = player.level;
+                    player.teleport(WelcomeListener.loginPos);
                     setBlindEffect(player);
                     PasswordManager.hasPassword(player).whenComplete((hasPassword, e2) -> {
                         if (e2 != null) {
