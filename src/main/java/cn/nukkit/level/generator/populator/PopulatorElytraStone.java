@@ -9,7 +9,7 @@ public class PopulatorElytraStone extends Populator {
 
 	@Override
 	public void populate(ChunkManager level, int chunkX, int chunkZ, NukkitRandom random) {
-		if (Utils.rand(0, 200) == 127) {
+		if (Utils.rand(0, 128) == 127) {
 			int x = chunkX * 16 + Utils.rand(0, 15);
 			int z = chunkZ * 16 + Utils.rand(0, 15);
 			int y;
