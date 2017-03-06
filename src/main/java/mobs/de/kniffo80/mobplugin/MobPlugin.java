@@ -363,7 +363,7 @@ public class MobPlugin extends PluginBase implements Listener {
 	//TODO
 	@EventHandler
 	public void onChunkGenerate(ChunkPopulateEvent event)	{
-		if (Utils.rand(0, 25) == 3)	{
+		/*if (Utils.rand(0, 25) == 3)	{
 			FullChunk chunk = event.getChunk();
 			int spawnX = 0;
 			int spawnZ = 0;
@@ -379,7 +379,7 @@ public class MobPlugin extends PluginBase implements Listener {
 					}
 				}
 			}
-		}
+		}*/
 	}
 	
 	public static final ArrayList<String> mobListPassiveOverworld = new ArrayList<>();
