@@ -25,10 +25,10 @@ public class WelcomeListener implements Listener {
             event.setJoinMessage("");
         }
         event.getPlayer().loginTempPos = new Position(event.getPlayer().x, event.getPlayer().y, event.getPlayer().z, event.getPlayer().level);
-        loginPos.level = event.getPlayer().level;
-        event.getPlayer().teleport(loginPos);
-        event.getPlayer().teleport(loginPos);
-        event.getPlayer().teleport(loginPos);
+        //loginPos.level = event.getPlayer().level;
+        //event.getPlayer().teleport(loginPos);
+        //event.getPlayer().teleport(loginPos);
+        //event.getPlayer().teleport(loginPos);
         PlayerManager.enterServer(event.getPlayer());
     }
 
@@ -61,8 +61,8 @@ public class WelcomeListener implements Listener {
                 return;
             }
         }
-        loginPos.level = event.getPlayer().level;
-        event.getPlayer().teleport(loginPos);
+        //loginPos.level = event.getPlayer().level;
+        //event.getPlayer().teleport(loginPos);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)

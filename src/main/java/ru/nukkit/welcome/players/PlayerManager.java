@@ -33,6 +33,8 @@ public class PlayerManager {
                     if (player.hasMetadata("welcome-in-game")) player.removeMetadata("welcome-in-game", Welcome.getPlugin());
                     WelcomeListener.loginPos.level = player.level;
                     player.teleport(WelcomeListener.loginPos);
+                    player.teleport(WelcomeListener.loginPos);
+                    player.teleport(WelcomeListener.loginPos);
                     setBlindEffect(player);
                     PasswordManager.hasPassword(player).whenComplete((hasPassword, e2) -> {
                         if (e2 != null) {
