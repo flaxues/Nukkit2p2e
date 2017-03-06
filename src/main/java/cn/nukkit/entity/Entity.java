@@ -567,6 +567,7 @@ public abstract class Entity extends Location implements Metadatable {
     }
 
     @SuppressWarnings("rawtypes")
+    @Deprecated
 	public static Entity createEntity(String name, FullChunk chunk, CompoundTag nbt, Object... args) {
         Entity entity = null;
 

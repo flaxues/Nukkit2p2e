@@ -12,6 +12,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.nbt.tag.NumberTag;
 import cn.nukkit.nbt.tag.Tag;
+import mobs.de.kniffo80.mobplugin.MobPlugin;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public abstract class BaseFullChunk implements FullChunk {
                         changed = true;
                         continue;
                     }
-                    Entity entity = Entity.createEntity(nbt.getString("id"), this, nbt);
+                    Entity entity = MobPlugin.create(nbt.getString("id"), this, nbt, null, null);
                     if (entity != null) {
                         entity.spawnToAll();
                     } else {

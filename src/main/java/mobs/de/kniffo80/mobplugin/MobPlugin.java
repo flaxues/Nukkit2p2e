@@ -30,7 +30,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
-import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.DoubleTag;
@@ -230,10 +230,9 @@ public class MobPlugin extends PluginBase implements Listener {
 	 * @param args
 	 * @return
 	 */
-	public static Entity create(Object type, Position source, Object... args) {
-		FullChunk chunk = source.getLevel().getChunk((int) source.x >> 4, (int) source.z >> 4, true);
-		
-		if (chunk.getEntities().size() > 10) {
+	@SuppressWarnings("deprecation")
+	public static Entity create(Object type, BaseFullChunk chunk, CompoundTag nbt, Object... args) {		
+		if (getNonItemEntitiesInChunk(chunk) > 10) {
 			Server.getInstance().getLogger().debug("Not spawning mob because the chunk already has too many mobs!");
 			return null;
 		}
@@ -244,10 +243,37 @@ public class MobPlugin extends PluginBase implements Listener {
 		if (!chunk.isPopulated()) {
 			chunk.setPopulated();
 		}
-
-		CompoundTag nbt = new CompoundTag().putList(new ListTag<DoubleTag>("Pos").add(new DoubleTag("", source.x)).add(new DoubleTag("", source.y)).add(new DoubleTag("", source.z))).putList(new ListTag<DoubleTag>("Motion").add(new DoubleTag("", 0)).add(new DoubleTag("", 0)).add(new DoubleTag("", 0))).putList(new ListTag<FloatTag>("Rotation").add(new FloatTag("", source instanceof Location ? (float) ((Location) source).yaw : 0)).add(new FloatTag("", source instanceof Location ? (float) ((Location) source).pitch : 0)));
-
+		
 		return Entity.createEntity(type.toString(), chunk, nbt, args);
+	}
+	
+	public static Entity create(Object type, Position source, Object... args)	{
+		return create(type, source.getLevel().getChunk((int) source.x >> 4, (int) source.z >> 4, true),
+				new CompoundTag()
+				.putList(new ListTag<DoubleTag>("Pos")
+						.add(new DoubleTag("", source.x))
+						.add(new DoubleTag("", source.y))
+						.add(new DoubleTag("", source.z)))
+				.putList(new ListTag<DoubleTag>("Motion")
+						.add(new DoubleTag("", 0))
+						.add(new DoubleTag("", 0))
+						.add(new DoubleTag("", 0)))
+				.putList(new ListTag<FloatTag>("Rotation")
+						.add(new FloatTag("", source instanceof Location ? (float) ((Location) source).yaw : 0))
+						.add(new FloatTag("", source instanceof Location ? (float) ((Location) source).pitch : 0)))
+				, args);
+	}
+	
+	public static int getNonItemEntitiesInChunk(BaseFullChunk chunk)	{
+		int i = 0;
+		
+		for (Entity e : chunk.getEntities().values())	{
+			if (!(e instanceof EntityItem))	{ //only count if it's not an item
+				i++;
+			}
+		}
+		
+		return i;
 	}
 
 	/**
