@@ -27,20 +27,17 @@ public class DiscordEventHandler extends ListenerAdapter {
 			EmbedBuilder builder = new EmbedBuilder();
 
 			builder.addField("Online players:", Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers(), false);
-			builder.addBlankField(false);
 
-            for (Player p : Server.getInstance().getOnlinePlayers().values()) {
-                builder.addField("", p.getName(), true);
+            String players = "";
+
+            ArrayList<Player> arr = new ArrayList<>(Server.getInstance().getOnlinePlayers().values());
+            for (int i = 0; i < arr.size(); i++)    {
+                players += i + 1 == arr.size() ? arr.get(i).getName() : arr.get(i).getName() + ", ";
             }
+            builder.addField("", players, false);
+            builder.setColor(Color.RED);
 
 			event.getChannel().sendMessage(builder.build()).queue();
-			
-			/*String msg = "Online players: " + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers() + "\n\n";
-			for (Player p : Server.getInstance().getOnlinePlayers().values()) {
-				msg += p.getName() + "\n";
-			}
-			msg += "";
-			event.getChannel().sendMessage(msg).queue();*/
 			return;
 		}
 		
