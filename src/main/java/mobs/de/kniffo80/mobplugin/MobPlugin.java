@@ -13,6 +13,7 @@ import java.util.List;
 import cn.nukkit.IPlayer;
 import cn.nukkit.OfflinePlayer;
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockAir;
 import cn.nukkit.command.Command;
@@ -231,6 +232,12 @@ public class MobPlugin extends PluginBase implements Listener {
 	 */
 	public static Entity create(Object type, Position source, Object... args) {
 		FullChunk chunk = source.getLevel().getChunk((int) source.x >> 4, (int) source.z >> 4, true);
+		
+		if (chunk.getEntities().size() > 10) {
+			Server.getInstance().getLogger().debug("Not spawning mob because the chunk already has too many mobs!");
+			return null;
+		}
+		
 		if (!chunk.isGenerated()) {
 			chunk.setGenerated();
 		}
