@@ -1,7 +1,15 @@
 package tk.daporkchop;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.MessageEmbed.Field;
+import net.dv8tion.jda.core.entities.impl.MessageEmbedImpl;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -16,12 +24,23 @@ public class DiscordEventHandler extends ListenerAdapter {
 		}
 
 		if (event.getMessage().getRawContent().contains("!players")) {
-			String msg = "Online players: " + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers() + "\n\n";
+			EmbedBuilder builder = new EmbedBuilder();
+
+			builder.addField("Online players:", Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers(), false);
+			builder.addBlankField(false);
+
+            for (Player p : Server.getInstance().getOnlinePlayers().values()) {
+                builder.addField("", p.getName(), true);
+            }
+
+			event.getChannel().sendMessage(builder.build()).queue();
+			
+			/*String msg = "Online players: " + Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers() + "\n\n";
 			for (Player p : Server.getInstance().getOnlinePlayers().values()) {
 				msg += p.getName() + "\n";
 			}
 			msg += "";
-			event.getChannel().sendMessage(msg).queue();
+			event.getChannel().sendMessage(msg).queue();*/
 			return;
 		}
 		
