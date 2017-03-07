@@ -6,6 +6,7 @@ import java.util.List;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.MessageEmbed.Field;
@@ -37,8 +38,8 @@ public class DiscordEventHandler extends ListenerAdapter {
                 }
                 builder.addField("", players, false);
             }
-            
-            builder.setColor(Color.RED);
+
+            builder.setColor(new Color(Utils.rand(0, 256), Utils.rand(0, 256), Utils.rand(0, 256)));
 
 			event.getChannel().sendMessage(builder.build()).queue();
 			return;
@@ -50,13 +51,10 @@ public class DiscordEventHandler extends ListenerAdapter {
 				PorkUtils.sendMessageToServer(event.getMessage().getStrippedContent(), event.getAuthor());
 				return;
 			} else {
-				try {
-					event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!").queue();
-				} catch (IllegalStateException e)	{
-					event.getAuthor().openPrivateChannel();
-					event.getAuthor().getPrivateChannel().sendMessage("You tred to send a message in #minecraft-chat that was too long! The max message size is 150 characters!").queue();
-				}
 				event.getMessage().deleteMessage().queue();
+
+                event.getAuthor().openPrivateChannel();
+                event.getAuthor().getPrivateChannel().sendMessage("You tried to send a message in #minecraft-chat that was too long! The max message size is 150 characters!").queue();
 			}
 		}
 	}
