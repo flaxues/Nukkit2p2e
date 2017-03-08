@@ -1052,6 +1052,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     }
 
     public boolean awardAchievement(String achievementId) {
+        if (!Server.getInstance().getPropertyBoolean("achievements", true)) {
+            return false;
+        }
+
         Achievement achievement = Achievement.achievements.get(achievementId);
 
         if (achievement == null || hasAchievement(achievementId)) {
