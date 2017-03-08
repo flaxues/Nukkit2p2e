@@ -1914,7 +1914,7 @@ public class Server {
     }
 
     public boolean shouldSavePlayerData() {
-        return this.getPropertyBoolean("player.save-player-data", true);
+        return (Boolean) this.getConfig("player.save-player-data", true);
     }
 
     /**
