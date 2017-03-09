@@ -84,7 +84,7 @@ public class SimpleTransactionGroup implements TransactionGroup {
         	if (ts.isEnch())	{
         		break;
         	}
-        	if (checkSourceItem.hasEnchantments() || sourceItem.hasEnchantments() || ts.getTargetItem().hasEnchantments())	{
+        	if (ts.getTargetItem().hasEnchantments())	{
         		return true;
         	}
         	
@@ -111,10 +111,10 @@ public class SimpleTransactionGroup implements TransactionGroup {
         		continue;
         	}
         	
-        	if (needItem.hasEnchantments())
+        	//if (needItem.hasEnchantments())
         	while (iter2.hasNext())	{
         		Item haveItem = iter2.next();
-        		if (haveItem.hasEnchantments() || needItem.hasEnchantments())	{
+        		if (needItem.hasEnchantments())	{
         			iter2.remove();
         			iter1.remove();
         			continue;
