@@ -177,10 +177,10 @@ public class Explosion {
                 Vector3 motion = entity.subtract(this.source).normalize();
                 int exposure = 1;
                 double impact = (1 - distance) * exposure;
-                int damage = (int) (((impact * impact + impact) / 2) * 8 * explosionSize + 1);
+                int damage = (int) (((impact * impact + impact) / 2) * 8 * (explosionSize / 2) + 1);
                 if (this.instaKill)	{
-                	//entity.setHealth(0);
-                        damage = 30;
+                        entity.attack(new EntityDamageEvent(entity, EntityDamageEvent.CAUSE_BLOCK_EXPLOSION, 30));
+                        continue;
                 }
                 if (this.what instanceof Entity) {
                 	EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent((Entity) this.what, entity, EntityDamageEvent.CAUSE_ENTITY_EXPLOSION, damage);

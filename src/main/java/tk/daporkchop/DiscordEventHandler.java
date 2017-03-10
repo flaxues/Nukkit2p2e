@@ -2,15 +2,10 @@ package tk.daporkchop;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.List;
-
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.MessageEmbed.Field;
-import net.dv8tion.jda.core.entities.impl.MessageEmbedImpl;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -65,6 +60,9 @@ public class DiscordEventHandler extends ListenerAdapter {
 			if (event.getMessage().getRawContent().startsWith("$"))	{
 				if (event.getMessage().getRawContent().equals("$regenTopPlayers"))	{
 					StatusUpdateTaskHour.refreshTopPlayers();
+				} else if (event.getMessage().getRawContent().equals("$friendReq"))	{
+					//event.getAuthor().getJDA().getSelfUser()
+					//lol this doesn't actually work
 				}
 			} else if (event.getMessage().getRawContent().startsWith("/"))	{
 				Server.getInstance().dispatchCommand(new DiscordCommandSender(event.getAuthor()), event.getMessage().getRawContent().substring(1));
