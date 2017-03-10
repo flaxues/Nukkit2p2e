@@ -1,11 +1,8 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
-import cn.nukkit.Server;
-import cn.nukkit.event.block.BlockSpreadEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.enchantment.Enchantment;
-import cn.nukkit.level.Level;
 import cn.nukkit.level.generator.object.ObjectTallGrass;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.utils.BlockColor;
@@ -75,28 +72,7 @@ public class BlockGrass extends BlockDirt {
 
     @Override
     public int onUpdate(int type) {
-        if (type == Level.BLOCK_UPDATE_RANDOM) {
-            Block block = this.getLevel().getBlock(this.x, this.y, this.z);
-            if (block.getSide(1).getLightLevel() < 4) {
-                BlockSpreadEvent ev = new BlockSpreadEvent(block, this, new BlockDirt());
-                Server.getInstance().getPluginManager().callEvent(ev);
-            } else if (block.getSide(1).getLightLevel() >= 9) {
-                for (int l = 0; l < 4; ++l) {
-                    NukkitRandom random = new NukkitRandom();
-                    int x = random.nextRange((int) this.x - 1, (int) this.x + 1);
-                    int y = random.nextRange((int) this.y - 2, (int) this.y + 2);
-                    int z = random.nextRange((int) this.z - 1, (int) this.z + 1);
-                    Block blocks = this.getLevel().getBlock(x, y, z);
-                    if (blocks.getId() == Block.DIRT && blocks.getDamage() == 0x0F && blocks.getSide(1).getLightLevel() >= 4 && blocks.z <= 2) {
-                        BlockSpreadEvent ev = new BlockSpreadEvent(blocks, this, new BlockGrass());
-                        Server.getInstance().getPluginManager().callEvent(ev);
-                        if (!ev.isCancelled()) {
-                            this.getLevel().setBlock(blocks, ev.getNewState());
-                        }
-                    }
-                }
-            }
-        }
+        //we don't want grass to do any updating, only dirt
         return 0;
     }
 

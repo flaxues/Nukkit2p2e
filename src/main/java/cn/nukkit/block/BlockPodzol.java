@@ -40,4 +40,10 @@ public class BlockPodzol extends BlockDirt {
     	}
     	return super.getDrops(item);
     }
+    
+    @Override
+    public int onUpdate(int type) {
+        //we don't want grass to do any updating, only dirt
+        return 0;
+    }
 }
