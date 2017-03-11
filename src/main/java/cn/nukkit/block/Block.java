@@ -309,7 +309,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable {
     public static boolean[] transparent = null;
     public AxisAlignedBB boundingBox = null;
     public AxisAlignedBB collisionBoundingBox = null;
-    public int meta = 0;
+    protected int meta = 0;
     protected int powerLevel = 0;
     protected boolean powerSource = false;
 
