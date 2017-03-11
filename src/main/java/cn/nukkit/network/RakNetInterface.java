@@ -241,7 +241,6 @@ public class RakNetInterface implements ServerInstance, AdvancedSourceInterface 
             EncapsulatedPacket pk = null;
             if (!packet.isEncoded) {
                 packet.encode();
-                packet.isEncoded = true;
                 buffer = packet.getBuffer();
             } else if (!needACK) {
                 if (packet.encapsulatedPacket == null) {

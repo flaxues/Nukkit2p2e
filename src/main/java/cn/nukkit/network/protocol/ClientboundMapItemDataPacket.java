@@ -1,8 +1,5 @@
 package cn.nukkit.network.protocol;
 
-/**
- * Created by CreeperFace on 5.3.2017.
- */
 public class ClientboundMapItemDataPacket extends DataPacket {
     public long mapId; // VarLong
     public int unknown; // Unsigned VarInt
@@ -23,10 +20,10 @@ public class ClientboundMapItemDataPacket extends DataPacket {
     public int offsetX; // varint<xz>
     public int offsetZ; // ^^^
     public byte[] data; // ubyte[]
-
-    public static final int UPDATE = 6;
-    public static final int FULL = 4;
-
+    
+    public static final int UPDATE = 4;
+    public static final int FULL = 6;
+    
     @Override
     public byte pid() {
         return ProtocolInfo.CLIENTBOUND_MAP_ITEM_DATA_PACKET;
@@ -34,7 +31,7 @@ public class ClientboundMapItemDataPacket extends DataPacket {
 
     @Override
     public void decode() {
-
+        
     }
 
     @Override

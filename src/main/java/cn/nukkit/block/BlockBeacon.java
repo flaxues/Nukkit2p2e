@@ -39,7 +39,7 @@ public class BlockBeacon extends BlockTransparent {
     public int getLightLevel() {
         return 15;
     }
-
+    
     @Override
     public int getToolType() {
         return ItemTool.TYPE_PICKAXE;
