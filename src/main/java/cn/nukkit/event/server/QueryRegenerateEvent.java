@@ -61,15 +61,15 @@ public class QueryRegenerateEvent extends ServerEvent {
         }
         this.players = players.toArray(new Player[players.size()]);
 
-        this.gameType = (server.getGamemode() & 0x01) == 0 ? "SMP" : "CMP";
+        this.gameType = "SMP";
         this.version = server.getVersion();
-        this.server_engine = server.getName() + " " + server.getNukkitVersion();
-        this.map = server.getDefaultLevel() == null ? "unknown" : server.getDefaultLevel().getName();
+        this.server_engine = server.getName() + " v0.1 alpha";
+        this.map = "world";
         this.numPlayers = this.players.length;
         this.maxPlayers = server.getMaxPlayers();
-        this.whitelist = server.hasWhitelist() ? "on" : "off";
-        this.port = server.getPort();
-        this.ip = server.getIp();
+        this.whitelist = "off";
+        this.port = 19132;
+        this.ip = "play.2p2e.tk";
     }
 
     public int getTimeout() {

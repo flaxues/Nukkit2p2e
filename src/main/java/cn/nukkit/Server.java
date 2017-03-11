@@ -1139,7 +1139,7 @@ public class Server {
     }
 
     public String getName() {
-        return "Nukkit";
+        return "PorkMC";
     }
 
     public boolean isRunning() {
