@@ -1437,6 +1437,7 @@ public abstract class Entity extends Location implements Metadatable {
         this.onGround = (movY != dy && movY < 0);
     }
 
+    @SuppressWarnings("deprecation")
     public List<Block> getBlocksAround() {
         if (this.blocksAround == null) {
             int minX = NukkitMath.floorDouble(this.boundingBox.minX);
