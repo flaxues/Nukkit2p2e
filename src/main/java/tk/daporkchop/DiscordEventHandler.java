@@ -19,7 +19,7 @@ public class DiscordEventHandler extends ListenerAdapter {
 			return;
 		}
 
-		if (event.getMessage().getRawContent().contains("!players")) {
+		if (event.getMessage().getRawContent().startsWith("!players")) {
 			EmbedBuilder builder = new EmbedBuilder();
 
 			builder.addField("Online players:", Server.getInstance().getOnlinePlayers().size() + "/" + Server.getInstance().getMaxPlayers(), false);
