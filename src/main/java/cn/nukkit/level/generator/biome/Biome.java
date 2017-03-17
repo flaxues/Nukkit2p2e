@@ -14,34 +14,25 @@ import java.util.ArrayList;
 public abstract class Biome {
 
 
-    public static final int OCEAN = 0;
-    public static final int PLAINS = 1;
-    public static final int DESERT = 2;
-    public static final int MOUNTAINS = 3;
-    public static final int FOREST = 4;
-    public static final int TAIGA = 5;
-    public static final int SWAMP = 6;
-    public static final int RIVER = 7;
-	 public static final int JUNGLE = 21;
-	 public static final int SAVANNA = 35;
-	 public static final int ROOFED_FOREST = 29;
-	 public static final int ROOFED_FOREST_M = 157;
-	 public static final int MUSHROOM_ISLAND = 14;
-
-    public static final int HELL = 8;
-
-    public static final int ICE_PLAINS = 12;
-
-
-    public static final int BEACH = 16;
-
-
-    public static final int SMALL_MOUNTAINS = 20;
-
-
-    public static final int BIRCH_FOREST = 27;
-
-    public static final int MESA_PLATEAU = 39;
+    public static final int OCEAN = 0; //done
+    public static final int PLAINS = 1; //done
+    public static final int DESERT = 2; //done
+    public static final int MOUNTAINS = 3; //done
+    public static final int FOREST = 4; //done
+    public static final int TAIGA = 5; //done
+    public static final int SWAMP = 6; //
+    public static final int RIVER = 7; //done
+    public static final int JUNGLE = 21; //
+    public static final int SAVANNA = 35; //done
+	public static final int ROOFED_FOREST = 29; //done
+	public static final int ROOFED_FOREST_M = 157; //done
+	public static final int MUSHROOM_ISLAND = 14; //TODO
+    public static final int HELL = 8; //not needed
+    public static final int ICE_PLAINS = 12; //done
+    public static final int BEACH = 16; //not needed (i think)
+    public static final int SMALL_MOUNTAINS = 20; //done
+    public static final int BIRCH_FOREST = 27; //done
+    public static final int MESA_PLATEAU = 39; //done
 
     public static final int MAX_BIOMES = 256;
 
