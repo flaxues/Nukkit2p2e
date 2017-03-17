@@ -107,23 +107,21 @@ public class SimpleTransactionGroup implements TransactionGroup {
         while (iter1.hasNext())	{
         	Item needItem = iter1.next();
         	
-        	if (isBannedItem(needItem.getId(), false))	{
+        	if (isBannedItem(needItem.getId(), source.isOp()))	{
         		continue;
         	}
         	
-        	//if (needItem.hasEnchantments())
-        	while (iter2.hasNext())	{
+        	INNER_LOOP: while (iter2.hasNext())	{
         		Item haveItem = iter2.next();
+
         		if (needItem.hasEnchantments())	{
         			iter2.remove();
         			iter1.remove();
-        			continue;
+                    break INNER_LOOP;
         		}
         		
-        		if (isBannedItem(haveItem.getId(), false))	{
-        			//iter2.remove();
-        			//iter1.remove();
-        			continue;
+        		if (isBannedItem(haveItem.getId(), source.isOp()))	{
+        			break INNER_LOOP;
         		}
         		
         		if (needItem.deepEquals(haveItem)) {
