@@ -1254,6 +1254,7 @@ public class Server {
 
             case "3":
             case "spectator":
+            case "spc":
             case "view":
             case "v":
                 return Player.SPECTATOR;
