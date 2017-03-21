@@ -1639,8 +1639,10 @@ public class Item implements Cloneable {
         for (CompoundTag entry : this.getNamedTag().getList("ench", CompoundTag.class).getAll()) {
             if (entry.getShort("id") == id) {
                 Enchantment e = Enchantment.getEnchantment(entry.getShort("id"));
-                e.setLevel(entry.getShort("lvl"));
-                return e;
+                if (e != null){
+                    e.setLevel(entry.getShort("lvl"));
+                    return e;
+                }
             }
         }
 
@@ -1699,8 +1701,10 @@ public class Item implements Cloneable {
         ListTag<CompoundTag> ench = this.getNamedTag().getList("ench", CompoundTag.class);
         for (CompoundTag entry : ench.getAll()) {
             Enchantment e = Enchantment.getEnchantment(entry.getShort("id"));
-            e.setLevel(entry.getShort("lvl"));
-            enchantments.add(e);
+            if (e != null){
+                e.setLevel(entry.getShort("lvl"));
+                enchantments.add(e);
+            } 
         }
 
         return enchantments.stream().toArray(Enchantment[]::new);
