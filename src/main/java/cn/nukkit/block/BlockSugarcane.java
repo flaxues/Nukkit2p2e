@@ -5,6 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.utils.BlockColor;
 
 /**
@@ -43,6 +44,7 @@ public class BlockSugarcane extends BlockFlowable {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onActivate(Item item, Player player) {
         if (item.getId() == Item.DYE && item.getDamage() == 0x0F) { //Bonemeal
             Block base = this;
@@ -77,6 +79,7 @@ public class BlockSugarcane extends BlockFlowable {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
             Block down = this.getSide(0);
