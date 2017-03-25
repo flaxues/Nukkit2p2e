@@ -4,6 +4,7 @@ import cn.nukkit.block.Block;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.generator.populator.Populator;
 import cn.nukkit.math.NukkitRandom;
+import mobs.de.kniffo80.mobplugin.entities.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -81,8 +82,15 @@ public abstract class Biome {
     }
 
     public static Biome getBiome(int id) {
-        Biome biome = biomes[id];
-        return biome != null ? biome : biomes[OCEAN];
+        try {
+            Biome biome = biomes[id];
+            return biome != null ? biome : biomes[OCEAN];
+        } catch (Exception e)   {
+            e.printStackTrace();
+            return Utils.rand() ?
+                    Utils.rand() ? biomes[FOREST] : biomes[BIRCH_FOREST]
+                    : Utils.rand() ? biomes[JUNGLE] : biomes[MESA_PLATEAU];
+        }
     }
 
     /**
