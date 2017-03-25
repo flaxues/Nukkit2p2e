@@ -17,7 +17,9 @@ public class EventHandler implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         for (String s : PorkUtils.welcomeMessage)	{
-        	player.sendMessage(s);
+        	player.sendMessage(s, true);
         }
+        player.sendMessage("&c&l2p2e TEMP MAP", true);
+        player.sendTip("&c&l2p2e TEMP MAP");
     }
 }
