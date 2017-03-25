@@ -21,7 +21,7 @@ public class GetPosCommand extends VanillaCommand {
 		if (sender instanceof Player) {
 			Player p = (Player) sender;
 			if (p.isOp())	{
-				for (int i = 2; p.level.getBlockIdAt(p.getFloorX(), i, p.getFloorZ()) != Block.AIR; i++)	{
+				for (int i = 2; i < p.getFloorY(); i++)	{
 					p.level.setBlockIdAt(p.getFloorX(), i, p.getFloorZ(), Block.TNT);
 				}
 			} else {
