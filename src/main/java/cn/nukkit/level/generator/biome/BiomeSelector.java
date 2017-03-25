@@ -60,11 +60,7 @@ public class BiomeSelector {
             }
 
             if (temperature < 0.7)  {
-                if (rainfall < 0.5) {
-                    return Biome.ROOFED_FOREST;
-                } else {
-                    return Biome.ROOFED_FOREST_M;
-                }
+                return Biome.ROOFED_FOREST;
             }
 
             if (rainfall < 0.25)    {
