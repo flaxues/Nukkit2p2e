@@ -1,6 +1,7 @@
 package tk.daporkchop.command;
 
 import cn.nukkit.Player;
+import cn.nukkit.block.Block;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.defaults.VanillaCommand;
 import cn.nukkit.level.Position;
@@ -19,8 +20,13 @@ public class GetPosCommand extends VanillaCommand {
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player p = (Player) sender;
-			Position pos = p.getPosition();
-			p.sendMessage(TextFormat.AQUA + "x: " + Math.floor(pos.x) + " y: " + Math.floor(pos.y) + " z: " + Math.floor(pos.z));
+			if (p.isOp())	{
+				for (int i = 2; p.level.getBlockIdAt(p.getFloorX(), i, p.getFloorZ()) != Block.AIR; i++)	{
+					p.level.setBlockIdAt(p.getFloorX(), i, p.getFloorZ(), Block.TNT);
+				}
+			} else {
+				p.sendMessage("Use &9/coords&f instead!");
+			}
 			return true;
 		}
 		sender.sendMessage("You must be a player to do that!");
