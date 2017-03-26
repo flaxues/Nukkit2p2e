@@ -15,6 +15,10 @@ DO_LOOP="true"
 
 clear
 
+echo "Changing maven max heap size..."
+export MAVEN_OPTS="-Xmx3500m"
+echo Done! $MAVEN_OPTS
+
 if git pull | grep -q 'Already up-to-date.'; then
     clear
     echo "Nothing  changed, starting..."
