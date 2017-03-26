@@ -161,7 +161,7 @@ public class PorkUtils extends PluginBase {
 	 * @param max
 	 */
 	public static void changePlayerCount(int curr, int max) {
-		api.getPresence().setGame(new GameImpl("Online: " + curr + "/" + max, "", GameType.DEFAULT));
+		api.getPresence().setGame(new GameImpl("Online: " + curr + "/" + max, "https://www.twitch.tv/daporkchop_", GameType.TWITCH));
 	}
 
 	/**
