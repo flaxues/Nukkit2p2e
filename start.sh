@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# This is the shell startup file for Nukkit.
+# This is the shell startup file for Nukkit2p2e.
 # Input ./start.sh while in the server directory
 # to start the server.
 
 #Change this to "true" to 
-#loop Nukkit after restart!
+#loop Nukkit2p2e after restart!
 
 DO_LOOP="true"
 
@@ -15,32 +15,30 @@ DO_LOOP="true"
 
 clear
 
-NUKKIT_FILE=""
-
-if [ "$NUKKIT_FILE" == "" ]; then
-	if [ -f ./nukkit*.jar ]; then
-		NUKKIT_FILE="./nukkit-1.0-SNAPSHOT.jar"
-	else
-		echo "[ERROR] Nukkit JAR not found!"
-		exit 1
-	fi
+if git pull | grep -q 'Already up-to-date.'; then
+    clear
+    echo "Nothing  changed, starting..."
+else
+    ./compile.sh
+    clear
+    echo "Compiled, starting..." 
 fi
 
-LOOPS=0
+sleep 2
 
-while [ "$LOOPS" -eq 0 ] || [ "$DO_LOOP" == "true" ]; do
-	if [ "$DO_LOOP" == "true" ]; then
-		java -Xmx3500M -jar "$NUKKIT_FILE" $@
-	else
-		exec java -Xmx3500M -jar "$NUKKIT_FILE" $@
-	fi
-	echo Press Ctrl+c to stop
+clear 
+
+while [ "$DO_LOOP" == "true" ]; do
+	mvn exec:java -Dexec.mainClass="cn.nukkit.Nukkit" -Dexec.classpathScope=runtime
+	echo "Press Ctrl+c to stop" 
 	sleep 3
-        if ./pull.sh | grep -q 'Already up-to-date.'; then
-        	echo "Nothing  changed, starting..."
+        if git pull | grep -q 'Already up-to-date.'; then
+	    clear
+            echo "Nothing  changed, starting..."
 	else
-		./compile.sh
+	    ./compile.sh
+	    sleep 2
+	    clear
+	    echo "Compiled, starting..." 
 	fi
-	((LOOPS++))
 done
-
